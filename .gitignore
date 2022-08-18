@@ -457,3 +457,5 @@ $RECYCLE.BIN/
 # User-added
 #
 appsettings.json
+dpl-project.db-shm
+dpl-project.db-wal
