@@ -20,16 +20,24 @@ namespace API.Controllers
             _context = context;
         }
 
+                                                // pass username and password as DTO
+                                                // (string username, string password)
         [HttpPost("register")]
         public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto)
         {
-            if (await UserExists(registerDto.Username)) return BadRequest("Username is taken.");
+            // check if user already exists
+            if (await CheckIfUserExists(registerDto.Username))
+            {
+                return BadRequest("Username is taken.");
+            }
 
+            // create new hash with a randomly generated key (password salt)
             using var hmac = new HMACSHA512();
 
             var user = new AppUser
             {
-                UserName = registerDto.Username,
+                      // = username
+                UserName = registerDto.Username,//                          (password)
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key
             };
@@ -40,9 +48,35 @@ namespace API.Controllers
             return user;
         }
 
-        private async Task<bool> UserExists(string username)
+        [HttpPost("login")]
+        public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
         {
-            return await _context.Users.AnyAsync(u => u.UserName == username.ToLower());
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == loginDto.Username);
+
+            if (user == null)
+            {
+                return Unauthorized("Invalid username.");
+            }
+
+            // recompute the hash using the password salt as key
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+
+            for (int i = 0; i < computedHash.Length; i++)
+            {
+                if (computedHash[i] != user.PasswordHash[i]) {
+                    return Unauthorized("Invalid password.");
+                }
+            }
+
+            return user;
+        }
+
+        // check if the username already exists (by making all letters lowercase)
+        private async Task<bool> CheckIfUserExists(string username)
+        {
+            //return await _context.Users.AnyAsync(u => u.UserName == username.ToLower());
+            return await _context.Users.AnyAsync(u => u.UserName == username);
         }
     }
 }
