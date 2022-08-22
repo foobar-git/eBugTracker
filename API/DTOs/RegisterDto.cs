@@ -36,7 +36,6 @@ namespace API.DTOs
             } else {
                 return null;
             }
-            
         }
     }
 }
