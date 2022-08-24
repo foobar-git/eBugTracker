@@ -1,0 +1,20 @@
+<div class="container mt-5">
+    <div *ngIf="!registerMode" style="text-align: center;">
+        <h1>eBug Tracker</h1>
+        <p class="lead">Easy Bug Tracker</p>
+        <div class="text-center">
+            <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Register</button>
+            <button class="btn btn-info btn-lg">Learn more</button>
+        </div>
+    </div>
+
+    <div *ngIf="registerMode" class="container">
+        <div class="row justify-content-center">
+            <div class="vol-4">
+                <!--app-register [usersFromHomeComponent]="users"></app-register--> <!-- v2 -->
+                            <!-- parent to child data flow-->       <!-- child to parrent data flow-->
+                <app-register [usersFromHomeComponent]="users" (cancelRegisterUser)="cancelRegisterUserMode($event)"></app-register> <!-- v3 -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,7 +6,8 @@
                 <span class="navbar-toggler-icon"></span></button-->
             <!--div class="navbar-collapse collapse" id="navbarCollapse" style=""-->
 
-                <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="loggedIn">
+                <!--ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="loggedIn"--> <!-- v1 -->
+                <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="accountService.currentUser$ | async">
                     <li class="nav-item">
                         <a class="nav-link" href="#">New Bug Entry</a>
                     </li>
@@ -16,13 +17,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Messages</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" (click)="logout()" href="#">Logout</a>
-                    </li>
                 </ul>
 
-                <div class="dropdown" *ngIf="loggedIn" dropdown>
-                    <a class="dropdown-toggle text-light" dropdownToggle>{{ model.username.charAt(0).toUpperCase() + model.username.slice(1).toLowerCase() }}</a>
+                <!--div class="dropdown" *ngIf="loggedIn" dropdown--> <!-- v1 -->
+                <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
+                    <a class="dropdown-toggle text-light" dropdownToggle>{{ getUserName_forNavBar(model.username) }}</a>
                     <div class="dropdown-menu" *dropdownMenu>
                         <a class="dropdown-item">Edit Profile</a>
                         <div class="dropdown-divider"></div>
@@ -30,7 +29,8 @@
                     </div>
                 </div>
 
-                <form *ngIf="!loggedIn" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
+                <!--form *ngIf="!loggedIn" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off"--> <!-- v1 -->
+                <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
                     <input
                         name="username"
                         [(ngModel)]="model.username"

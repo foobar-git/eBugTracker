@@ -16,8 +16,8 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  login(model: any) {
-    //return this.http.post(this.baseUrl + 'account/login', model)
+  login_service(model: any) {
+    //return this.http.post(this.baseUrl + 'account/login', model)        // v3
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
       map((response: User) => {
         const user = response;
@@ -29,12 +29,24 @@ export class AccountService {
     )
   }
 
+  registerNewUser_service(model: any) {
+    return this.http.post(this.baseUrl + 'account/register', model).pipe(
+      map((user: User) => {
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+        return user;
+      })
+    )
+  }
+
   // helper function
-  setCurrentUser(user: User) {
+  setCurrentUser_service(user: User) {
     this.currentUserSource.next(user);
   }
 
-  logout() {
+  logout_service() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
   }
