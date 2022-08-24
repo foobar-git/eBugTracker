@@ -11,7 +11,9 @@
     <div *ngIf="registerMode" class="container">
         <div class="row justify-content-center">
             <div class="vol-4">
-                <app-register [usersFromHomeComponent]="users"></app-register>
+                <!--app-register [usersFromHomeComponent]="users"></app-register--> <!-- v2 -->
+                            <!-- parent to child data flow-->       <!-- child to parrent data flow-->
+                <app-register [usersFromHomeComponent]="users" (cancelRegisterUser)="cancelRegisterUserMode($event)"></app-register> <!-- v3 -->
             </div>
         </div>
     </div>

@@ -8,13 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   registerMode: boolean = false;
-  users: any
+  users: any                                  // v3
 
-  //constructor() { }       // v2
-  constructor(private http: HttpClient) { }
+  //constructor() { }                           // v2
+  //constructor(private http: HttpClient) { }   // v3
+  constructor() { }
 
   ngOnInit(): void {
-    this.getUsers();
+    //this.getUsers();      // v2 (used for ´Whats your fav usah?´)
   }
 
   // helper function
@@ -23,7 +24,11 @@ export class HomeComponent implements OnInit {
   }
 
   getUsers() {
-    this.http.get('https://localhost:5001/api/users').subscribe(users => this.users = users);
+    //this.http.get('https://localhost:5001/api/users').subscribe(users => this.users = users);   // v3
+  }
+
+  cancelRegisterUserMode(event: boolean) {
+    this.registerMode = event;
   }
 
 }

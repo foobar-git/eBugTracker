@@ -23,14 +23,14 @@ export class NavComponent implements OnInit {
 
   login() {
     //console.log(this.model);
-    this.accountService.login(this.model).subscribe(response => {
+    this.accountService.login_service(this.model).subscribe(response => {
       console.log(response);
       //this.loggedIn = true;           v1
     }, error => console.log(error));
   }
 
   logout() {
-    this.accountService.logout();
+    this.accountService.logout_service();
     //this.loggedIn = false;            v1
   }
 
@@ -44,5 +44,16 @@ export class NavComponent implements OnInit {
       console.log(error);
     })
   }*/
+
+  bar(username) {
+    //if (model.username != null) model.username.charAt(0).toUpperCase() + model.username.slice(1).toLowerCase()
+    if (username != null)
+      return username.charAt(0).toUpperCase() + username.slice(1).toLowerCase();
+    else
+      return 'POP';
+  }
+
+  //the optional chaining operator '?' is used here to check if the variable is not null
+  getUserName_forNavBar = u_name => u_name?.charAt(0).toUpperCase() + u_name?.slice(1).toLowerCase()
 
 }
