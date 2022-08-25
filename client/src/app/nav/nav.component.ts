@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
@@ -13,8 +15,9 @@ export class NavComponent implements OnInit {
   //loggedIn : boolean = false;       v1
   //currentUser$: Observable<User>;   v2 (using async pipe)
 
-  //constructor(private accountService: AccountService) { }     v1 + v2
-  constructor(public accountService: AccountService) { }
+  //constructor(private accountService: AccountService) { }                       v1 + v2
+  //constructor(public accountService: AccountService, private router: Router) { }  // v5
+  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     //this.getCurrentUser(); // get user from account service   v1
@@ -24,14 +27,21 @@ export class NavComponent implements OnInit {
   login() {
     //console.log(this.model);
     this.accountService.login_service(this.model).subscribe(response => {
-      console.log(response);
+      //console.log(response);          v4
+      this.router.navigateByUrl('/stats')
       //this.loggedIn = true;           v1
-    }, error => console.log(error));
+    }, error => {
+      console.log(error)//,
+      //complete: () => void;
+
+      this.toastr.error(error.error);
+    })
   }
 
   logout() {
     this.accountService.logout_service();
     //this.loggedIn = false;            v1
+    this.router.navigateByUrl('/');
   }
 
   /*getCurrentUser() {                  v1
@@ -41,17 +51,10 @@ export class NavComponent implements OnInit {
                               // if the user is null then loggedIn = false; if the user
                               // is something then loggedIn = true
     }, error => {
-      console.log(error);
+      console.log(error)//,
+      //complete: () => void
     })
   }*/
-
-  bar(username) {
-    //if (model.username != null) model.username.charAt(0).toUpperCase() + model.username.slice(1).toLowerCase()
-    if (username != null)
-      return username.charAt(0).toUpperCase() + username.slice(1).toLowerCase();
-    else
-      return 'POP';
-  }
 
   //the optional chaining operator '?' is used here to check if the variable is not null
   getUserName_forNavBar = u_name => u_name?.charAt(0).toUpperCase() + u_name?.slice(1).toLowerCase()
