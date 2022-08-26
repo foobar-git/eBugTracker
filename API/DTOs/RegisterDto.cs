@@ -22,6 +22,7 @@ namespace API.DTOs
         }
 
         [Required] // marks this property (password) as required
+        [StringLength(8, MinimumLength = 4)]
         public string Password { get; set; }
 
 
