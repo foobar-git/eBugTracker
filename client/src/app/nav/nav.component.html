@@ -1,29 +1,41 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
     <div class="container-fluid">
         <div class="container">
-            <a class="navbar-brand" href="#">eBug Tracker</a>
+            <a class="navbar-brand" routerLink="/">eBug Tracker</a>
             <!--button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span></button-->
             <!--div class="navbar-collapse collapse" id="navbarCollapse" style=""-->
-
+            
+            <div class="menu-links">
                 <!--ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="loggedIn"--> <!-- v1 -->
-                <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="accountService.currentUser$ | async">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">New Bug Entry</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Bug Status Overview</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Messages</a>
-                    </li>
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                                    <!-- check if user is logged in -->
+                    <ng-container *ngIf="accountService.currentUser$ | async">
+                        <li class="nav-item">
+                            <a class="nav-link" title="New Bug Entry" [routerLink]="['/']" routerLinkActive="router-link-active">New</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" title="Bug Stats" [routerLink]="['/stats']" routerLinkActive="router-link-active" >Overview</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" title="List all users" [routerLink]="['/users']" routerLinkActive="router-link-active">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" title="List all bugs" [routerLink]="['/bugs']" routerLinkActive="router-link-active">Bugs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" title="" [routerLink]="['/messages']" routerLinkActive="router-link-active">Messages</a>
+                        </li>
+                    </ng-container>
                 </ul>
+            </div>
 
                 <!--div class="dropdown" *ngIf="loggedIn" dropdown--> <!-- v1 -->
-                <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-                    <a class="dropdown-toggle text-light" dropdownToggle>{{ getUserName_forNavBar(model.username) }}</a>
+                <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown style="margin-right: 7rem;">
+                    <!--a class="dropdown-toggle text-dark" title="Current Logged-in User" dropdownToggle>{{ getUserName_forNavBar(model.username) }}</a-->
+                    <a class="dropdown-toggle text-light" title="Current Logged-in User" dropdownToggle>{{ model.username | titlecase }}</a>
                     <div class="dropdown-menu" *dropdownMenu>
-                        <a class="dropdown-item">Edit Profile</a>
+                        <a class="dropdown-item" [routerLink]="['/']" routerLinkActive="router-link-active">Edit Profile</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" (click)="logout()">Logout</a>
                     </div>
