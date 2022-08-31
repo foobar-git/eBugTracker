@@ -14,7 +14,7 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { BugInfoComponent } from './bugs/bug-info/bug-info.component';
 import { BugListComponent } from './bugs/bug-list/bug-list.component';
-import { StatsComponent } from './stats/stats/stats.component';
+import { StatsComponent } from './stats/stats.component';
 import { SharedModule } from './_modules/shared.module';
 
 @NgModule({

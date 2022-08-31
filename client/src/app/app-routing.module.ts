@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BugInfoComponent } from './bugs/bug-info/bug-info.component';
 import { BugListComponent } from './bugs/bug-list/bug-list.component';
 import { HomeComponent } from './home/home.component';
-import { StatsComponent } from './stats/stats/stats.component';
+import { StatsComponent } from './stats/stats.component';
 import { MessagesComponent } from './users/messages/messages.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';

@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   registerMode: boolean = false;
-  users: any                                  // v3
+  users: any                                    // v3
 
   //constructor() { }                           // v2
   //constructor(private http: HttpClient) { }   // v3
