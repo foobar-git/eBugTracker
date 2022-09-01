@@ -10,7 +10,7 @@ namespace API.DTOs
     {
         private string username;
 
-        [Required] // marks this property (username) as required
+        [Required]                  // marks this property (username) as required
         //public string Username { get; set; }
         public string Username {
             get {
@@ -21,20 +21,22 @@ namespace API.DTOs
             }
         }
 
-        [Required] // marks this property (password) as required
+        [Required]                  // marks this property (password) as required
         [StringLength(8, MinimumLength = 4)]
         public string Password { get; set; }
 
 
         // helper function for username formatting
         private string FormatUsername(string uname)
-        {
-            if (username.Length > 0)
+        {   // ? is checking if 'uname' is null
+            if (uname?.Length > 0)
             {
                 uname = uname.ToLower();
                 uname = (char.ToUpper(uname[0])).ToString() + uname.Substring(1);
+                Console.WriteLine(uname);
                 return uname;
             } else {
+                Console.WriteLine(uname);
                 return null;
             }
         }

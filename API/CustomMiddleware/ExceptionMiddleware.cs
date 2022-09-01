@@ -37,7 +37,7 @@ namespace API.CustomMiddleware
             {
                 _logger.LogError(ex, ex.Message);   // log to terminal
                 context.Response.ContentType = "application/json";
-                context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
                 response = _env.IsDevelopment()                                          // ? checking if ex.StackTrace is null
                     ? new ApiException(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString())

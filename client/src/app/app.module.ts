@@ -16,6 +16,7 @@ import { BugInfoComponent } from './bugs/bug-info/bug-info.component';
 import { BugListComponent } from './bugs/bug-list/bug-list.component';
 import { StatsComponent } from './stats/stats.component';
 import { SharedModule } from './_modules/shared.module';
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SharedModule } from './_modules/shared.module';
     UserProfileComponent,
     BugInfoComponent,
     BugListComponent,
-    StatsComponent
+    StatsComponent,
+    TestErrorsComponent
   ],
   imports: [
     BrowserModule,
