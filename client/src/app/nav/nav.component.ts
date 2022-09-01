@@ -57,6 +57,6 @@ export class NavComponent implements OnInit {
   }*/
 
   //the optional chaining operator '?' is used here to check if the variable is not null
-  getUserName_forNavBar = u_name => u_name?.charAt(0).toUpperCase() + u_name?.slice(1).toLowerCase()
+  //getUserName_forNavBar = u_name => u_name?.charAt(0).toUpperCase() + u_name?.slice(1).toLowerCase()
 
 }
