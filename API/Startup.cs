@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using API.Extensions;
+using API.CustomMiddleware;
 
 namespace API
 {
@@ -50,10 +51,12 @@ namespace API
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();        // error handling middleware    // v6
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv5 v1"));
             }
+
+            app.UseMiddleware<ExceptionMiddleware>();       // custom error handlig
 
             app.UseHttpsRedirection();
 

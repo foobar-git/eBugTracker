@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BugInfoComponent } from './bugs/bug-info/bug-info.component';
 import { BugListComponent } from './bugs/bug-list/bug-list.component';
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { HomeComponent } from './home/home.component';
 import { StatsComponent } from './stats/stats.component';
 import { MessagesComponent } from './users/messages/messages.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'
     ]
   },
+  { path: 'errors', component: TestErrorsComponent },
   { path: '**', component: HomeComponent, pathMatch: 'full' },  // route '...:4200/...' (a catch-all route, still has to match)
 ];
 
