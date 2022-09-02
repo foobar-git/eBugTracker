@@ -12,7 +12,7 @@ namespace API.Controllers
     public class ErrorController : BaseApiController
     {
         private readonly DataContext _context;
-        private AppUser error_userInputAPI;
+        private object error_input;
         private string error_string;
         
         public ErrorController(DataContext context)
@@ -30,11 +30,11 @@ namespace API.Controllers
         [HttpGet("not-found")]
         public ActionResult<AppUser> GetNotFound()
         {
-            error_userInputAPI = _context.Users.Find(-1);
+            error_input = _context.Users.Find(-1);
 
-            if (error_userInputAPI == null) return NotFound();
+            if (error_input == null) return NotFound();
 
-            return Ok(error_userInputAPI);                  // but if found, return what is found
+            return Ok(error_input);     // but if found, return what is found
         }
 
         [HttpGet("server-error")]
@@ -50,10 +50,10 @@ namespace API.Controllers
                 return StatusCode(500, "Exception:\n" + ex);
             }*/
 
-            error_userInputAPI = _context.Users.Find(-1);
-            error_string = error_userInputAPI.ToString();   // object to return (should be a null reference exception)
+            error_input = _context.Users.Find(-1);
+            error_string = error_input.ToString();   // object to return (should be a null reference exception)
 
-            return error_string;                            // but if found, return what is found
+            return error_string;                      // but if found, return what is found
         }
 
         [HttpGet("bad-request")]
