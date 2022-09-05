@@ -22,9 +22,11 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(error_response => {
         if (error_response) {
+          this.modalStateErrors = [];                                           // this and...
           error_response = this.switchErrors(error_response);
-          this.modalStateErrors = [];
-          if (this.modalStateErrors.length !== 0) throw this.modalStateErrors;
+          if (this.modalStateErrors.length !== 0) throw this.modalStateErrors.flat();  // and this is a workaround for showing toastr message
+                                                                                // for the '400 validation error', because
+                                                                                // throwing the error exits early from the switch
         }
         return throwError(error_response);  // always return an error
       })
@@ -39,38 +41,42 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.statusText_string = "Bad request: validation error";
           //this.toastr.error(error_r.statusText = this.statusText_string, error_r.status);
 
+          // this var is moved out of the switch statement
           //const modalStateErrors = [];  // validation errors are known as modal state errors
+          
           // the idea is to flatten the returned nested response into one array
+          this.modalStateErrors.push(error_r);  // add the error_response to the response array returned
           for (const element in error_r.error.errors) { // loop over each key in the errors_response object
             if (error_r.error.errors[element]) {
-              this.modalStateErrors.push(error_r.error.errors[element])
+              this.modalStateErrors.push(error_r.error.errors[element]);
             }
           }
-          //throw modalStateErrors; // throwing modelStateErrors back to the component
+          // this is moved out of the switch statement
+          //throw modalStateErrors; // throwing modelStateErrors back to the component  // v6
           
         } else {    // 400: Bad request (with flat response)
-            //this.toastr.error(error_response.statusText, error_response.status);
+            //this.toastr.error(error_response.statusText, error_response.status);      // v6
             this.statusText_string = error_r.error;//"Bad request"
         }
         break;
 
       case 401:   // Unauthorized
-        //this.toastr.error(error_response.statusText, error_response.status)
+        //this.toastr.error(error_response.statusText, error_response.status)           // v6
         this.statusText_string = "Unauthorized";
         break;
 
-      case 404:
+      case 404:   // Not found
         this.statusText_string = "Not found";
         this.router.navigateByUrl('/not-found');
         break;
 
-      case 500:
+      case 500:   // generic error
         this.statusText_string = "Server error";
         const navigationExtras: NavigationExtras = { state: {error: error_r.error} };
         this.router.navigateByUrl("/server-error", navigationExtras);
         break;
 
-      default:
+      default:    // undefined error
         this.toastr.error("Undefined error");
         break;
     }
