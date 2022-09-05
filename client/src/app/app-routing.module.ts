@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BugInfoComponent } from './bugs/bug-info/bug-info.component';
 import { BugListComponent } from './bugs/bug-list/bug-list.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { HomeComponent } from './home/home.component';
 import { StatsComponent } from './stats/stats.component';
@@ -39,7 +41,9 @@ const routes: Routes = [
     ]
   },
   { path: 'errors', component: TestErrorsComponent },
-  { path: '**', component: HomeComponent, pathMatch: 'full' },  // route '...:4200/...' (a catch-all route, still has to match)
+  { path: 'not-found', component: NotFoundComponent },
+  { path: 'server-error', component: ServerErrorComponent },
+  { path: '**', component: NotFoundComponent, pathMatch: 'full' },  // route '...:4200/...' (a catch-all route, still has to match)
 ];
 
 @NgModule({
