@@ -27,7 +27,7 @@ namespace API.DTOs
         // helper function for username formatting
         private string FormatUsername(string uname)
         {
-            if (username.Length > 0)
+            if (uname.Length > 0)
             {
                 uname = uname.ToLower();
                 uname = (char.ToUpper(uname[0])).ToString() + uname.Substring(1);
