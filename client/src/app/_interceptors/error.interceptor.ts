@@ -22,11 +22,11 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(error_response => {
         if (error_response) {
-          this.modalStateErrors = [];                                           // this and...
+          this.modalStateErrors = [];                                                 // this and...
           error_response = this.switchErrors(error_response);
-          if (this.modalStateErrors.length !== 0) throw this.modalStateErrors.flat();  // and this is a workaround for showing toastr message
-                                                                                // for the '400 validation error', because
-                                                                                // throwing the error exits early from the switch
+          if (this.modalStateErrors.length !== 0) throw this.modalStateErrors.flat(); // and this is a workaround for showing toastr message
+                                                                                      // for the '400 validation error', because
+                                                                                      // throwing the error exits early from the switch
         }
         return throwError(error_response);  // always return an error
       })
