@@ -23,7 +23,7 @@ namespace API.Controllers
             _tokenService = tokenService;
         }
 
-                                                // pass username and password as DTO
+                                                // send username and password as DTO
                                                 // (string username, string password)
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
@@ -40,7 +40,7 @@ namespace API.Controllers
             var user = new AppUser
             {
                       // = username
-                UserName = registerDto.Username,//                          (password)
+                UserName = registerDto.Username,//                              (password)
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key
             };

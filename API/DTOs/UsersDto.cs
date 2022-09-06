@@ -1,16 +1,16 @@
-﻿using API.Extensions;
+using API.Entities;
 
-namespace API.Entities
+namespace API.DTOs
 {
-    public class AppUser
+    public class UsersDto
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+        public string Username { get; set; }
         //====================================================================
-        public DateTime DateCreated { get; set; } = DateTime.Now;   //  +
-        public DateTime LastActive { get; set; } = DateTime.Now;    //  +
+        public string ImageUrl { get; set; }
+        public int Created { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime LastActive { get; set; }
         public string UserType { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -20,13 +20,8 @@ namespace API.Entities
         //_EF_Migrations__________________________
         public Message Message { get; set; }
         public Comment Comment { get; set; }
-        public ICollection<UserImage> UserImage { get; set; }    // one user - one (profile) image
+        public ICollection<UserImageDto> UserImage { get; set; }    // one user - one (profile) image
         public Project Project { get; set; }
         //________________________________________
-
-        public int GetCreated()
-        {
-            return DateCreated.CalculateTimeFromUserCreated();
-        }
     }
 }

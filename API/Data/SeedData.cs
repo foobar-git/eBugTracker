@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using API.Entities;
+using API.HelperFunctions;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -23,7 +24,7 @@ namespace API.Data
                 using HMACSHA512 hmac = new HMACSHA512();
 
                 //user.UserName = user.UserName.ToLower();
-                FormatUsername(user.UserName);
+                FormatUsername.Format(user.UserName);
                 user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("test"));
                 user.PasswordSalt = hmac.Key;
 
@@ -31,19 +32,6 @@ namespace API.Data
             }
 
             await context.SaveChangesAsync();
-        }
-
-        // helper function
-        private static string FormatUsername(string uname)
-        {
-            if (uname.Length > 0)
-            {
-                uname = uname.ToLower();
-                uname = (char.ToUpper(uname[0])).ToString() + uname.Substring(1);
-                return uname;
-            } else {
-                return null;
-            }
         }
     }
 }

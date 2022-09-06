@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using API.HelperFunctions;
 
 namespace API.DTOs
 {
@@ -13,7 +14,7 @@ namespace API.DTOs
         [Required] // marks this property (username) as required
         public string Username {
             get {
-                return FormatUsername(username);
+                return FormatUsername.Format(username);
             }
             set {
                 username = value;
@@ -22,19 +23,5 @@ namespace API.DTOs
 
         [Required] // marks this property (password) as required
         public string Password { get; set; }
-
-
-        // helper function for username formatting
-        private string FormatUsername(string uname)
-        {
-            if (uname.Length > 0)
-            {
-                uname = uname.ToLower();
-                uname = (char.ToUpper(uname[0])).ToString() + uname.Substring(1);
-                return uname;
-            } else {
-                return null;
-            }
-        }
     }
 }
