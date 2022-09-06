@@ -15,7 +15,7 @@ namespace API.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<UserImage> UserImage { get; set; }
-        public DbSet<BugImages> Images { get; set; }
+        public DbSet<BugImage> Images { get; set; }
         public DbSet<Project> Projects { get; set; }
     }
 }

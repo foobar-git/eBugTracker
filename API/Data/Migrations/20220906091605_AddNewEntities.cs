@@ -104,23 +104,24 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User_Image",
+                name: "UserImage",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Url = table.Column<string>(type: "TEXT", nullable: true),
                     PublicId = table.Column<string>(type: "TEXT", nullable: true),
-                    AppUserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    AppUserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User_Image", x => x.Id);
+                    table.PrimaryKey("PK_UserImage", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_User_Image_Users_AppUserId",
+                        name: "FK_UserImage_Users_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,7 +155,7 @@ namespace API.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    UserName = table.Column<string>(type: "TEXT", nullable: true),
                     ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -253,8 +254,8 @@ namespace API.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_Image_AppUserId",
-                table: "User_Image",
+                name: "IX_UserImage_AppUserId",
+                table: "UserImage",
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
@@ -275,7 +276,7 @@ namespace API.Data.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "User_Image");
+                name: "UserImage");
 
             migrationBuilder.DropTable(
                 name: "UsersAssigned");

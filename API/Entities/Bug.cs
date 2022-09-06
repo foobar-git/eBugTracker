@@ -11,7 +11,7 @@ namespace API.Entities
         public bool IsActive { get; set; }
 
         //_EF_Migrations__________________________
-        public ICollection<BugImages> Images { get; set; }  // EF: one Bug (entry with many images)
+        public ICollection<BugImage> Images { get; set; }  // EF: one Bug (entry with many images)
         public Comment Comment { get; set; }            // EF: one bug - many comments
         public Project Project { get; set; }
         public int ProjectId { get; set; }

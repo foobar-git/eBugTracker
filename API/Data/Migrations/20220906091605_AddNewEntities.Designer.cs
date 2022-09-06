@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220905150337_AddNewEntities")]
+    [Migration("20220906091605_AddNewEntities")]
     partial class AddNewEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,7 +95,7 @@ namespace API.Data.Migrations
                     b.ToTable("Bugs");
                 });
 
-            modelBuilder.Entity("API.Entities.BugImages", b =>
+            modelBuilder.Entity("API.Entities.BugImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -222,7 +222,7 @@ namespace API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("AppUserId")
+                    b.Property<int>("AppUserId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PublicId")
@@ -235,7 +235,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("User_Image");
+                    b.ToTable("UserImage");
                 });
 
             modelBuilder.Entity("API.Entities.UsersAssigned", b =>
@@ -244,11 +244,11 @@ namespace API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -268,7 +268,7 @@ namespace API.Data.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("API.Entities.BugImages", b =>
+            modelBuilder.Entity("API.Entities.BugImage", b =>
                 {
                     b.HasOne("API.Entities.Bug", "Bug")
                         .WithMany("Images")
@@ -324,7 +324,9 @@ namespace API.Data.Migrations
                 {
                     b.HasOne("API.Entities.AppUser", "AppUser")
                         .WithMany("UserImage")
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AppUser");
                 });

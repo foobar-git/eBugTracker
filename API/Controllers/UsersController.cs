@@ -11,6 +11,8 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+
+    [Authorize]
     public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
@@ -27,7 +29,7 @@ namespace API.Controllers
         }*/
         
         // API:     /api/users
-        [AllowAnonymous]
+        //[AllowAnonymous]              // v7
         [HttpGet]   // asynchronous
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
@@ -35,7 +37,7 @@ namespace API.Controllers
         }
         
         // API:     /api/users/<int>
-        [Authorize]
+        //[Authorize]                   // v7
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {

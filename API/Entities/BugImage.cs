@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace API.Entities
 {
     [Table("Images")]   // EF name created table: 'Images' instead of 'Photo'
-    public class BugImages
+    public class BugImage
     {
         public int Id { get; set; }
         public string Url { get; set; }
