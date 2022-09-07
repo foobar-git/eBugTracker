@@ -54,8 +54,10 @@ namespace API.Controllers
             //return await _context.Users.ToListAsync();        // v8
             //return Ok(await _userRepository.GetUsersAsync());   // v9
 
-            IEnumerable<AppUser> users = await _userRepository.GetUsersAsync();
-            IEnumerable<UsersDto> usersToReturn = _mapper.Map<IEnumerable<UsersDto>>(users);
+            //IEnumerable<AppUser> users = await _userRepository.GetUsersAsync();           // v11
+            //IEnumerable<UsersDto> usersToReturn = _mapper.Map<IEnumerable<UsersDto>>(users);  // v11
+
+            IEnumerable<UsersDto> usersToReturn = await _userRepository.GetUsersDtoAsync();
 
             return Ok(usersToReturn);
         }
@@ -73,8 +75,8 @@ namespace API.Controllers
         public async Task<ActionResult<UsersDto>> GetUser(string username)
         {
             //return await _userRepository.GetUserByUsernameAsync(FormatUsername.Format(username)); // v9
-            AppUser user = await _userRepository.GetUserByUsernameAsync(FormatUsername.Format(username));
-            return _mapper.Map<UsersDto>(user);
+            //AppUser user = await _userRepository.GetUserByUsernameAsync(FormatUsername.Format(username)); //v11
+            return _mapper.Map<UsersDto>(await _userRepository.GetUserDtoAsync(FormatUsername.Format(username)));
         }
     }
 }
