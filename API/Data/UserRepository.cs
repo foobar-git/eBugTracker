@@ -1,6 +1,9 @@
+using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper.QueryableExtensions;
+using AutoMapper;
 
 namespace API.Data
 {
@@ -8,8 +11,15 @@ namespace API.Data
     {
         private readonly DataContext _context;
 
-        public UserRepository(DataContext context)
+        /*public UserRepository(DataContext context)    // v11
         {
+            _context = context;
+        }*/
+        private readonly IMapper _mapper;
+        
+        public UserRepository(DataContext context, IMapper mapper)
+        {
+            _mapper = mapper;
             _context = context;
         }
 
@@ -26,6 +36,32 @@ namespace API.Data
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
             return await _context.Users.Include(image => image.UserImage).ToListAsync();
+        }
+
+        public async Task<IEnumerable<UsersDto>> GetUsersDtoAsync()
+        {
+            return await _context.Users
+                .ProjectTo<UsersDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        public async Task<UsersDto> GetUserDtoAsync(string username)
+        {
+            /*return await _context.Users               // v11
+                .Where(u => u.UserName == username)
+                .Select(user => new UsersDto
+                {
+                    // manualy mapping the porperties that we need form the database
+                    //Id = user.Id,
+                    //Username = user.UserName,
+                    //...
+                    //. . .
+                }).SingleOrDefaultAsync();*/
+            
+            return await _context.Users
+                .Where(u => u.UserName == username)
+                .ProjectTo<UsersDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync();
         }
 
         public async Task<bool> SaveAllAsync()
