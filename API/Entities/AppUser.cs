@@ -21,7 +21,6 @@ namespace API.Entities
         public Message Message { get; set; }
         public Comment Comment { get; set; }
         public ICollection<UserImage> UserImage { get; set; }    // one user - one (profile) image
-        public Project Project { get; set; }
         //________________________________________
 
         // public int GetCreated()

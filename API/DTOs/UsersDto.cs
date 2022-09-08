@@ -21,7 +21,6 @@ namespace API.DTOs
         public Message Message { get; set; }
         public Comment Comment { get; set; }
         public ICollection<UserImageDto> UserImage { get; set; }    // one user - one (profile) image
-        public Project Project { get; set; }
         //________________________________________
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-    public class SeedData
+    public class ParseUserData
     {
         public static async Task SeedUsers(DataContext context)
         {
