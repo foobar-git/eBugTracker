@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220909145229_TestingDatabase")]
+    [Migration("20220909152833_TestingDatabase")]
     partial class TestingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -291,8 +291,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.BugsAssigned", b =>
                 {
-                    b.HasOne("API.Entities.Bug", null)
-                        .WithMany("BugsAssigned")
+                    b.HasOne("API.Entities.Bug", "Bug")
+                        .WithMany("Bugs")
                         .HasForeignKey("BugId");
 
                     b.HasOne("API.Entities.Project", "Project")
@@ -300,6 +300,8 @@ namespace API.Migrations
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Bug");
 
                     b.Navigation("Project");
                 });
@@ -367,7 +369,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Bug", b =>
                 {
-                    b.Navigation("BugsAssigned");
+                    b.Navigation("Bugs");
 
                     b.Navigation("Comment");
 

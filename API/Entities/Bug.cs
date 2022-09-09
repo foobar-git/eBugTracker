@@ -16,7 +16,7 @@ namespace API.Entities
         public Comment Comment { get; set; }            // EF: one bug - many comments
         //public Project Project { get; set; }
         public int ProjectId { get; set; }
-        public ICollection<BugsAssigned> BugsAssigned { get; set; }
+        public ICollection<BugsAssigned> Bugs { get; set; }
         //________________________________________
     }
 }

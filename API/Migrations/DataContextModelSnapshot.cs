@@ -289,8 +289,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.BugsAssigned", b =>
                 {
-                    b.HasOne("API.Entities.Bug", null)
-                        .WithMany("BugsAssigned")
+                    b.HasOne("API.Entities.Bug", "Bug")
+                        .WithMany("Bugs")
                         .HasForeignKey("BugId");
 
                     b.HasOne("API.Entities.Project", "Project")
@@ -298,6 +298,8 @@ namespace API.Migrations
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Bug");
 
                     b.Navigation("Project");
                 });
@@ -365,7 +367,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Bug", b =>
                 {
-                    b.Navigation("BugsAssigned");
+                    b.Navigation("Bugs");
 
                     b.Navigation("Comment");
 
