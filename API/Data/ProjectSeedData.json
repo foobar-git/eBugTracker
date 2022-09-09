@@ -3,8 +3,8 @@
         "Name": "Test Project 1",
         "CreatedByUser": "Emil",
         "DateCreated": "2022-07-09",
-        "isComplete": "false",
-        "isOnHold": "false",
+        "IsComplete": false,
+        "IsOnHold": false,
         "UsersAssigned": [
             {
                 "UserName": "Emil",
@@ -19,20 +19,36 @@
                 "UserId": 3
             }
         ],
+        "BugsAssigned": [
+            {
+                "Name": "Bug_DisplayError",
+                "BugId": 1
+            },
+            {
+                "Name": "Bug_Runtime",
+                "BugId": 2
+            }
+        ],
         "Description": "Test Project 1 - Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n"
     },
     {
         "Name": "Test Project 2",
         "CreatedByUser": "Nedim",
         "DateCreated": "2022-07-09",
-        "isComplete": "false",
-        "isOnHold": "false",
+        "IsComplete": false,
+        "IsOnHold": false,
         "UsersAssigned": [
             {
                 "UserName": "Nedim",
                 "UserId": 2
             }
         ],
-        "Description": " Test Project 2 - Non dolor non et cillum exercitation id dolor do nostrud dolor deserunt laboris. In consequat enim fugiat minim proident. Irure quis occaecat fugiat mollit Lorem mollit dolor esse elit velit. Officia est laboris proident laborum dolore et sint ex occaecat voluptate Lorem tempor amet voluptate.\r\n"
+        "BugsAssigned": [
+            {
+                "Name": "Bug_NetworkError",
+                "BugId": 3
+            }
+        ],
+        "Description": "Test Project 2 - Non dolor non et cillum exercitation id dolor do nostrud dolor deserunt laboris. In consequat enim fugiat minim proident. Irure quis occaecat fugiat mollit Lorem mollit dolor esse elit velit. Officia est laboris proident laborum dolore et sint ex occaecat voluptate Lorem tempor amet voluptate.\r\n"
     }
 ]

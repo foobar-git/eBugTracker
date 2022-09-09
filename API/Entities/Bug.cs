@@ -4,6 +4,7 @@ namespace API.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string FiledByUser { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateResolved { get; set; }
         public string Description { get; set; }
@@ -13,8 +14,9 @@ namespace API.Entities
         //_EF_Migrations__________________________
         public ICollection<BugImage> Images { get; set; }  // EF: one Bug (entry with many images)
         public Comment Comment { get; set; }            // EF: one bug - many comments
-        public Project Project { get; set; }
+        //public Project Project { get; set; }
         public int ProjectId { get; set; }
+        public ICollection<BugsAssigned> BugsAssigned { get; set; }
         //________________________________________
     }
 }

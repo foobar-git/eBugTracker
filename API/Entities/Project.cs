@@ -15,7 +15,7 @@ namespace API.Entities
 
         //_EF_Migrations__________________________
         public ICollection<UsersAssigned> UsersAssigned { get; set; }
-        public Bug Bug { get; set; }            // one project - many bugs
+        public ICollection<BugsAssigned> BugsAssigned { get; set; }
         //________________________________________
     }
 }

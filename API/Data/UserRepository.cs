@@ -25,22 +25,22 @@ namespace API.Data
 
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.AppUsers.FindAsync(id);
         }
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.Include(image => image.UserImage).SingleOrDefaultAsync(user => user.UserName == username);
+            return await _context.AppUsers.Include(image => image.UserImage).SingleOrDefaultAsync(user => user.UserName == username);
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-            return await _context.Users.Include(image => image.UserImage).ToListAsync();
+            return await _context.AppUsers.Include(image => image.UserImage).ToListAsync();
         }
 
         public async Task<IEnumerable<UsersDto>> GetUsersDtoAsync()
         {
-            return await _context.Users
+            return await _context.AppUsers
                 .ProjectTo<UsersDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
@@ -58,7 +58,7 @@ namespace API.Data
                     //. . .
                 }).SingleOrDefaultAsync();*/
             
-            return await _context.Users
+            return await _context.AppUsers
                 .Where(u => u.UserName == username)
                 .ProjectTo<UsersDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();

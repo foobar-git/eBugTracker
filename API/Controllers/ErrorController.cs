@@ -30,7 +30,7 @@ namespace API.Controllers
         [HttpGet("not-found")]
         public ActionResult<AppUser> GetNotFound()
         {
-            error_input = _context.Users.Find(-1);
+            error_input = _context.AppUsers.Find(-1);
 
             if (error_input == null) return NotFound();
 
@@ -50,7 +50,7 @@ namespace API.Controllers
                 return StatusCode(500, "Exception:\n" + ex);
             }*/
 
-            error_input = _context.Users.Find(-1);
+            error_input = _context.AppUsers.Find(-1);
             error_string = error_input.ToString();   // object to return (should be a null reference exception)
 
             return error_string;                      // but if found, return what is found

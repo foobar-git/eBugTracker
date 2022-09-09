@@ -1,0 +1,29 @@
+[
+    {
+        "Name": "Bug_DisplayError",
+        "FiledByUser": "Emil",
+        "DateCreated": "2022-08-09",
+        "IsResolved": false,
+        "IsActive": true,
+        "Description": "Display error number XYZ failed to show...\r\n",
+        "ProjectId": 1
+    },
+    {
+        "Name": "Bug_Runtime",
+        "FiledByUser": "Nedim",
+        "DateCreated": "2022-09-09",
+        "IsResolved": false,
+        "IsActive": true,
+        "Description": "Failed to initialize this and that...\r\n",
+        "ProjectId": 1
+    },
+    {
+        "Name": "Bug_NetworkError",
+        "FiledByUser": "Ensar",
+        "DateCreated": "2022-08-09",
+        "IsResolved": false,
+        "IsActive": true,
+        "Description": "Classic networking error number XYZ...\r\n",
+        "ProjectId": 2
+    }
+]
