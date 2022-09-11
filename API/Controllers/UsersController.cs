@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.HelperFunctions;
@@ -15,7 +16,7 @@ namespace API.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    [Authorize]
+    //[Authorize]       EDIT uncomment
     public class UsersController : BaseApiController
     {
         /*private readonly DataContext _context;        // v8
@@ -32,8 +33,11 @@ namespace API.Controllers
         
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public UsersController(IUserRepository userRepository, IMapper mapper)
+        private readonly DataContext _context;
+        
+        public UsersController(DataContext context,IUserRepository userRepository, IMapper mapper)
         {
+            _context = context;
             _mapper = mapper;
             _userRepository = userRepository;
         }
@@ -45,7 +49,7 @@ namespace API.Controllers
             return _context.Users.ToList();
         }*/
         
-        // API:     /api/users
+        // API:     /api/users/
         //[AllowAnonymous]              // v7
         [HttpGet]   // asynchronous
         //public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()  // v9
@@ -62,21 +66,21 @@ namespace API.Controllers
             return Ok(usersToReturn);
         }
         
-        // API:     /api/users/<int>
+        // API:     /api/users/id/<int>
         //[Authorize]                   // v7
-        //[HttpGet("{id}")]             // v8
-        /*public async Task<ActionResult<AppUser>> GetUser(int id)  // v8
+        [HttpGet("id/{id}")]             // v8
+        public async Task<ActionResult<AppUser>> GetUser(int id)  // v8
         {
-            return await _context.Users.FindAsync(id);
-        }*/
+            return await _context.AppUsers.FindAsync(id);
+        }
 
         [HttpGet("{username}")]
-        //public async Task<ActionResult<AppUser>> GetUser(string username) // v9
+        //public async Task<ActionResult<AppUser>> GetUser(string username) /// v9
         public async Task<ActionResult<UsersDto>> GetUser(string username)
         {
             //return await _userRepository.GetUserByUsernameAsync(FormatUsername.Format(username)); // v9
             //AppUser user = await _userRepository.GetUserByUsernameAsync(FormatUsername.Format(username)); //v11
-            return _mapper.Map<UsersDto>(await _userRepository.GetUserDtoAsync(FormatUsername.Format(username)));
+            return _mapper.Map<UsersDto>(await _userRepository.GetUserDtoAsync(FormatName.Format(username)));
         }
     }
 }

@@ -1,6 +1,6 @@
 [
     {
-        "Name": "Test Project 1",
+        "Name": "Project1",
         "CreatedByUser": "Emil",
         "DateCreated": "2022-07-09",
         "IsComplete": false,
@@ -32,7 +32,7 @@
         "Description": "Test Project 1 - Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n"
     },
     {
-        "Name": "Test Project 2",
+        "Name": "Project2",
         "CreatedByUser": "Nedim",
         "DateCreated": "2022-07-09",
         "IsComplete": false,

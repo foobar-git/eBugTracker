@@ -14,7 +14,7 @@ namespace API.DTOs
         [Required] // marks this property (username) as required
         public string Username {
             get {
-                return FormatUsername.Format(username);
+                return FormatName.Format(username);
             }
             set {
                 username = value;

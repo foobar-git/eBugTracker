@@ -30,7 +30,7 @@ namespace API.Data
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            return await _context.AppUsers.Include(image => image.UserImage).SingleOrDefaultAsync(user => user.UserName == username);
+            return await _context.AppUsers.Include(image => image.UserImage).SingleOrDefaultAsync(user => user.Username == username);
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
@@ -59,7 +59,7 @@ namespace API.Data
                 }).SingleOrDefaultAsync();*/
             
             return await _context.AppUsers
-                .Where(u => u.UserName == username)
+                .Where(u => u.Username == username)
                 .ProjectTo<UsersDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }

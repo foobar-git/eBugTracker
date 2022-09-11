@@ -24,7 +24,7 @@ namespace API.Data
                 using HMACSHA512 hmac = new HMACSHA512();
 
                 //user.UserName = user.UserName.ToLower();
-                FormatUsername.Format(user.UserName);
+                FormatName.Format(user.Username);
                 user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("test"));
                 user.PasswordSalt = hmac.Key;
 
@@ -46,6 +46,7 @@ namespace API.Data
             projects = JsonSerializer.Deserialize<List<Project>>(projectData);
             foreach (var project in projects)
             {
+                //FormatName.Format(user.UserName);
                 context.Projects.Add(project);
             }
 
