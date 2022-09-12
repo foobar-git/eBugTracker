@@ -8,7 +8,7 @@ namespace API.Interfaces
 
         Task<bool> SaveAllAsync();
         
-        Task<IEnumerable<Project>> GetProjectsAsync();
+        Task<IEnumerable<Project>> GetProjectAsync();
 
         Task<Project> GetProjectByIdAsync(int id);
         

@@ -24,8 +24,8 @@ namespace API.Data
                 using HMACSHA512 hmac = new HMACSHA512();
 
                 //user.UserName = user.UserName.ToLower();
-                FormatName.Format(user.Username);
-                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("test"));
+                FormatName.Format(user.Username);                       //////////////// EDIT setting all
+                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("test")); // passwords for testing
                 user.PasswordSalt = hmac.Key;
 
                 context.AppUsers.Add(user);

@@ -16,7 +16,7 @@ namespace API.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    //[Authorize]       EDIT uncomment
+    [Authorize]
     public class UsersController : BaseApiController
     {
         /*private readonly DataContext _context;        // v8
