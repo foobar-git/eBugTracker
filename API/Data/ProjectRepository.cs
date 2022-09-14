@@ -28,18 +28,24 @@ namespace API.Data
             return await _context.Projects.FindAsync(id);
         }
 
-        public async Task<Project> GetProjectByProjectnameAsync(string projectname)
+        /*public async Task<Project> GetProjectByProjectnameAsync(string projectname)
         {
-            return await _context.Projects.Include(bug => bug.BugsAssigned)
-                .SingleOrDefaultAsync(project => project.Name == projectname);
-        }
+            return await _context.Projects.Include(bug => bug.BugsAssigned).SingleOrDefaultAsync(project => project.Name == projectname);
+        }*/
 
         public async Task<IEnumerable<Project>> GetProjectAsync()
         {
             return await _context.Projects.Include(bug => bug.BugsAssigned).ToListAsync();
         }
 
-        // public async Task<UsersDto> GetProjectAsync(string username)
+        public async Task<IEnumerable<ProjectDto>> GetProjectDtoAsync()
+        {
+            return await _context.Projects
+                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
+
+        // public async Task<ProjectDto> GetProjectDtoAsync(string projectname)
         // {
         //     /*return await _context.Users               // v11
         //         .Where(u => u.UserName == username)
@@ -51,6 +57,11 @@ namespace API.Data
         //             //...
         //             //. . .
         //         }).SingleOrDefaultAsync();*/
+            
+        //     return await _context.AppUsers
+        //         .Where(p => p.Name == projectname)
+        //         .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
+        //         .SingleOrDefaultAsync();
         // }
 
         public async Task<bool> SaveAllAsync()

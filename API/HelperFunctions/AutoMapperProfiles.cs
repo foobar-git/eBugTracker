@@ -17,10 +17,14 @@ namespace API.HelperFunctions
             CreateMap<AppUser, UsersDto>()
                 .ForMember( destination => destination.ImageUrl, option => option.MapFrom (
                     source => source.UserImage.FirstOrDefault().Url) )
-                .ForMember( destination => destination.Created, option => option.MapFrom(
+                .ForMember( destination => destination.Created, option => option.MapFrom (
                     source => source.DateCreated.CalculateTimeFromUserCreated()));
             
             CreateMap<UserImage, UserImageDto>();
+
+            CreateMap<Project, ProjectDto>()
+                .ForMember( destination => destination.BugsAssigned, option => option.MapFrom (
+                    source => source.BugsAssigned.FirstOrDefault().Bug) );
             
             CreateMap<BugImage, ImageDto>();
         }

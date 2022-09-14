@@ -58,12 +58,12 @@ namespace API.Controllers
             return await _context.Projects.FindAsync(id);
         }
 
-        [HttpGet("{projectname}")]//
-        //public async Task<ActionResult<AppUser>> GetUser(string username) // v9
-        public async Task<ActionResult<Project>> GetProject(string projectname)
-        {
-            return await _projectRepository.GetProjectByProjectnameAsync(FormatName.Format(projectname)); // v9
-            //AppUser user = await _userRepository.GetUserByUsernameAsync(FormatUsername.Format(username)); //v11
-        }
+        // [HttpGet("{projectname}")]
+        // public async Task<ActionResult<AppUser>> GetUser(string username) // v9
+        // public async Task<ActionResult<Project>> GetProject(string projectname)
+        // {
+        //     return await _projectRepository.GetProjectByProjectnameAsync(FormatName.Format(projectname)); // v9
+        //     //AppUser user = await _userRepository.GetUserByUsernameAsync(FormatUsername.Format(username)); //v11
+        // }
     }
 }

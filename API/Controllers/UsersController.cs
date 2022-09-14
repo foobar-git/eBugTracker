@@ -16,7 +16,6 @@ namespace API.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    [Authorize]
     public class UsersController : BaseApiController
     {
         /*private readonly DataContext _context;        // v8
@@ -35,7 +34,7 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly DataContext _context;
         
-        public UsersController(DataContext context,IUserRepository userRepository, IMapper mapper)
+        public UsersController(DataContext context, IUserRepository userRepository, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
