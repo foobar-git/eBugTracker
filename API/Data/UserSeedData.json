@@ -1,6 +1,6 @@
 [
     {
-        "UserName": "Emil",
+        "Username": "Emil",
         "DateCreated": "2020-07-28",
         "LastActive": "2022-07-09",
         "UserType": "Admin",
@@ -15,7 +15,7 @@
         ]
     },
     {
-        "UserName": "Nedim",
+        "Username": "Nedim",
         "DateCreated": "2022-06-17",
         "LastActive": "2022-06-16",
         "UserType": "SuperUser",
@@ -30,7 +30,7 @@
         ]
     },
     {
-        "UserName": "Ensar",
+        "Username": "Ensar",
         "DateCreated": "2022-07-26",
         "LastActive": "2022-08-16",
         "UserType": "NormalUser",

@@ -24,8 +24,8 @@ namespace API.Data
                 using HMACSHA512 hmac = new HMACSHA512();
 
                 //user.UserName = user.UserName.ToLower();
-                FormatName.Format(user.Username);
-                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("test"));
+                FormatName.Format(user.Username);                       //////////////// EDIT setting all
+                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("test")); // passwords for testing
                 user.PasswordSalt = hmac.Key;
 
                 context.AppUsers.Add(user);
@@ -48,24 +48,6 @@ namespace API.Data
             {
                 //FormatName.Format(user.UserName);
                 context.Projects.Add(project);
-            }
-
-            await context.SaveChangesAsync();
-        }
-
-        public static async Task SeedBugs(DataContext context)
-        {
-            string bugData;
-            List<Bug> bugs;
-
-
-            if (await context.Bugs.AnyAsync()) return;
-
-            bugData = await System.IO.File.ReadAllTextAsync("Data/BugSeedData.json");
-            bugs = JsonSerializer.Deserialize<List<Bug>>(bugData);
-            foreach (var bug in bugs)
-            {
-                context.Bugs.Add(bug);
             }
 
             await context.SaveChangesAsync();

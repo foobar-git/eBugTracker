@@ -1,3 +1,4 @@
+using API.DTOs;
 using API.Entities;
 
 namespace API.Interfaces
@@ -12,6 +13,12 @@ namespace API.Interfaces
 
         Task<Project> GetProjectByIdAsync(int id);
         
-        Task<Project> GetProjectByProjectnameAsync(string projectname);
+        Task<Project> GetProjectAsync(string projectname);
+
+        Task<IEnumerable<ProjectDto>> GetProjectsDtoAsync();
+
+        Task<ProjectDto> GetProjectDtoByIdAsync(int id);
+
+        Task<ProjectDto> GetProjectDtoAsync(string projectname);
     }
 }
