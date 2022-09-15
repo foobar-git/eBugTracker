@@ -3,27 +3,28 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: 'app-user-profile-username',
+  templateUrl: './user-profile-username.component.html',
+  styleUrls: ['./user-profile-username.component.css']
 })
-export class UserProfileComponent implements OnInit {
+
+export class UserProfileUsernameComponent implements OnInit {
   user: any;
-  id: number;
+  username: string;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       //this.id = +params.get('id');
-      this.id = parseInt(params.get('id'));
-      console.log(this.id);
+      this.username = params.get('username');
+      console.log(this.username);
     });
-    this.getUserId(this.id);
+    this.getUser(this.username);
   }
 
-  getUserId(id: number) {
-    this.http.get('https://localhost:5001/api/users/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+  getUser(username: string) {
+    this.http.get('https://localhost:5001/api/users/' + username).subscribe({ // observables do nothing until subscribed
       next: response => this.user = response,
       error: error => console.log(error)//,
       //complete: () => void

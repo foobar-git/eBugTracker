@@ -7,7 +7,7 @@ using AutoMapper;
 
 namespace API.Data
 {
-    public class UserRepository : IUserRepository
+    public class ProjectRepository : IProjectRepository
     {
         private readonly DataContext _context;
 
@@ -17,41 +17,41 @@ namespace API.Data
         }*/
         private readonly IMapper _mapper;
         
-        public UserRepository(DataContext context, IMapper mapper)
+        public ProjectRepository(DataContext context, IMapper mapper)
         {
             _mapper = mapper;
             _context = context;
         }
 
-        public async Task<AppUser> GetUserByIdAsync(int id)
+        public async Task<Project> GetProjectByIdAsync(int id)
         {
-            return await _context.AppUsers.FindAsync(id);
+            return await _context.Projects.FindAsync(id);
         }
 
-        public async Task<UsersDto> GetUserDtoByIdAsync(int id)
+        public async Task<ProjectDto> GetProjectDtoByIdAsync(int id)
         {
-            return await _context.AppUsers
-                .ProjectTo<UsersDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync(i => i.Id == id);
+            return await _context.Projects
+                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<AppUser> GetUserAsync(string username)
+        public async Task<Project> GetProjectAsync(string projectname)
         {
-            return await _context.AppUsers.Include(image => image.UserImage).SingleOrDefaultAsync(user => user.Username == username);
+            return await _context.Projects.Include(bug => bug.BugsAssigned).SingleOrDefaultAsync(project => project.Name == projectname);
         }
 
-        public async Task<IEnumerable<AppUser>> GetUsersAsync()
+        public async Task<IEnumerable<Project>> GetProjectsAsync()
         {
-            return await _context.AppUsers.Include(image => image.UserImage).ToListAsync();
+            return await _context.Projects.Include(bug => bug.BugsAssigned).ToListAsync();
         }
 
-        public async Task<IEnumerable<UsersDto>> GetUsersDtoAsync()
+        public async Task<IEnumerable<ProjectDto>> GetProjectsDtoAsync()
         {
-            return await _context.AppUsers
-                .ProjectTo<UsersDto>(_mapper.ConfigurationProvider)
+            return await _context.Projects
+                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<UsersDto> GetUserDtoAsync(string username)
+        public async Task<ProjectDto> GetProjectDtoAsync(string projectname)
         {
             /*return await _context.Users               // v11
                 .Where(u => u.UserName == username)
@@ -64,9 +64,9 @@ namespace API.Data
                     //. . .
                 }).SingleOrDefaultAsync();*/
             
-            return await _context.AppUsers
-                .Where(u => u.Username == username)
-                .ProjectTo<UsersDto>(_mapper.ConfigurationProvider)
+            return await _context.Projects
+                .Where(p => p.Name == projectname)
+                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }
 
@@ -77,10 +77,10 @@ namespace API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public void Update(AppUser user)
+        public void Update(Project project)
         {
-            // mark 'user' as 'modified'
-            _context.Entry(user).State = EntityState.Modified;
+            // mark 'project' as 'modified'
+            _context.Entry(project).State = EntityState.Modified;
         }
     }
 }

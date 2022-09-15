@@ -5,7 +5,7 @@ namespace API.Entities
     public class UsersAssigned
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
+        public string Username { get; set; }
         public int UserId { get; set; }
 
         //_EF_Migrations__________________________

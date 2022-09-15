@@ -6,7 +6,6 @@ using API.DTOs;
 using API.Entities;
 using API.HelperFunctions;
 using API.Interfaces;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,54 +15,42 @@ namespace API.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    [Authorize]
+    [AllowAnonymous]
     public class ProjectController : BaseApiController
     {
-        private readonly DataContext _context;        // v8
-        public ProjectController(DataContext context)
+        private readonly DataContext _context;
+        private readonly IProjectRepository _projectRepository;
+
+        public ProjectController(IProjectRepository projectRepository, DataContext context)
         {
+            _projectRepository = projectRepository;
             _context = context;
         }
+        
+        // API:     /api/project
+        [HttpGet]   // asynchronous
+        public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProjects()
+        {
+            IEnumerable<ProjectDto> projectsToReturn = await _projectRepository.GetProjectsDtoAsync();
 
-        // private readonly IProjectRepository _projectRepository;         // v9
-        // private readonly DataContext _context;
-        // public ProjectController(IProjectRepository projectRepository, DataContext context)    // v9
+            return Ok(projectsToReturn);
+        }
+        
+        // API:     /api/projects/id/<int>
+        [HttpGet("id/{id}")]
+        // public async Task<ActionResult<Project>> GetProject(int id)  // v8
         // {
-        //     _projectRepository = projectRepository;
-        //     _context = context;
+        //     return await _context.Projects.FindAsync(id);
         // }
-
-        /*
-        [HttpGet]   // synchronous
-        public ActionResult<IEnumerable<AppUser>> GetUsers()
+        public async Task<ActionResult<ProjectDto>> GetProject(int id)  // v8
         {
-            return _context.Users.ToList();
-        }*/
-        
-        // API:     /api/...
-        //[AllowAnonymous]              // v7
-        /*[HttpGet("test")]   // asynchronous
-        //public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()  // v9
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
-        {
-            return Ok(await _projectRepository.GetProjectsAsync());   // v9
-        }*/
-        
-        // API:     /api/projects/<int>
-        //[Authorize]                   // v7
-        [HttpGet("id/{id}")]             // v8
-        public async Task<ActionResult<Project>> GetProjects(int id)  // v8
-        {
-            //return await _context.Projects.FindAsync(id);
-            return await _context.Projects.FindAsync(id);
+            return await _projectRepository.GetProjectDtoByIdAsync(id);
         }
 
-        /*[HttpGet("{projectname}")]//
-        //public async Task<ActionResult<AppUser>> GetUser(string username) // v9
-        public async Task<ActionResult<Project>> GetProjects(string projectname)
+        [HttpGet("{projectname}")]
+        public async Task<ActionResult<ProjectDto>> GetProject(string projectname)
         {
-            return await _projectRepository.GetProjectByProjectnameAsync(FormatName.Format(projectname)); // v9
-            //AppUser user = await _userRepository.GetUserByUsernameAsync(FormatUsername.Format(username)); //v11
-        }*/
+            return await _projectRepository.GetProjectDtoAsync(FormatName.Format(projectname));
+        }
     }
 }

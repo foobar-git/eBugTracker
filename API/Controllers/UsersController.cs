@@ -16,7 +16,6 @@ namespace API.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    //[Authorize]       EDIT uncomment
     public class UsersController : BaseApiController
     {
         /*private readonly DataContext _context;        // v8
@@ -35,7 +34,7 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly DataContext _context;
         
-        public UsersController(DataContext context,IUserRepository userRepository, IMapper mapper)
+        public UsersController(DataContext context, IUserRepository userRepository, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -69,9 +68,13 @@ namespace API.Controllers
         // API:     /api/users/id/<int>
         //[Authorize]                   // v7
         [HttpGet("id/{id}")]             // v8
-        public async Task<ActionResult<AppUser>> GetUser(int id)  // v8
+        // public async Task<ActionResult<AppUser>> GetUser(int id)  // v8
+        // {
+        //     return await _context.AppUsers.FindAsync(id);
+        // }
+        public async Task<ActionResult<UsersDto>> GetUser(int id)  // v8
         {
-            return await _context.AppUsers.FindAsync(id);
+            return await _userRepository.GetUserDtoByIdAsync(id);
         }
 
         [HttpGet("{username}")]
