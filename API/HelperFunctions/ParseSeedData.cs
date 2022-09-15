@@ -52,23 +52,5 @@ namespace API.Data
 
             await context.SaveChangesAsync();
         }
-
-        public static async Task SeedBugs(DataContext context)
-        {
-            string bugData;
-            List<Bug> bugs;
-
-
-            if (await context.Bugs.AnyAsync()) return;
-
-            bugData = await System.IO.File.ReadAllTextAsync("Data/BugSeedData.json");
-            bugs = JsonSerializer.Deserialize<List<Bug>>(bugData);
-            foreach (var bug in bugs)
-            {
-                context.Bugs.Add(bug);
-            }
-
-            await context.SaveChangesAsync();
-        }
     }
 }

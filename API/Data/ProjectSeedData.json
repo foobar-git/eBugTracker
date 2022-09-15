@@ -5,31 +5,39 @@
         "DateCreated": "2022-07-09",
         "IsComplete": false,
         "IsOnHold": false,
+        "Description": "Test Project 1 - Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n",
         "UsersAssigned": [
             {
-                "UserName": "Emil",
+                "Username": "Emil",
                 "UserId": 1
             },
             {
-                "UserName": "Nedim",
+                "Username": "Nedim",
                 "UserId": 2
             },
             {
-                "UserName": "Ensar",
+                "Username": "Ensar",
                 "UserId": 3
             }
         ],
         "BugsAssigned": [
             {
                 "Name": "Bug_DisplayError",
-                "BugsId": 1
+                "FiledByUser": "Emil",
+                "DateCreated": "2022-08-09",
+                "IsResolved": false,
+                "IsActive": true,
+                "Description": "Display error number XYZ failed to show...\r\n"
             },
             {
                 "Name": "Bug_Runtime",
-                "BugsId": 2
+                "FiledByUser": "Nedim",
+                "DateCreated": "2022-09-09",
+                "IsResolved": false,
+                "IsActive": true,
+                "Description": "Failed to initialize this and that...\r\n"
             }
-        ],
-        "Description": "Test Project 1 - Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n"
+        ]        
     },
     {
         "Name": "Project2",
@@ -37,18 +45,22 @@
         "DateCreated": "2022-07-09",
         "IsComplete": false,
         "IsOnHold": false,
+        "Description": "Test Project 2 - Non dolor non et cillum exercitation id dolor do nostrud dolor deserunt laboris. In consequat enim fugiat minim proident. Irure quis occaecat fugiat mollit Lorem mollit dolor esse elit velit. Officia est laboris proident laborum dolore et sint ex occaecat voluptate Lorem tempor amet voluptate.\r\n",
         "UsersAssigned": [
             {
-                "UserName": "Nedim",
+                "Username": "Nedim",
                 "UserId": 2
             }
         ],
         "BugsAssigned": [
             {
                 "Name": "Bug_NetworkError",
-                "BugsId": 3
+                "FiledByUser": "Ensar",
+                "DateCreated": "2022-08-09",
+                "IsResolved": false,
+                "IsActive": true,
+                "Description": "Classic networking error number XYZ...\r\n"
             }
-        ],
-        "Description": "Test Project 2 - Non dolor non et cillum exercitation id dolor do nostrud dolor deserunt laboris. In consequat enim fugiat minim proident. Irure quis occaecat fugiat mollit Lorem mollit dolor esse elit velit. Officia est laboris proident laborum dolore et sint ex occaecat voluptate Lorem tempor amet voluptate.\r\n"
+        ]
     }
 ]

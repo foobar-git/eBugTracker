@@ -17,6 +17,8 @@ namespace API.Interfaces
 
         Task<IEnumerable<ProjectDto>> GetProjectDtoAsync();
 
+        Task<ProjectDto> GetProjectDtoByIdAsync(int id);
+
         //Task<ProjectDto> GetProjectDtoAsync(string projectname);
     }
 }

@@ -28,6 +28,12 @@ namespace API.Data
             return await _context.Projects.FindAsync(id);
         }
 
+        public async Task<ProjectDto> GetProjectDtoByIdAsync(int id)
+        {
+            return await _context.Projects
+                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync(i => i.Id == id);
+        }
+
         /*public async Task<Project> GetProjectByProjectnameAsync(string projectname)
         {
             return await _context.Projects.Include(bug => bug.BugsAssigned).SingleOrDefaultAsync(project => project.Name == projectname);
@@ -35,6 +41,7 @@ namespace API.Data
 
         public async Task<IEnumerable<Project>> GetProjectAsync()
         {
+            //return await _context.Projects.Include(bug => bug.BugsAssigned).ToListAsync();
             return await _context.Projects.Include(bug => bug.BugsAssigned).ToListAsync();
         }
 

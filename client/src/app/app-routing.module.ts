@@ -40,9 +40,9 @@ const routes: Routes = [
       { path: 'users/:username', component: UserProfileUsernameComponent },  // route '...:4200/users/"username"'
       { path: 'users/id/:id', component: UserProfileComponent },  // route '...:4200/users/"id"'
       { path: 'project', component: ProjectListComponent },  // route '...:4200/projects/'
-      { path: 'project/:id', component: ProjectInfoComponent },  // route '...:4200/projects/"id"/'
+      { path: 'project/id/:id', component: ProjectInfoComponent },  // route '...:4200/projects/"id"/'
       { path: 'bugs', component: BugListComponent },  // route '...:4200/bugs/'
-      { path: 'bugs/:id', component: BugInfoComponent },  // route '...:4200/bugs/"id"/'
+      { path: 'bugs/id/:id', component: BugInfoComponent },  // route '...:4200/bugs/"id"/'
       { path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'
     ]
   },

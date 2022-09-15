@@ -53,9 +53,13 @@ namespace API.Controllers
         
         // API:     /api/projects/id/<int>
         [HttpGet("id/{id}")]
-        public async Task<ActionResult<Project>> GetProject(int id)  // v8
+        // public async Task<ActionResult<Project>> GetProject(int id)  // v8
+        // {
+        //     return await _context.Projects.FindAsync(id);
+        // }
+        public async Task<ActionResult<ProjectDto>> GetProject(int id)  // v8
         {
-            return await _context.Projects.FindAsync(id);
+            return await _projectRepository.GetProjectDtoByIdAsync(id);
         }
 
         // [HttpGet("{projectname}")]

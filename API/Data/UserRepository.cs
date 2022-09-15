@@ -28,6 +28,12 @@ namespace API.Data
             return await _context.AppUsers.FindAsync(id);
         }
 
+        public async Task<UsersDto> GetUserDtoByIdAsync(int id)
+        {
+            return await _context.AppUsers
+                .ProjectTo<UsersDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync(i => i.Id == id);
+        }
+
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
             return await _context.AppUsers.Include(image => image.UserImage).SingleOrDefaultAsync(user => user.Username == username);

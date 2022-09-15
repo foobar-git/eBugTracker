@@ -23,8 +23,12 @@ namespace API.HelperFunctions
             CreateMap<UserImage, UserImageDto>();
 
             CreateMap<Project, ProjectDto>()
-                .ForMember( destination => destination.BugsAssigned, option => option.MapFrom (
-                    source => source.BugsAssigned.FirstOrDefault().Bug) );
+                .ForMember( destination => destination.Users_, option => option.MapFrom (
+                    source => source.UsersAssigned.FirstOrDefault().Username) )
+                // .ForMember( destination => destination.BugsAssigned_, option => option.MapFrom (
+                //     source => source.BugsAssigned.FirstOrDefault().Name) );
+                    .ForMember( destination => destination.Bugs_, option => option.MapFrom (
+                        source => source.BugsAssigned.FirstOrDefault().Name) );
             
             CreateMap<BugImage, ImageDto>();
         }
