@@ -4,6 +4,7 @@ namespace API.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string FiledByUser { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateResolved { get; set; }
         public string Description { get; set; }

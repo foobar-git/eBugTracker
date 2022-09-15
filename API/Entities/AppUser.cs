@@ -5,7 +5,7 @@ namespace API.Entities
     public class AppUser
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
+        public string Username { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         //====================================================================
@@ -21,7 +21,6 @@ namespace API.Entities
         public Message Message { get; set; }
         public Comment Comment { get; set; }
         public ICollection<UserImage> UserImage { get; set; }    // one user - one (profile) image
-        public Project Project { get; set; }
         //________________________________________
 
         // public int GetCreated()

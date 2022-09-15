@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: 'app-project-info',
+  templateUrl: './project-info.component.html',
+  styleUrls: ['./project-info.component.css']
 })
-export class UserProfileComponent implements OnInit {
-  user: any;
+export class ProjectInfoComponent implements OnInit {
+  project: any;
   id: number;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
@@ -19,14 +20,15 @@ export class UserProfileComponent implements OnInit {
       this.id = parseInt(params.get('id'));
       console.log(this.id);
     });
-    this.getUserId(this.id);
+    this.getProjectId(this.id);
   }
 
-  getUserId(id: number) {
-    this.http.get('https://localhost:5001/api/users/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
-      next: response => this.user = response,
+  getProjectId(id: number) {
+    this.http.get('https://localhost:5001/api/project/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+      next: response => this.project = response,
       error: error => console.log(error)//,
       //complete: () => void
     })
   }
+
 }

@@ -31,7 +31,9 @@ namespace API
             {
                 context = services.GetRequiredService<DataContext>();
                 await context.Database.MigrateAsync();
-                await SeedData.SeedUsers(context);
+                
+                await ParseSeedData.SeedUsers(context);
+                await ParseSeedData.SeedProjects(context);
             }
             catch (Exception ex) {
                 logger = services.GetRequiredService<ILogger<Program>>();

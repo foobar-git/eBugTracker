@@ -15,7 +15,7 @@ namespace API.DTOs
         //public string Username { get; set; }
         public string Username {
             get {
-                return FormatUsername.Format(username);
+                return FormatName.Format(username);
             }
             set {
                 username = value;

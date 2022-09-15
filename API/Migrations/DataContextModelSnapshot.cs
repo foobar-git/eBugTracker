@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API.Data.Migrations
+namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -47,15 +47,15 @@ namespace API.Data.Migrations
                     b.Property<string>("Team")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("UserType")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserType")
+                    b.Property<string>("Username")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("AppUsers");
                 });
 
             modelBuilder.Entity("API.Entities.Bug", b =>
@@ -73,6 +73,9 @@ namespace API.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("FiledByUser")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
 
@@ -87,8 +90,7 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId")
-                        .IsUnique();
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("Bugs");
                 });
@@ -182,9 +184,6 @@ namespace API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("CreatedByUser")
                         .HasColumnType("TEXT");
 
@@ -207,9 +206,6 @@ namespace API.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId")
-                        .IsUnique();
 
                     b.ToTable("Projects");
                 });
@@ -245,7 +241,10 @@ namespace API.Data.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UserName")
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Username")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -258,8 +257,8 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.Bug", b =>
                 {
                     b.HasOne("API.Entities.Project", "Project")
-                        .WithOne("Bug")
-                        .HasForeignKey("API.Entities.Bug", "ProjectId")
+                        .WithMany("BugsAssigned")
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -307,17 +306,6 @@ namespace API.Data.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("API.Entities.Project", b =>
-                {
-                    b.HasOne("API.Entities.AppUser", "AppUser")
-                        .WithOne("Project")
-                        .HasForeignKey("API.Entities.Project", "AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("API.Entities.UserImage", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "AppUser")
@@ -346,8 +334,6 @@ namespace API.Data.Migrations
 
                     b.Navigation("Message");
 
-                    b.Navigation("Project");
-
                     b.Navigation("UserImage");
                 });
 
@@ -360,7 +346,7 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Project", b =>
                 {
-                    b.Navigation("Bug");
+                    b.Navigation("BugsAssigned");
 
                     b.Navigation("UsersAssigned");
                 });
