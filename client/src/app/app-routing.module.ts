@@ -6,6 +6,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { HomeComponent } from './home/home.component';
+import { ProjectInfoNameComponent } from './projects/project-info-name/project-info-name.component';
 import { ProjectInfoComponent } from './projects/project-info/project-info.component';
 import { ProjectListComponent } from './projects/project-list/project-list.component';
 import { StatsComponent } from './stats/stats.component';
@@ -36,11 +37,15 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'stats', component: StatsComponent },  // route '...:4200/stats/'
+
       { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },  // route '...:4200/users/'
       { path: 'users/:username', component: UserProfileUsernameComponent },  // route '...:4200/users/"username"'
       { path: 'users/id/:id', component: UserProfileComponent },  // route '...:4200/users/"id"'
+
       { path: 'project', component: ProjectListComponent },  // route '...:4200/projects/'
+      { path: 'project/:name', component: ProjectInfoNameComponent },  // route '...:4200/projects/"projectname"'
       { path: 'project/id/:id', component: ProjectInfoComponent },  // route '...:4200/projects/"id"/'
+
       { path: 'bugs', component: BugListComponent },  // route '...:4200/bugs/'
       { path: 'bugs/id/:id', component: BugInfoComponent },  // route '...:4200/bugs/"id"/'
       { path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'

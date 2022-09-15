@@ -34,42 +34,41 @@ namespace API.Data
                 .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync(i => i.Id == id);
         }
 
-        /*public async Task<Project> GetProjectByProjectnameAsync(string projectname)
+        public async Task<Project> GetProjectAsync(string projectname)
         {
             return await _context.Projects.Include(bug => bug.BugsAssigned).SingleOrDefaultAsync(project => project.Name == projectname);
-        }*/
+        }
 
-        public async Task<IEnumerable<Project>> GetProjectAsync()
+        public async Task<IEnumerable<Project>> GetProjectsAsync()
         {
-            //return await _context.Projects.Include(bug => bug.BugsAssigned).ToListAsync();
             return await _context.Projects.Include(bug => bug.BugsAssigned).ToListAsync();
         }
 
-        public async Task<IEnumerable<ProjectDto>> GetProjectDtoAsync()
+        public async Task<IEnumerable<ProjectDto>> GetProjectsDtoAsync()
         {
             return await _context.Projects
                 .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        // public async Task<ProjectDto> GetProjectDtoAsync(string projectname)
-        // {
-        //     /*return await _context.Users               // v11
-        //         .Where(u => u.UserName == username)
-        //         .Select(user => new UsersDto
-        //         {
-        //             // manualy mapping the porperties that we need form the database
-        //             //Id = user.Id,
-        //             //Username = user.UserName,
-        //             //...
-        //             //. . .
-        //         }).SingleOrDefaultAsync();*/
+        public async Task<ProjectDto> GetProjectDtoAsync(string projectname)
+        {
+            /*return await _context.Users               // v11
+                .Where(u => u.UserName == username)
+                .Select(user => new UsersDto
+                {
+                    // manualy mapping the porperties that we need form the database
+                    //Id = user.Id,
+                    //Username = user.UserName,
+                    //...
+                    //. . .
+                }).SingleOrDefaultAsync();*/
             
-        //     return await _context.AppUsers
-        //         .Where(p => p.Name == projectname)
-        //         .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
-        //         .SingleOrDefaultAsync();
-        // }
+            return await _context.Projects
+                .Where(p => p.Name == projectname)
+                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync();
+        }
 
         public async Task<bool> SaveAllAsync()
         {

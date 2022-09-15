@@ -23,6 +23,7 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { UserProfileUsernameComponent } from './users/user-profile-username/user-profile-username.component';
 import { ProjectListComponent } from './projects/project-list/project-list.component';
 import { ProjectInfoComponent } from './projects/project-info/project-info.component';
+import { ProjectInfoNameComponent } from './projects/project-info-name/project-info-name.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ProjectInfoComponent } from './projects/project-info/project-info.compo
     ServerErrorComponent,
     UserProfileUsernameComponent,
     ProjectListComponent,
-    ProjectInfoComponent
+    ProjectInfoComponent,
+    ProjectInfoNameComponent
   ],
   imports: [
     BrowserModule,

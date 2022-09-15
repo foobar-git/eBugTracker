@@ -9,16 +9,16 @@ namespace API.Interfaces
 
         Task<bool> SaveAllAsync();
         
-        Task<IEnumerable<Project>> GetProjectAsync();
+        Task<IEnumerable<Project>> GetProjectsAsync();
 
         Task<Project> GetProjectByIdAsync(int id);
         
-        //Task<Project> GetProjectByProjectnameAsync(string projectname);
+        Task<Project> GetProjectAsync(string projectname);
 
-        Task<IEnumerable<ProjectDto>> GetProjectDtoAsync();
+        Task<IEnumerable<ProjectDto>> GetProjectsDtoAsync();
 
         Task<ProjectDto> GetProjectDtoByIdAsync(int id);
 
-        //Task<ProjectDto> GetProjectDtoAsync(string projectname);
+        Task<ProjectDto> GetProjectDtoAsync(string projectname);
     }
 }

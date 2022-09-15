@@ -34,7 +34,7 @@ namespace API.Data
                 .ProjectTo<UsersDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<AppUser> GetUserByUsernameAsync(string username)
+        public async Task<AppUser> GetUserAsync(string username)
         {
             return await _context.AppUsers.Include(image => image.UserImage).SingleOrDefaultAsync(user => user.Username == username);
         }

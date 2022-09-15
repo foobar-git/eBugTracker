@@ -26,30 +26,15 @@ namespace API.Controllers
             _projectRepository = projectRepository;
             _context = context;
         }
-
-        /*
-        [HttpGet]   // synchronous
-        public ActionResult<IEnumerable<AppUser>> GetUsers()
-        {
-            return _context.Users.ToList();
-        }*/
         
-        // API:     /api/projects/test/
+        // API:     /api/project
         [HttpGet]   // asynchronous
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+        public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProjects()
         {
-            IEnumerable<Project> projectsToReturn = await _projectRepository.GetProjectAsync();
+            IEnumerable<ProjectDto> projectsToReturn = await _projectRepository.GetProjectsDtoAsync();
 
             return Ok(projectsToReturn);
         }
-
-        // API:     /api/projects/
-        // [HttpGet]   // asynchronous
-        // //public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
-        // public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
-        // {
-        //     return await _context.Projects.ToListAsync();
-        // }
         
         // API:     /api/projects/id/<int>
         [HttpGet("id/{id}")]
@@ -62,12 +47,10 @@ namespace API.Controllers
             return await _projectRepository.GetProjectDtoByIdAsync(id);
         }
 
-        // [HttpGet("{projectname}")]
-        // public async Task<ActionResult<AppUser>> GetUser(string username) // v9
-        // public async Task<ActionResult<Project>> GetProject(string projectname)
-        // {
-        //     return await _projectRepository.GetProjectByProjectnameAsync(FormatName.Format(projectname)); // v9
-        //     //AppUser user = await _userRepository.GetUserByUsernameAsync(FormatUsername.Format(username)); //v11
-        // }
+        [HttpGet("{projectname}")]
+        public async Task<ActionResult<ProjectDto>> GetProject(string projectname)
+        {
+            return await _projectRepository.GetProjectDtoAsync(FormatName.Format(projectname));
+        }
     }
 }
