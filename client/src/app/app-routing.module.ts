@@ -39,16 +39,16 @@ const routes: Routes = [
       { path: 'stats', component: StatsComponent },  // route '...:4200/stats/'
 
       { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },  // route '...:4200/users/'
-      { path: 'user/:username', component: UserProfileUsernameComponent },  // route '...:4200/users/"username"'
-      { path: 'user/id/:id', component: UserProfileComponent },  // route '...:4200/users/"id"'
+      { path: 'user/:username', component: UserProfileUsernameComponent },  // route '...:4200/user/"username"'
+      { path: 'user/id/:id', component: UserProfileComponent },  // route '...:4200/user/"id"'
 
       { path: 'projects', component: ProjectListComponent },  // route '...:4200/projects/'
-      { path: 'project/:name', component: ProjectInfoNameComponent },  // route '...:4200/projects/"projectname"'
-      { path: 'project/id/:id', component: ProjectInfoComponent },  // route '...:4200/projects/"id"/'
+      { path: 'project/:name', component: ProjectInfoNameComponent },  // route '...:4200/project/"projectname"'
+      { path: 'project/id/:id', component: ProjectInfoComponent },  // route '...:4200/project/"id"/'
 
       { path: 'bugs', component: BugListComponent },  // route '...:4200/bugs/'
-      //{ path: 'bug/:name', component: BugListComponent },  // route '...:4200/bugs/"bugname"'
-      { path: 'bug/id/:id', component: BugInfoComponent },  // route '...:4200/bugs/"id"/'
+      //{ path: 'bug/:name', component: BugInfoNameComponent },  // route '...:4200/bug/"bugname"'
+      { path: 'bug/id/:id', component: BugInfoComponent },  // route '...:4200/bug/"id"/'
 
       { path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'
     ]

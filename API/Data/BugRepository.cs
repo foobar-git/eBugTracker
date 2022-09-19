@@ -7,51 +7,51 @@ using AutoMapper;
 
 namespace API.Data
 {
-    public class ProjectRepository : IProjectRepository
+    public class BugRepository : IBugRepository
     {
         private readonly DataContext _context;
 
-        /*public ProjectRepository(DataContext context)    // v11
+        /*public BugRepository(DataContext context)    // v11
         {
             _context = context;
         }*/
         private readonly IMapper _mapper;
         
-        public ProjectRepository(DataContext context, IMapper mapper)
+        public BugRepository(DataContext context, IMapper mapper)
         {
             _mapper = mapper;
             _context = context;
         }
 
-        public async Task<Project> GetProjectByIdAsync(int id)
+        public async Task<Bug> GetBugByIdAsync(int id)
         {
-            return await _context.Projects.FindAsync(id);
+            return await _context.Bugs.FindAsync(id);
         }
 
-        public async Task<ProjectDto> GetProjectDtoByIdAsync(int id)
+        public async Task<BugDto> GetBugDtoByIdAsync(int id)
         {
             return await _context.Projects
-                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync(i => i.Id == id);
+                .ProjectTo<BugDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<Project> GetProjectAsync(string projectname)
+        public async Task<Bug> GetBugAsync(string bugname)
         {
-            return await _context.Projects.Include(bug => bug.BugsAssigned).SingleOrDefaultAsync(project => project.Name == projectname);
+            return await _context.Bugs.Include(image => image.Images).SingleOrDefaultAsync(bug => bug.Name == bugname);
         }
 
-        public async Task<IEnumerable<Project>> GetProjectsAsync()
+        public async Task<IEnumerable<Bug>> GetBugsAsync()
         {
-            return await _context.Projects.Include(bug => bug.BugsAssigned).ToListAsync();
+            return await _context.Bugs.Include(image => image.Images).ToListAsync();
         }
 
-        public async Task<IEnumerable<ProjectDto>> GetProjectsDtoAsync()
+        public async Task<IEnumerable<BugDto>> GetBugsDtoAsync()
         {
-            return await _context.Projects
-                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
+            return await _context.Bugs
+                .ProjectTo<BugDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<ProjectDto> GetProjectDtoAsync(string projectname)
+        public async Task<BugDto> GetBugDtoAsync(string bugname)
         {
             /*return await _context.Users               // v11
                 .Where(u => u.UserName == username)
@@ -64,9 +64,9 @@ namespace API.Data
                     //. . .
                 }).SingleOrDefaultAsync();*/
             
-            return await _context.Projects
-                .Where(p => p.Name == projectname)
-                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
+            return await _context.Bugs
+                .Where(b => b.Name == bugname)
+                .ProjectTo<BugDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }
 
@@ -77,10 +77,10 @@ namespace API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public void Update(Project project)
+        public void Update(Bug bug)
         {
-            // mark 'project' as 'modified'
-            _context.Entry(project).State = EntityState.Modified;
+            // mark 'bug' as 'modified'
+            _context.Entry(bug).State = EntityState.Modified;
         }
     }
 }

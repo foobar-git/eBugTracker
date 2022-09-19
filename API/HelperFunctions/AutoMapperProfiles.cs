@@ -28,9 +28,13 @@ namespace API.HelperFunctions
                 // .ForMember( destination => destination.BugsAssigned_, option => option.MapFrom (
                 //     source => source.BugsAssigned.FirstOrDefault().Name) );
                     .ForMember( destination => destination.Bugs_, option => option.MapFrom (
-                        source => source.BugsAssigned.FirstOrDefault().Name) );
+                    source => source.BugsAssigned.FirstOrDefault().Name) );
             
+            CreateMap<Bug, BugDto>()
+                .ForMember( destination => destination.ImageLocation, option => option.MapFrom (
+                    source => source.Images.FirstOrDefault().Url) );
+
             CreateMap<BugImage, ImageDto>();
         }
     }
-}
+}//

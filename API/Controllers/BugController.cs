@@ -36,13 +36,13 @@ namespace API.Controllers
             return Ok(bugsToReturn);
         }
         
-        // API:     /api/bugs/id/<int>
+        // API:     /api/bug/id/<int>
         [HttpGet("id/{id}")]
         // public async Task<ActionResult<Bug>> GetBug(int id)  // v8
         // {
         //     return await _context.Bugs.FindAsync(id);
         // }
-        public async Task<ActionResult<BugDto>> GetBug(int id)  // v8
+        public async Task<ActionResult<BugDto>> GetBug(int id)
         {
             return await _bugRepository.GetBugDtoByIdAsync(id);
         }
