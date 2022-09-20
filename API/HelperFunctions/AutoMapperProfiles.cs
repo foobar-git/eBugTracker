@@ -32,9 +32,9 @@ namespace API.HelperFunctions
             
             CreateMap<Bug, BugDto>()
                 .ForMember( destination => destination.ImageLocation, option => option.MapFrom (
-                    source => source.Images.FirstOrDefault().Url) );
+                    source => source.Images.FirstOrDefault().Location) );
 
             CreateMap<BugImage, ImageDto>();
         }
     }
-}//
+}

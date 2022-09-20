@@ -30,7 +30,7 @@ namespace API.Data
 
         public async Task<BugDto> GetBugDtoByIdAsync(int id)
         {
-            return await _context.Projects
+            return await _context.Bugs
                 .ProjectTo<BugDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync(i => i.Id == id);
         }
 

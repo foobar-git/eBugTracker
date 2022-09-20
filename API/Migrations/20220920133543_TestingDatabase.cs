@@ -176,7 +176,7 @@ namespace API.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Url = table.Column<string>(type: "TEXT", nullable: true),
+                    Location = table.Column<string>(type: "TEXT", nullable: true),
                     PublicId = table.Column<string>(type: "TEXT", nullable: true),
                     BugId = table.Column<int>(type: "INTEGER", nullable: false)
                 },

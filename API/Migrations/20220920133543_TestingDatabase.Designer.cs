@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220916140343_TestingDatabase")]
+    [Migration("20220920133543_TestingDatabase")]
     partial class TestingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,10 +106,10 @@ namespace API.Migrations
                     b.Property<int>("BugId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("PublicId")
+                    b.Property<string>("Location")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Url")
+                    b.Property<string>("PublicId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -258,24 +258,20 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Bug", b =>
                 {
-                    b.HasOne("API.Entities.Project", "Project")
+                    b.HasOne("API.Entities.Project", null)
                         .WithMany("BugsAssigned")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("API.Entities.BugImage", b =>
                 {
-                    b.HasOne("API.Entities.Bug", "Bug")
+                    b.HasOne("API.Entities.Bug", null)
                         .WithMany("Images")
                         .HasForeignKey("BugId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Bug");
                 });
 
             modelBuilder.Entity("API.Entities.Comment", b =>

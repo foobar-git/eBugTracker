@@ -27,7 +27,7 @@ namespace API.Controllers
             _context = context;
         }
         
-        // API:     /api/project
+        // API:     /api/bug
         [HttpGet]   // asynchronous
         public async Task<ActionResult<IEnumerable<BugDto>>> GetBugs()
         {

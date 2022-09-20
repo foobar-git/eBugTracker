@@ -18,7 +18,7 @@ namespace API.DTOs
         //_EF_Migrations__________________________
         public ICollection<BugImage> Images { get; set; }  // EF: one Bug (entry with many images)
         public Comment Comment { get; set; }            // EF: one bug - many comments
-        public Project Project { get; set; }
+        //public Project Project { get; set; }
         public int ProjectId { get; set; }
         //________________________________________
     }
