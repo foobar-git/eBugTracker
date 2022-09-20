@@ -64,6 +64,9 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("CommentId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
@@ -89,6 +92,8 @@ namespace API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
 
                     b.HasIndex("ProjectId");
 
@@ -126,56 +131,24 @@ namespace API.Migrations
                     b.Property<int>("AppUserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BugId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Content")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PostedByUser")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ReplyToCommentId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId")
-                        .IsUnique();
-
-                    b.HasIndex("BugId")
                         .IsUnique();
 
                     b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("API.Entities.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FromUser")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ToUser")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId")
-                        .IsUnique();
-
-                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("API.Entities.Project", b =>
@@ -256,11 +229,17 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Bug", b =>
                 {
+                    b.HasOne("API.Entities.Comment", "Comment")
+                        .WithMany()
+                        .HasForeignKey("CommentId");
+
                     b.HasOne("API.Entities.Project", null)
                         .WithMany("BugsAssigned")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Comment");
                 });
 
             modelBuilder.Entity("API.Entities.BugImage", b =>
@@ -274,32 +253,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Comment", b =>
                 {
-                    b.HasOne("API.Entities.AppUser", "AppUser")
+                    b.HasOne("API.Entities.AppUser", null)
                         .WithOne("Comment")
                         .HasForeignKey("API.Entities.Comment", "AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("API.Entities.Bug", "Bug")
-                        .WithOne("Comment")
-                        .HasForeignKey("API.Entities.Comment", "BugId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Bug");
-                });
-
-            modelBuilder.Entity("API.Entities.Message", b =>
-                {
-                    b.HasOne("API.Entities.AppUser", "AppUser")
-                        .WithOne("Message")
-                        .HasForeignKey("API.Entities.Message", "AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("API.Entities.UserImage", b =>
@@ -328,15 +286,11 @@ namespace API.Migrations
                 {
                     b.Navigation("Comment");
 
-                    b.Navigation("Message");
-
                     b.Navigation("UserImage");
                 });
 
             modelBuilder.Entity("API.Entities.Bug", b =>
                 {
-                    b.Navigation("Comment");
-
                     b.Navigation("Images");
                 });
 
