@@ -13,7 +13,8 @@ namespace API.Entities
 
         //_EF_Migrations__________________________
         public ICollection<BugImage> Images { get; set; }  // EF: one Bug (entry with many images)
-        //public Comment Comment { get; set; }            // EF: one bug - many comments
+        public ICollection<Comment> Comments { get; set; }
+        //public Comment Comment { get; set; }
         public int CommentId { get; set; }
         //public Project Project { get; set; }
         public int ProjectId { get; set; }

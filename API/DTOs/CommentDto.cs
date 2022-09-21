@@ -1,6 +1,6 @@
 namespace API.Entities
 {
-    public class Comment
+    public class CommentDto
     {
         public int Id { get; set; }
         public DateTime DateCreated { get; set; }
@@ -16,3 +16,4 @@ namespace API.Entities
         //________________________________________
     }
 }
+//

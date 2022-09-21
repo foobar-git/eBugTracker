@@ -35,6 +35,8 @@ namespace API.HelperFunctions
                     source => source.Images.FirstOrDefault().Location) );
 
             CreateMap<BugImage, ImageDto>();
+
+            CreateMap<Comment, CommentDto>();
         }
     }
 }
