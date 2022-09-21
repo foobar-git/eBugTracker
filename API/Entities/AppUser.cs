@@ -18,7 +18,7 @@ namespace API.Entities
         public string Description { get; set; }
         
         //_EF_Migrations__________________________
-        public Message Message { get; set; }
+        //public Message Message { get; set; }
         public Comment Comment { get; set; }
         public ICollection<UserImage> UserImage { get; set; }    // one user - one (profile) image
         //________________________________________

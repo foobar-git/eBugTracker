@@ -10,7 +10,7 @@ import { ProjectInfoNameComponent } from './projects/project-info-name/project-i
 import { ProjectInfoComponent } from './projects/project-info/project-info.component';
 import { ProjectListComponent } from './projects/project-list/project-list.component';
 import { StatsComponent } from './stats/stats.component';
-import { MessagesComponent } from './users/messages/messages.component';
+//import { MessagesComponent } from './users/messages/messages.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileUsernameComponent } from './users/user-profile-username/user-profile-username.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
@@ -24,7 +24,7 @@ const routes: Routes = [
   {path: 'users/:id', component: UserProfileComponent},  // route '...:4200/users/n/'
   {path: 'bugs', component: BugListComponent},  // route '...:4200/bugs/'
   {path: 'bugs/:id', component: BugInfoComponent},  // route '...:4200/bugs/n/'
-  {path: 'messages', component: MessagesComponent},  // route '...:4200/messages/'
+  //{path: 'messages', component: MessagesComponent},  // route '...:4200/messages/'
   {path: '**', component: HomeComponent, pathMatch: 'full'},  // route '...:4200/...' (a catch-all route, still has to match)
 ];*/
 
@@ -50,7 +50,7 @@ const routes: Routes = [
       //{ path: 'bug/:name', component: BugInfoNameComponent },  // route '...:4200/bug/"bugname"'
       { path: 'bug/id/:id', component: BugInfoComponent },  // route '...:4200/bug/"id"/'
 
-      { path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'
+      //{ path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'
     ]
   },
   { path: 'errors', component: TestErrorsComponent },
