@@ -258,6 +258,19 @@ namespace API.Migrations
                         .HasForeignKey("API.Entities.Comment", "AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+<<<<<<< HEAD
+=======
+
+                    b.HasOne("API.Entities.Bug", "Bug")
+                        .WithOne("Comment")
+                        .HasForeignKey("API.Entities.Comment", "BugId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Bug");
+>>>>>>> dev
                 });
 
             modelBuilder.Entity("API.Entities.UserImage", b =>
