@@ -2,7 +2,7 @@
     {
         "Name": "Project1",
         "CreatedByUser": "Emil",
-        "DateCreated": "2022-07-09",
+        "DateCreated": "2022-07-07",
         "IsComplete": false,
         "IsOnHold": false,
         "Description": "Test Project 1 - Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n",
@@ -27,7 +27,12 @@
                 "DateCreated": "2022-08-09",
                 "IsResolved": false,
                 "IsActive": true,
-                "Description": "Display error number XYZ failed to show...\r\n"
+                "Description": "Display error number XYZ failed to show...\r\n",
+                "Images": [
+                    {
+                        "Location": "../images/screenshot_1.jpg"
+                    }
+                ]
             },
             {
                 "Name": "Bug_Runtime",
@@ -35,7 +40,12 @@
                 "DateCreated": "2022-09-09",
                 "IsResolved": false,
                 "IsActive": true,
-                "Description": "Failed to initialize this and that...\r\n"
+                "Description": "Failed to initialize this and that...\r\n",
+                "Images": [
+                    {
+                        "Location": "../images/screenshot_2.jpg"
+                    }
+                ]
             }
         ]        
     },
@@ -59,7 +69,15 @@
                 "DateCreated": "2022-08-09",
                 "IsResolved": false,
                 "IsActive": true,
-                "Description": "Classic networking error number XYZ...\r\n"
+                "Description": "Classic networking error number XYZ...\r\n",
+                "Images": [
+                    {
+                        "Location": "../images/screenshot_3.jpg"
+                    },
+                    {
+                        "Location": "../images/screenshot_4.jpg"
+                    }
+                ]
             }
         ]
     }

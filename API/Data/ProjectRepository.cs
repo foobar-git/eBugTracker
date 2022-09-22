@@ -11,7 +11,7 @@ namespace API.Data
     {
         private readonly DataContext _context;
 
-        /*public UserRepository(DataContext context)    // v11
+        /*public ProjectRepository(DataContext context)    // v11
         {
             _context = context;
         }*/

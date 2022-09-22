@@ -10,7 +10,7 @@ import { ProjectInfoNameComponent } from './projects/project-info-name/project-i
 import { ProjectInfoComponent } from './projects/project-info/project-info.component';
 import { ProjectListComponent } from './projects/project-list/project-list.component';
 import { StatsComponent } from './stats/stats.component';
-import { MessagesComponent } from './users/messages/messages.component';
+//import { MessagesComponent } from './users/messages/messages.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileUsernameComponent } from './users/user-profile-username/user-profile-username.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
@@ -24,7 +24,7 @@ const routes: Routes = [
   {path: 'users/:id', component: UserProfileComponent},  // route '...:4200/users/n/'
   {path: 'bugs', component: BugListComponent},  // route '...:4200/bugs/'
   {path: 'bugs/:id', component: BugInfoComponent},  // route '...:4200/bugs/n/'
-  {path: 'messages', component: MessagesComponent},  // route '...:4200/messages/'
+  //{path: 'messages', component: MessagesComponent},  // route '...:4200/messages/'
   {path: '**', component: HomeComponent, pathMatch: 'full'},  // route '...:4200/...' (a catch-all route, still has to match)
 ];*/
 
@@ -39,16 +39,18 @@ const routes: Routes = [
       { path: 'stats', component: StatsComponent },  // route '...:4200/stats/'
 
       { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },  // route '...:4200/users/'
-      { path: 'users/:username', component: UserProfileUsernameComponent },  // route '...:4200/users/"username"'
-      { path: 'users/id/:id', component: UserProfileComponent },  // route '...:4200/users/"id"'
+      { path: 'user/:username', component: UserProfileUsernameComponent },  // route '...:4200/user/"username"'
+      { path: 'user/id/:id', component: UserProfileComponent },  // route '...:4200/user/"id"'
 
-      { path: 'project', component: ProjectListComponent },  // route '...:4200/projects/'
-      { path: 'project/:name', component: ProjectInfoNameComponent },  // route '...:4200/projects/"projectname"'
-      { path: 'project/id/:id', component: ProjectInfoComponent },  // route '...:4200/projects/"id"/'
+      { path: 'projects', component: ProjectListComponent },  // route '...:4200/projects/'
+      { path: 'project/:name', component: ProjectInfoNameComponent },  // route '...:4200/project/"projectname"'
+      { path: 'project/id/:id', component: ProjectInfoComponent },  // route '...:4200/project/"id"/'
 
       { path: 'bugs', component: BugListComponent },  // route '...:4200/bugs/'
-      { path: 'bugs/id/:id', component: BugInfoComponent },  // route '...:4200/bugs/"id"/'
-      { path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'
+      //{ path: 'bug/:name', component: BugInfoNameComponent },  // route '...:4200/bug/"bugname"'
+      { path: 'bug/id/:id', component: BugInfoComponent },  // route '...:4200/bug/"id"/'
+
+      //{ path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'
     ]
   },
   { path: 'errors', component: TestErrorsComponent },

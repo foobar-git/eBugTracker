@@ -1,4 +1,4 @@
-namespace API.Entities
+/*namespace API.Entities
 {
     public class Message
     {
@@ -14,4 +14,4 @@ namespace API.Entities
         public int AppUserId { get; set; }      // from AppUser_ID
         //________________________________________
     }
-}
+}*/

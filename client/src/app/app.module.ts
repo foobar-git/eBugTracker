@@ -9,7 +9,7 @@ import { NavComponent } from './nav/nav.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { MessagesComponent } from './users/messages/messages.component';
+//import { MessagesComponent } from './users/messages/messages.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { BugInfoComponent } from './bugs/bug-info/bug-info.component';
@@ -31,7 +31,7 @@ import { ProjectInfoNameComponent } from './projects/project-info-name/project-i
     NavComponent,
     HomeComponent,
     RegisterComponent,
-    MessagesComponent,
+    //MessagesComponent,
     UserListComponent,
     UserProfileComponent,
     BugInfoComponent,

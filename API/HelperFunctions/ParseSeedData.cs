@@ -52,5 +52,24 @@ namespace API.Data
 
             await context.SaveChangesAsync();
         }
+
+        public static async Task SeedComments(DataContext context)
+        {
+            string commentData;
+            List<Comment> comments;
+
+
+            if (await context.Comments.AnyAsync()) return;
+
+            commentData = await System.IO.File.ReadAllTextAsync("Data/CommentSeedData.json");
+            comments = JsonSerializer.Deserialize<List<Comment>>(commentData);
+            foreach (var comment in comments)
+            {
+                //FormatName.Format(user.UserName);
+                context.Comments.Add(comment);
+            }
+
+            await context.SaveChangesAsync();
+        }
     }
 }
