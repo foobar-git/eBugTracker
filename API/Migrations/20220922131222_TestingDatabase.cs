@@ -41,7 +41,6 @@ namespace API.Migrations
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     IsResolved = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CommentId = table.Column<int>(type: "INTEGER", nullable: false),
                     ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

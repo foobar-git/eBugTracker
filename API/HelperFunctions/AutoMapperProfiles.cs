@@ -27,7 +27,7 @@ namespace API.HelperFunctions
                     source => source.UsersAssigned.FirstOrDefault().Username) )
                 // .ForMember( destination => destination.BugsAssigned_, option => option.MapFrom (
                 //     source => source.BugsAssigned.FirstOrDefault().Name) );
-                    .ForMember( destination => destination.Bugs_, option => option.MapFrom (
+                .ForMember( destination => destination.Bugs_, option => option.MapFrom (
                     source => source.BugsAssigned.FirstOrDefault().Name) );
             
             CreateMap<Bug, BugDto>()

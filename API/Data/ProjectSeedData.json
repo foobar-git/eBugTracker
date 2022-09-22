@@ -77,6 +77,13 @@
                     {
                         "Location": "../images/screenshot_4.jpg"
                     }
+                ],
+                "Comments": [
+                    {
+                        "PostedByUser": "Ensar",
+                        "DateCreated": "2022-08-09",
+                        "Content": "This is a test-comment, commenting on this comment test."
+                    }
                 ]
             }
         ]

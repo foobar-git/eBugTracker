@@ -69,9 +69,6 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CommentId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 

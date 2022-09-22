@@ -34,7 +34,6 @@ namespace API
                 
                 await ParseSeedData.SeedUsers(context);
                 await ParseSeedData.SeedProjects(context);
-                await ParseSeedData.SeedComments(context);
             }
             catch (Exception ex) {
                 logger = services.GetRequiredService<ILogger<Program>>();
