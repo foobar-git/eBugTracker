@@ -19,8 +19,8 @@ namespace API.Entities
         
         //_EF_Migrations__________________________
         //public Message Message { get; set; }
-        public Comment Comment { get; set; }
         public ICollection<UserImage> UserImage { get; set; }    // one user - one (profile) image
+        public ICollection<Comment> Comments { get; set; }
         //________________________________________
 
         // public int GetCreated()

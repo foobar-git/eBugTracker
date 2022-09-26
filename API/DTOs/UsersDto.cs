@@ -19,8 +19,8 @@ namespace API.DTOs
         
         //_EF_Migrations__________________________
         //public Message Message { get; set; }
-        public Comment Comment { get; set; }
         public ICollection<UserImageDto> UserImage { get; set; }    // one user - one (profile) image
+        public ICollection<CommentDto> Comments { get; set; }
         //________________________________________
     }
 }

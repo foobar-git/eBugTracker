@@ -9,10 +9,8 @@ namespace API.Entities
 
         //_EF_Migrations__________________________
         //public AppUser AppUser { get; set; }
-        //public int AppUserId { get; set; }
-        //public Bug Bug { get; set; }
+        public int AppUserId { get; set; }
         public int BugId { get; set; }
-        //public int ProjectId { get; set; }
         //________________________________________
     }
 }
