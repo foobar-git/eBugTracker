@@ -16,9 +16,31 @@
           Team: {{appUser.team}}<br>
           Registered:<br>{{appUser.dateCreated}}<br>
           Last active:<br>{{appUser.lastActive}}<br>
-          <!-- Bio: {{appUser.description}}<br-->
+          <!-- Description: {{appUser.description}}<br-->
         </div>
       </div>
+      <!--div class="card-footer">
+        <div class="btn-group d-flex">
+          <button class="btn btn-primary">Message</button>
+        </div>
+      </div-->
     </div>
+  </div>
+
+  <div class="col-8">
+    <tabset class="user-tabset">
+      <tab heading="Profile - {{appUser.username}}">
+        <h4>Description</h4>
+        <p>{{appUser.description}}</p>
+      </tab>
+      <tab heading="Images">
+        <h4>Images</h4>
+        <p>EDIT: images go here.</p>
+      </tab>
+      <!--tab heading="Messages">
+        <h4>Messages</h4>
+        <p>EDIT: messages go here.</p>
+      </tab-->
+    </tabset>
   </div>
 </div>
