@@ -24,6 +24,8 @@ import { UserProfileUsernameComponent } from './users/user-profile-username/user
 import { ProjectListComponent } from './projects/project-list/project-list.component';
 import { ProjectInfoComponent } from './projects/project-info/project-info.component';
 import { ProjectInfoNameComponent } from './projects/project-info-name/project-info-name.component';
+import { UserCardComponent } from './users/user-card/user-card.component';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { ProjectInfoNameComponent } from './projects/project-info-name/project-i
     UserProfileUsernameComponent,
     ProjectListComponent,
     ProjectInfoComponent,
-    ProjectInfoNameComponent
+    ProjectInfoNameComponent,
+    UserCardComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { ProjectInfoNameComponent } from './projects/project-info-name/project-i
     SharedModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
