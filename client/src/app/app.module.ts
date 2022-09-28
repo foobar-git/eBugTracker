@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,6 +25,7 @@ import { ProjectInfoComponent } from './projects/project-info/project-info.compo
 import { ProjectInfoNameComponent } from './projects/project-info-name/project-info-name.component';
 import { UserCardComponent } from './users/user-card/user-card.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { ProjectCardComponent } from './projects/project-card/project-card.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,8 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
     ProjectListComponent,
     ProjectInfoComponent,
     ProjectInfoNameComponent,
-    UserCardComponent
+    UserCardComponent,
+    ProjectCardComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +59,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }     // interceptor for sending tokens
   ],
   bootstrap: [AppComponent]
 })
