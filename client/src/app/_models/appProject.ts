@@ -10,8 +10,8 @@ export interface AppProject {
     isComplete: boolean;
     isOnHold: boolean;
     description: string;
-    users_: string;
-    bugs_: string;
+    //users_: string;
+    //bugs_: string;
     usersAssigned: UsersAssigned[];
     bugsAssigned: BugsAssigned[];
 }
