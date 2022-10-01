@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { UsersAssigned } from 'src/app/_models/usersAssigned';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ProjectInfoComponent implements OnInit {
   project: any;
   id: number;
+  usersAssigned: UsersAssigned[];
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
@@ -26,8 +28,12 @@ export class ProjectInfoComponent implements OnInit {
   getProjectId(id: number) {
     this.http.get('https://localhost:5001/api/project/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.project = response,
-      error: error => console.log(error)//,
-      //complete: () => void
+      error: error => console.log(error),
+      complete: () => {
+        console.log(this.project.usersAssigned);
+        //this.usersAssigned = JSON.stringify(this.project.usersAssigned);  // can be used for returning a list of user names
+        this.usersAssigned = this.project.usersAssigned;
+      }
     })
   }
 
