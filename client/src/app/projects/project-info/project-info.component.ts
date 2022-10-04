@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { UsersAssigned } from 'src/app/_models/usersAssigned';
+import { BugsAssigned } from 'src/app/_models/bugsAssigned';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class ProjectInfoComponent implements OnInit {
   project: any;
   id: number;
   usersAssigned: UsersAssigned[];
+  bugsAssigned: BugsAssigned[];
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
@@ -33,6 +35,7 @@ export class ProjectInfoComponent implements OnInit {
         console.log(this.project.usersAssigned);
         //this.usersAssigned = JSON.stringify(this.project.usersAssigned);  // can be used for returning a list of user names
         this.usersAssigned = this.project.usersAssigned;
+        this.bugsAssigned = this.project.bugsAssigned;
       }
     })
   }
