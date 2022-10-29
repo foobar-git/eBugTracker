@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { BugImage } from 'src/app/_models/bugImage';
+import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 
 @Component({
   selector: 'app-bug-info',
@@ -10,6 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 export class BugInfoComponent implements OnInit {
   bug: any;
   id: number;
+  bugImage: BugImage[];
+  galleryOptions: NgxGalleryOptions[];
+  galleryImages: NgxGalleryImage[];
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
@@ -19,15 +24,51 @@ export class BugInfoComponent implements OnInit {
       this.id = parseInt(params.get('id'));
       console.log(this.id);
     });
+
     this.getBugId(this.id);
   }
 
   getBugId(id: number) {
     this.http.get('https://localhost:5001/api/bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.bug = response,
-      error: error => console.log(error)//,
-      //complete: () => void
+      error: error => console.log(error),
+      complete: () => {
+        //console.log(this.bugImage[0].location);
+        //this.bugImage = JSON.stringify(this.bug.bugImage);  // can be used for returning a list of bug images
+        this.bugImage = this.bug.bugImages;
+        console.log(this.bug);
+        console.log(this.bugImage);
+        console.log(this.bugImage[0].location);
+        this.galleryImages = this.getImages();
+      }
     })
+  }
+
+  getImages(): NgxGalleryImage[] {
+    this.galleryOptions = [
+      {
+        width: '500px',
+        height: '500px',
+        imagePercent: 100,
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide,
+        preview: false
+      }
+    ]
+
+    const imageUrls = [];
+    for (const image of this.bugImage) {
+      imageUrls.push({
+        //small: image.url,
+        // small: image?.location,
+        // medium: image?.location,
+        // big: image?.location
+        small: "https://randomuser.me/api/portraits/lego/1.jpg",
+        medium: "https://randomuser.me/api/portraits/lego/1.jpg",
+        big: "https://randomuser.me/api/portraits/lego/1.jpg"
+      })
+    }
+    return imageUrls;
   }
 
 }
