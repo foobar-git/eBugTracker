@@ -45,7 +45,8 @@
                 <!--a class="dropdown-toggle text-light" title="Current Logged-in User" dropdownToggle>{{ model.username | titlecase }}</a-->
                 <a class="dropdown-toggle text-light" title="Current Logged-in User" dropdownToggle>{{ user.username | titlecase }}</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" *dropdownMenu>
-                    <a class="dropdown-item" [routerLink]="['/']" routerLinkActive="router-link-active">Edit Profile</a>
+                    <a class="dropdown-item" [routerLink]="['/user/edit/this']" routerLinkActive="router-link-active">Edit Profile</a>
+                    <a class="dropdown-item" [routerLink]="['/user/edit/admin']" routerLinkActive="router-link-active">Admin: Edit Users</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" (click)="logout()">Logout</a>
                 </div>
