@@ -15,6 +15,7 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileUsernameComponent } from './users/user-profile-username/user-profile-username.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { CommentComponent } from './comment/comment.component';
 
 /* v5
 const routes: Routes = [
@@ -49,6 +50,9 @@ const routes: Routes = [
       { path: 'bugs', component: BugListComponent },  // route '...:4200/bugs/'
       //{ path: 'bug/:name', component: BugInfoNameComponent },  // route '...:4200/bug/"bugname"'
       { path: 'bug/id/:id', component: BugInfoComponent },  // route '...:4200/bug/"id"/'
+
+      //{ path: 'comments', component: CommentsComponent },  // route '...:4200/comments/'
+      { path: 'comment/id/:id', component: CommentComponent },  // route '...:4200/comment/"id"/'
 
       //{ path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'
     ]

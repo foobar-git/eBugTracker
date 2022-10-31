@@ -26,6 +26,7 @@ import { ProjectInfoNameComponent } from './projects/project-info-name/project-i
 import { UserCardComponent } from './users/user-card/user-card.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ProjectCardComponent } from './projects/project-card/project-card.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ProjectCardComponent } from './projects/project-card/project-card.compo
     ProjectInfoComponent,
     ProjectInfoNameComponent,
     UserCardComponent,
-    ProjectCardComponent
+    ProjectCardComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

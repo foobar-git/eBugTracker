@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { BugImage } from 'src/app/_models/bugImage';
+import { Comment } from 'src/app/_models/comment';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 
 @Component({
@@ -12,7 +13,8 @@ import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov
 export class BugInfoComponent implements OnInit {
   bug: any;
   id: number;
-  bugImage: BugImage[];
+  bugImages: BugImage[];
+  comments: Comment[];
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
@@ -33,12 +35,13 @@ export class BugInfoComponent implements OnInit {
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {
-        //console.log(this.bugImage[0].location);
-        //this.bugImage = JSON.stringify(this.bug.bugImage);  // can be used for returning a list of bug images
-        this.bugImage = this.bug.bugImages;
-        console.log(this.bug);
-        console.log(this.bugImage);
-        console.log(this.bugImage[0].location);
+        this.bugImages = this.bug.bugImages;
+        this.comments = this.bug.comments;
+        //console.log(this.bug);
+        console.log(this.comments);
+        console.log(this.comments[0]);             // can be used for returning a list of comments
+        //console.log(this.bugImages);
+        //console.log(this.bugImages[0].location); // can be used for returning a list of bug images
         this.galleryImages = this.getImages();
       }
     })
@@ -57,15 +60,12 @@ export class BugInfoComponent implements OnInit {
     ]
 
     const imageUrls = [];
-    for (const image of this.bugImage) {
+    for (const image of this.bugImages) {
       imageUrls.push({
         //small: image.url,
-        // small: image?.location,
-        // medium: image?.location,
-        // big: image?.location
-        small: "https://randomuser.me/api/portraits/lego/1.jpg",
-        medium: "https://randomuser.me/api/portraits/lego/1.jpg",
-        big: "https://randomuser.me/api/portraits/lego/1.jpg"
+        small: image?.location,
+        medium: image?.location,
+        big: image?.location
       })
     }
     return imageUrls;

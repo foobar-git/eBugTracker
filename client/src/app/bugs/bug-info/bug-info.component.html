@@ -34,7 +34,7 @@
                 <h4>Images related to this bug</h4>
                 <ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
                 <!--div class="row">
-                    <div *ngFor="let image of bugImage">
+                    <div *ngFor="let image of bugImages">
                         <div class="card mb-4 ml-4 mr-4">
                             <div class="mt-2">
                                 <ul class="list-inline user-icons animate text-center">
@@ -44,13 +44,28 @@
                             </div>
                             <div class="card-body p-1">
                                 <div class="text-center">Image location:</div>
-                                <h6 class="card-title text-center mb-1">{{bugImage[0].location}}</h6>
-                                <img src="{{bugImage[0].location}}" alt="{{bugImage[0].location}}" class="card-img-top">
+                                <h6 class="card-title text-center mb-1">{{bugImages[0].location}}</h6>
+                                <img src="{{bugImage[0].location}}" alt="{{bugImages[0].location}}" class="card-img-top">
                                 <p class="card-text text-muted text-center"><i class="fa fa-info-circle mr-2">Active: {{bug.isActive}}</i></p>
                             </div>
                         </div>
                     </div>
                 </div-->
+                <div *ngFor="let comment of comments">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div>
+                                    <strong>Comment ID: {{comment.id}}</strong><br><hr>
+                                    Posted by user: {{comment.postedByUser}}<br>
+                                    Date created:<br>{{comment.dateCreated}}<br>
+                                    Content:<br>{{comment.content}}<br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </tab>
             <!--tab heading="Comments">
                 <h4>List of comments attached to this bug</h4>
