@@ -1,2 +1,77 @@
-<p>user-edit works!</p>
-<p *ngIf="appUser">{{appUser.username}}</p>
+<!--p>user-edit works!</p>
+<p>{{user.id}} - {{user.username}}</p-->
+<ng-container *ngIf="user">
+    <div class="row">
+        <div class="col-8">
+            <div class="alert alert-info">
+                <h1>EDIT PROFILE MODE</h1>
+            </div>        
+        </div>
+        <div class="col-4">
+            <div class="btn-group d-flex alert">
+                <button form="editForm" class="btn btn-secondary btn-block p-3">Save</button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<div class="row" *ngIf="user">
+    <div class="col-4">
+      <div class="card">
+        <img src="{{user.imageUrl || './assets/images/user.png'}}" alt="{{user.username}}" class="card-img-top img-thumbnail">
+        <div class="card-body">
+          <div>
+            {{user.username}} - <strong>{{user.userType}}</strong> - ID: {{user.id}}<br><hr>
+            Name: {{user.name}}<br>
+            Surname: {{user.surname}}<br>
+            Team: {{user.team}}<br>
+            Registered:<br>{{user.dateCreated}}<br>
+            Last active:<br>{{user.lastActive}}<br>
+          </div>
+        </div>
+        <div class="card-footer" [hidden]="!editForm.dirty">
+          <div class="btn-group d-flex">
+            <button form="editForm" class="btn btn-success btn-block p-3">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-8">
+        <tabset class="user-tabset">
+            <tab heading="Profile">
+                <div class="row">
+                    <div class="col-4">
+                        <h4>Description</h4>
+                    </div>
+                    <div class="col-3">
+                        <h2 *ngIf="editForm.dirty">* * *</h2>
+                    </div>
+                </div>
+                <form id="editForm" #editForm="ngForm" (ngSubmit)="updateUser()">
+                    <textarea class="form-control" [(ngModel)]="user.description" name="description" id="" rows="10"></textarea>
+                    <div class="form-inline mt-4 mx-4">
+                        <label for="imageUrl">Image URL: </label>
+                        <input [(ngModel)]="user.imageUrl" type="text" name="imageUrl" class=" col-6 mx-2">
+                    </div>
+                    <!--div class="form-inline">
+                        <label for="city">City: </label>
+                        <input type="text" name="city" class="form-control mx-2">
+                    </div-->
+                </form>
+            </tab>
+            <tab heading="Image">
+                <h4>Profile image</h4>
+                <p>EDIT: image upload goes here.</p>
+            </tab>
+            <!--tab heading="Messages">
+                <h4>Messages</h4>
+                <p>EDIT: messages go here.</p>
+            </tab-->
+        </tabset>
+    </div>
+</div>
+<div class="row">
+    <p></p>
+</div>
+  

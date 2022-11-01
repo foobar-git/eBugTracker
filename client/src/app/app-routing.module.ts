@@ -12,7 +12,6 @@ import { ProjectListComponent } from './projects/project-list/project-list.compo
 import { StatsComponent } from './stats/stats.component';
 //import { MessagesComponent } from './users/messages/messages.component';
 import { UserListComponent } from './users/user-list/user-list.component';
-import { UserProfileUsernameComponent } from './users/user-profile-username/user-profile-username.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { CommentComponent } from './comment/comment.component';
@@ -42,7 +41,6 @@ const routes: Routes = [
       { path: 'stats', component: StatsComponent },  // route '...:4200/stats/'
 
       { path: 'users', component: UserListComponent},  // route '...:4200/users/'
-      { path: 'user/:username', component: UserProfileUsernameComponent },  // route '...:4200/user/"username"'
       { path: 'user/id/:id', component: UserProfileComponent },  // route '...:4200/user/"id"'
       { path: 'user/edit/this', component: UserEditComponent },  // route '...:4200/user/edit/this'
       { path: 'user/edit/admin', component: UserEditAdminComponent },  // route '...:4200/user/edit/admin'

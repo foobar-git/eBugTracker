@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppUser } from 'src/app/_models/appUser';
 import { UsersService } from 'src/app/_services/users.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-user-list',
@@ -10,7 +11,8 @@ import { UsersService } from 'src/app/_services/users.service';
 })
 export class UserListComponent implements OnInit {
   //users: any;                                 // v13
-  appUsers: AppUser[];
+  //appUsers: AppUser[];                        // v15
+  users$: Observable<AppUser[]>;
 
   //constructor(private http: HttpClient) { }   // v13
   constructor(private userService: UsersService) { }
@@ -32,9 +34,11 @@ export class UserListComponent implements OnInit {
   // }
 
   loadUsers() {
-    this.userService.getAppUsers().subscribe(users => {
-      this.appUsers = users;
-    })
+    // v15
+    // this.userService.getAppUsers().subscribe(users => {
+    //   this.appUsers = users;
+    // })
+    this.users$ = this.userService.getAppUsers();
   }
 
 }

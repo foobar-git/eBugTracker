@@ -19,7 +19,6 @@ import { TestErrorsComponent } from './errors/test-errors/test-errors.component'
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import { UserProfileUsernameComponent } from './users/user-profile-username/user-profile-username.component';
 import { ProjectListComponent } from './projects/project-list/project-list.component';
 import { ProjectInfoComponent } from './projects/project-info/project-info.component';
 import { ProjectInfoNameComponent } from './projects/project-info-name/project-info-name.component';
@@ -45,7 +44,6 @@ import { UserEditAdminComponent } from './users/user-edit-admin/user-edit-admin.
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    UserProfileUsernameComponent,
     ProjectListComponent,
     ProjectInfoComponent,
     ProjectInfoNameComponent,
