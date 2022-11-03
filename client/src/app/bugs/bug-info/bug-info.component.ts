@@ -38,8 +38,7 @@ export class BugInfoComponent implements OnInit {
         this.bugImages = this.bug.bugImages;
         this.comments = this.bug.comments;
         //console.log(this.bug);
-        console.log(this.comments);
-        console.log(this.comments[0]);             // can be used for returning a list of comments
+        console.log(this.comments);                // can be used for returning a list of comments
         //console.log(this.bugImages);
         //console.log(this.bugImages[0].location); // can be used for returning a list of bug images
         this.galleryImages = this.getImages();

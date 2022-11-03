@@ -33,10 +33,36 @@
         <h4>Description</h4>
         <p>{{user.description}}</p>
       </tab>
-      <tab heading="Image">
+      <tab heading="Bugs">
+        <h4>Bugs submitted</h4>
+        <div class="container">
+          <ul>
+              <li *ngFor="let bug of bugsByThisUser">{{bug.id}} - {{bug.name}}</li>
+          </ul>
+        </div>
+
+        <div class="row">
+          <div *ngFor="let bug of bugsByThisUser">
+            <div class="card mb-4 ml-4 mr-4">
+              <div class="mt-2">
+                  <ul class="list-inline user-icons animate text-center">
+                      <li class="list-inline-item"><button routerLink="/bug/id/{{bug.id}}" class="btn btn-primary"><i class="fa fa-bug"></i></button></li>
+                      <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></li>
+                  </ul>
+              </div>
+              <div class="card-body p-1">
+                  <div class="text-center">Bug name:</div>
+                  <h6 class="card-title text-center mb-1">{{bug.name}}</h6>
+                  <p class="card-text text-muted text-center"><i class="fa fa-info-circle mr-2">Active: {{bug.isActive}}</i></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tab>
+      <!--tab heading="Image">
         <h4>Profile image</h4>
         <p>EDIT: image upload goes here.</p>
-      </tab>
+      </tab-->
       <!--tab heading="Messages">
         <h4>Messages</h4>
         <p>EDIT: messages go here.</p>

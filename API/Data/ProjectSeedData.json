@@ -46,6 +46,19 @@
                         "Location": "./assets/images/image.png"
                     }
                 ]
+            },
+            {
+                "Name": "Bug_DisplayError_New",
+                "FiledByUser": "Emil",
+                "DateCreated": "2022-08-12",
+                "IsResolved": false,
+                "IsActive": true,
+                "Description": "Display error number XYZ failed again to show the same...\r\n",
+                "BugImages": [
+                    {
+                        "Location": "./assets/images/image.png"
+                    }
+                ]
             }
         ]        
     },
