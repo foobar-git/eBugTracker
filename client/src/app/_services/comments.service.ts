@@ -14,7 +14,7 @@ export class CommentsService {
   constructor(private http: HttpClient) { }
 
   editComment(id: number, comment: Comment) {
-    console.log(comment);
+    //console.log(comment);
     return this.http.put(this.baseUrl + 'comment/id/' + id, comment);
   }
 }

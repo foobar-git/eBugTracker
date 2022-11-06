@@ -54,46 +54,16 @@
                     </div-->
                 </div>
                 <div>
-                    <h4>Comments for this bug</h4>
+                    <h4 *ngIf="noComments$ | async; else none">Comments for this bug</h4>
+                    <ng-template #none><h5>No comments posted.</h5></ng-template>
                     <div *ngFor="let comment of comments">
-                        <div class="col-8">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <div>
-                                        <strong>Comment ID: {{comment.id}}</strong><button (click)="getCommentId(comment.id)" class="btn btn-primary float-right"><i class="fa fa-edit"></i></button><br><hr>
-                                        Posted by user: {{comment.postedByUser}}<br>
-                                        Date created:<br>{{comment.dateCreated}}<br>
-                                        Content:<br>{{comment.content}}<br>
-                                        <form id="editForm" #editForm="ngForm" [hidden]="!editComment" (ngSubmit)="updateComment()">
-                                            <textarea class="form-control" [(ngModel)]="comment.content" name="content" id="" rows="3"></textarea>
-                                            <button form="editForm" class="btn btn-secondary btn-block p-3">Save</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <app-comment-edit></app-comment-edit>
                     </div>
                 </div>
             </tab>
             <!--tab heading="Comments">
                 <h4>List of comments attached to this bug</h4>
-                <div class="row">
-                    <div *ngFor="let comment of bugComments">
-                        <div class="card mb-4 ml-4 mr-4">
-                            <div class="mt-2">
-                                <img src="{{user.imageUrl}}" alt="{{user.username}}" class="card-img-top">
-                                <ul class="list-inline user-icons animate text-center">
-                                    <li class="list-inline-item"><button routerLink="/user/{{user.username}}" class="btn btn-primary"><i class="fa fa-user"></i></button></li>
-                                    <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-envelope"></i></button></li>
-                                </ul>
-                            </div>
-                            <div class="card-body p-1">
-                                <h6 class="card-title text-center mb-1"><i class="fa fa-user mr-2"> {{user.username}}</i></h6>
-                                <p class="card-text text-muted text-center">{{user.userType}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                ...
             </tab-->
         </tabset>
     </div>

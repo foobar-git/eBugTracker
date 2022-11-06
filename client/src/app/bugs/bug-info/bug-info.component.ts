@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { BugImage } from 'src/app/_models/bugImage';
 import { Comment } from 'src/app/_models/comment';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
-import { ToastrService } from 'ngx-toastr';
-import { CommentsService } from 'src/app/_services/comments.service';
-import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs/internal/Observable';
+import { of } from 'rxjs/internal/observable/of';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-bug-info',
@@ -14,28 +14,29 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./bug-info.component.css']
 })
 export class BugInfoComponent implements OnInit {
-  @ViewChild('editForm') editForm: NgForm;
   bug: any;
   id: number;
   bugImages: BugImage[];
+  comments: Comment[];
+  commentsNumber: number;
+  noComments$: Observable<any>;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
-  comments: Comment[];
-  comment: any;
-  commentId: number;
-  editComment: boolean = false;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private commentsService: CommentsService, private toastr: ToastrService) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       //this.id = +params.get('id');
       this.id = parseInt(params.get('id'));
-      console.log(this.id);
+      //console.log(this.id);                           // bug id
     });
 
     this.getBugId(this.id);
-    //this.loadComment();
+  }
+
+  checkForCommentsAsync() {
+    return of(this.commentsNumber);
   }
 
   getBugId(id: number) {
@@ -45,10 +46,17 @@ export class BugInfoComponent implements OnInit {
       complete: () => {
         this.bugImages = this.bug.bugImages;
         this.comments = this.bug.comments;
+        var length = this.comments.length;
+        if (length > 0) this.commentsNumber = length - 1;
+        else {
+          this.commentsNumber = 0;
+        }
+        this.noComments$ = this.checkForCommentsAsync();  // delay the check if there are any comments posted
+        //console.log(this.commentsNumber);
         //console.log(this.bug);
-        console.log(this.comments);                // can be used for returning a list of comments
+        //console.log(this.comments);                     // can be used for returning a list of comments
         //console.log(this.bugImages);
-        //console.log(this.bugImages[0].location); // can be used for returning a list of bug images
+        //console.log(this.bugImages[0].location);        // can be used for returning a list of bug images
         this.galleryImages = this.getImages();
       }
     })
@@ -78,26 +86,8 @@ export class BugInfoComponent implements OnInit {
     return imageUrls;
   }
 
-  getCommentId(id: number) { // tesing only
-    console.log(id);
-    this.loadComment(id);
-    this.editComment = true;
-  }
-
-  loadComment(id: number) {
-    this.commentId = id;
-    console.log(this.commentId);
-    this.comment = this.comments[this.commentId-1];
-    console.log(this.comment);
-  }
-
-  updateComment() {
-    console.log(this.comment);
-    this.commentsService.editComment(this.commentId, this.comment).subscribe(() => {
-      this.toastr.success("Comment edited, changes saved.")
-      this.editForm.reset(this.comment);         // reset form status, keeping changes for user
-      this.editComment = false;
-    })
+  updateCommentsNumber() {
+    if(this.commentsNumber > 0) this.commentsNumber--;
   }
 
 }

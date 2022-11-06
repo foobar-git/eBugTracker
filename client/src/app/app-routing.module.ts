@@ -14,7 +14,7 @@ import { StatsComponent } from './stats/stats.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { CommentComponent } from './comment/comment.component';
+import { CommentComponent } from './comments/comment/comment.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditAdminComponent } from './users/user-edit-admin/user-edit-admin.component';
 

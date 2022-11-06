@@ -25,9 +25,10 @@ import { ProjectInfoNameComponent } from './projects/project-info-name/project-i
 import { UserCardComponent } from './users/user-card/user-card.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ProjectCardComponent } from './projects/project-card/project-card.component';
-import { CommentComponent } from './comment/comment.component';
+import { CommentComponent } from './comments/comment/comment.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditAdminComponent } from './users/user-edit-admin/user-edit-admin.component';
+import { CommentEditComponent } from './comments/comment-edit/comment-edit.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { UserEditAdminComponent } from './users/user-edit-admin/user-edit-admin.
     ProjectCardComponent,
     CommentComponent,
     UserEditComponent,
-    UserEditAdminComponent
+    UserEditAdminComponent,
+    CommentEditComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ import { UserEditAdminComponent } from './users/user-edit-admin/user-edit-admin.
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }     // interceptor for sending tokens
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },     // interceptor for sending tokens
+    { provide: BugInfoComponent }
   ],
   bootstrap: [AppComponent]
 })
