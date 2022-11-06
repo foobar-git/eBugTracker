@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { BugImage } from 'src/app/_models/bugImage';
 import { Comment } from 'src/app/_models/comment';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { ToastrService } from 'ngx-toastr';
+import { CommentsService } from 'src/app/_services/comments.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-bug-info',
@@ -11,14 +14,18 @@ import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov
   styleUrls: ['./bug-info.component.css']
 })
 export class BugInfoComponent implements OnInit {
+  @ViewChild('editForm') editForm: NgForm;
   bug: any;
   id: number;
   bugImages: BugImage[];
-  comments: Comment[];
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  comments: Comment[];
+  comment: any;
+  commentId: number;
+  editComment: boolean = false;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private commentsService: CommentsService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -28,6 +35,7 @@ export class BugInfoComponent implements OnInit {
     });
 
     this.getBugId(this.id);
+    //this.loadComment();
   }
 
   getBugId(id: number) {
@@ -68,6 +76,28 @@ export class BugInfoComponent implements OnInit {
       })
     }
     return imageUrls;
+  }
+
+  getCommentId(id: number) { // tesing only
+    console.log(id);
+    this.loadComment(id);
+    this.editComment = true;
+  }
+
+  loadComment(id: number) {
+    this.commentId = id;
+    console.log(this.commentId);
+    this.comment = this.comments[this.commentId-1];
+    console.log(this.comment);
+  }
+
+  updateComment() {
+    console.log(this.comment);
+    this.commentsService.editComment(this.commentId, this.comment).subscribe(() => {
+      this.toastr.success("Comment edited, changes saved.")
+      this.editForm.reset(this.comment);         // reset form status, keeping changes for user
+      this.editComment = false;
+    })
   }
 
 }

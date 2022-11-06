@@ -9,7 +9,9 @@ namespace API.Interfaces
 
         Task<bool> SaveAllAsync();
         
-        //Task<IEnumerable<Comment>> GetCommentsAsync();
+        //Task<Comment> UpdateCommentAsync(int id, CommentEditDto newComment);
+
+        Task<IEnumerable<Comment>> GetCommentsAsync();
 
         Task<Comment> GetCommentByIdAsync(int id);
         

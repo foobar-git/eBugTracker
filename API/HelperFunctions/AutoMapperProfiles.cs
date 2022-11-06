@@ -26,6 +26,8 @@ namespace API.HelperFunctions
 
             CreateMap<UserUpdateAdminDto, AppUser>();   // admin editing other users
 
+            CreateMap<CommentEditDto, Comment>();       // users editing their comments
+
             CreateMap<Project, ProjectDto>()
                 .ForMember( destination => destination.Users_, option => option.MapFrom (
                     source => source.UsersAssigned.FirstOrDefault().Username) )

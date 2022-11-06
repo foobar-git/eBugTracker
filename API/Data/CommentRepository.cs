@@ -30,10 +30,10 @@ namespace API.Data
                 .ProjectTo<CommentDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync(i => i.Id == id);
         } */
 
-        /* public async Task<IEnumerable<Bug>> GetBugsAsync()
+        public async Task<IEnumerable<Comment>> GetCommentsAsync()
         {
-            return await _context.Bugs.Include(image => image.BugImages).ToListAsync();
-        } */
+            return await _context.Comments.ToListAsync();
+        }
         
         /* public async Task<IEnumerable<CommentDto>> GetCommentsDtoAsync()
         {
@@ -56,6 +56,16 @@ namespace API.Data
             // if something has been changed and saved, the returned value will be > 0.
             return await _context.SaveChangesAsync() > 0;
         }
+
+        /* public async Task<Comment> UpdateCommentAsync(int id, CommentEditDto newComment)
+        {
+            var comment = await _context.Comments.FindAsync(id);
+            if (comment != null)
+            {
+                comment.Content = newComment.Content;
+                await _context.SaveChangesAsync();
+            }
+        } */
 
         public void Update(Comment comment)
         {

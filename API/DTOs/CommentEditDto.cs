@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace API.DTOs
 {
-    public class UserUpdateDto
+    public class CommentEditDto
     {
-        public string Description { get; set; }
-        public string ImageUrl { get; set; }
+        public DateTime DateEdited { get; set; }
+        public string Content { get; set; }
     }
 }
