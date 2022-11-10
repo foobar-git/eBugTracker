@@ -16,7 +16,7 @@ export class CommentEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   comments: Comment[];
   comment: any;
-  commentsNumber: number;
+  commentsNumber: number;                   // comment number - position in array
   editComment: boolean = false;
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
@@ -28,7 +28,7 @@ export class CommentEditComponent implements OnInit {
     //console.log(this.comments);
     this.commentsNumber = this.bugInfo.commentsNumber;
     this.comment = this.comments[this.commentsNumber];
-    this.bugInfo.updateCommentsNumber();
+    this.bugInfo.updateCommentsNumber();  // needed for advancing to the next comment in comments
   }
 
   getCommentId(id: number) {

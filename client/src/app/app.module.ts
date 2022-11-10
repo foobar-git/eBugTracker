@@ -29,6 +29,7 @@ import { CommentComponent } from './comments/comment/comment.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditAdminComponent } from './users/user-edit-admin/user-edit-admin.component';
 import { CommentEditComponent } from './comments/comment-edit/comment-edit.component';
+import { BugCardComponent } from './bugs/bug-card/bug-card.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { CommentEditComponent } from './comments/comment-edit/comment-edit.compo
     CommentComponent,
     UserEditComponent,
     UserEditAdminComponent,
-    CommentEditComponent
+    CommentEditComponent,
+    BugCardComponent
   ],
   imports: [
     BrowserModule,
@@ -65,8 +67,9 @@ import { CommentEditComponent } from './comments/comment-edit/comment-edit.compo
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },     // interceptor for sending tokens
-    { provide: BugInfoComponent }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },    // interceptor for sending tokens
+    { provide: ProjectInfoComponent },                                        // make available to other components
+    { provide: BugInfoComponent }                                             // make available to other components
   ],
   bootstrap: [AppComponent]
 })

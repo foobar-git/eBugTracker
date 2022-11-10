@@ -4,9 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BugImage } from 'src/app/_models/bugImage';
 import { Comment } from 'src/app/_models/comment';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
-import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
-import { delay } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-bug-info',
@@ -18,7 +16,7 @@ export class BugInfoComponent implements OnInit {
   id: number;
   bugImages: BugImage[];
   comments: Comment[];
-  commentsNumber: number;
+  commentsNumber: number;               // comment number - position in array
   noComments$: Observable<any>;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -35,8 +33,14 @@ export class BugInfoComponent implements OnInit {
     this.getBugId(this.id);
   }
 
-  checkForCommentsAsync() {
-    return of(this.commentsNumber);
+  test(): void {
+    this.route.paramMap.subscribe(params => {
+      //this.id = +params.get('id');
+      this.id = parseInt(params.get('id'));
+      //console.log(this.id);                           // bug id
+    });
+
+    this.getBugId(this.id);
   }
 
   getBugId(id: number) {
@@ -44,6 +48,7 @@ export class BugInfoComponent implements OnInit {
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {
+        console.log(this.bug);
         this.bugImages = this.bug.bugImages;
         this.comments = this.bug.comments;
         var length = this.comments.length;
@@ -86,8 +91,19 @@ export class BugInfoComponent implements OnInit {
     return imageUrls;
   }
 
+  checkForCommentsAsync() {
+    return of(this.commentsNumber);
+  }
+
   updateCommentsNumber() {
     if(this.commentsNumber > 0) this.commentsNumber--;
+  }
+
+  async testFn(s: number) {
+    var t = s * 1000;
+    const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+    await sleep(t);
+    console.log("paused for " + s + " seconds.");
   }
 
 }

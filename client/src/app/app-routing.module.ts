@@ -53,7 +53,7 @@ const routes: Routes = [
       //{ path: 'bug/:name', component: BugInfoNameComponent },  // route '...:4200/bug/"bugname"'
       { path: 'bug/id/:id', component: BugInfoComponent },  // route '...:4200/bug/"id"/'
 
-      //{ path: 'comments', component: CommentsComponent },  // route '...:4200/comments/'
+      //{ path: 'comments', component: CommentListComponent },  // route '...:4200/comments/'
       { path: 'comment/id/:id', component: CommentComponent },  // route '...:4200/comment/"id"/'
 
       //{ path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'

@@ -45,6 +45,14 @@
                     {
                         "Location": "./assets/images/image.png"
                     }
+                ],
+                "Comments": [
+                    {
+                        "PostedByUser": "Emil",
+                        "AppUserId": 1,
+                        "DateCreated": "2022-09-11",
+                        "Content": "This is a new test-comment, just commenting."
+                    }
                 ]
             },
             {
