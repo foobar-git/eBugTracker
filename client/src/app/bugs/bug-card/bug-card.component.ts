@@ -13,16 +13,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BugCardComponent implements OnInit {
   id: number;
-  bugs_p: BugsAssigned[];
-  bug_p: any;
-  bugs: BugsAssigned[];
+  bug_p: any;                       // bug loaded from profile-info component
   bug: any;
   bugsNumber: number;
   bugIdIndex: number;
   comments: Comment[];
-  commentsLength: number;
   commentsNumber: number;
-  numberOfComments: number;                       // number of comments posted about the bug
+  numberOfComments: number;         // number of comments posted about the bug
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
     private projectInfo: ProjectInfoComponent, private bugInfo: BugInfoComponent) { }
@@ -32,19 +29,18 @@ export class BugCardComponent implements OnInit {
   }
 
   loadBugCard() {
-    this.bugs_p = this.projectInfo.bugsAssigned;
-    //console.log(this.bugs_p);
+    //console.log(this.projectInfo.bugsAssigned);
 
     this.bugsNumber = this.projectInfo.bugsAssignedNumber;
-    this.bug_p = this.bugs_p[this.bugsNumber];
+    this.bug_p = this.projectInfo.bugsAssigned[this.bugsNumber];
     this.projectInfo.updateBugsNumber();
     //console.log(this.bugsNumber);
 
     this.bugIdIndex = this.projectInfo.bugIdIndex;
     this.projectInfo.updateBugIdIndex();
 
-    //console.log(this.bugs_p[this.bugIdIndex].id);
-    this.getBugId(this.bugs_p[this.bugIdIndex].id);
+    //console.log(this.projectInfo.bugsAssigned[this.bugIdIndex].id);
+    this.getBugId(this.projectInfo.bugsAssigned[this.bugIdIndex].id);
   }
 
   getBugId(id: number) {

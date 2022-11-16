@@ -18,7 +18,7 @@ namespace API.Data
             _mapper = mapper;
             _context = context;
         }
-
+        
         public async Task<Comment> GetCommentByIdAsync(int id)
         {
             return await _context.Comments.FindAsync(id);

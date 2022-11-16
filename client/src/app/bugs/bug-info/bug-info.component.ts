@@ -5,6 +5,9 @@ import { BugImage } from 'src/app/_models/bugImage';
 import { Comment } from 'src/app/_models/comment';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Observable, of } from 'rxjs';
+import { CommentsService } from 'src/app/_services/comments.service';
+import { ToastrService } from 'ngx-toastr';
+import { CommentEditComponent } from 'src/app/comments/comment-edit/comment-edit.component';
 
 @Component({
   selector: 'app-bug-info',
@@ -12,28 +15,21 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./bug-info.component.css']
 })
 export class BugInfoComponent implements OnInit {
+  @ViewChild('commentEditComponent') commentEditComponent: CommentEditComponent;
+  writeNewComment: boolean = false;
   bug: any;
   id: number;
   bugImages: BugImage[];
   comments: Comment[];
-  commentsNumber: number;               // comment number - position in array
+  commentsNumber: number;                               // number of comments - when listing comments
   noComments$: Observable<any>;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute,
+    private commentsService: CommentsService, private toastr: ToastrService,) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      //this.id = +params.get('id');
-      this.id = parseInt(params.get('id'));
-      //console.log(this.id);                           // bug id
-    });
-
-    this.getBugId(this.id);
-  }
-
-  test(): void {
     this.route.paramMap.subscribe(params => {
       //this.id = +params.get('id');
       this.id = parseInt(params.get('id'));
@@ -99,7 +95,20 @@ export class BugInfoComponent implements OnInit {
     if(this.commentsNumber > 0) this.commentsNumber--;
   }
 
-  async testFn(s: number) {
+  newComment() {
+    console.log("Write a new comment!");
+    this.writeNewComment = true;
+    this.commentEditComponent.newComment = true;
+    this.commentEditComponent.loadComment();
+    this.commentEditComponent.commitComment(0);
+
+    // this.commentsService.newComment(newComment).subscribe(() => {
+    //   this.toastr.success("New comment has been posted.");
+    // })
+
+  }
+
+  async testFn_sleepTimer(s: number) {
     var t = s * 1000;
     const sleep = (ms) => new Promise(r => setTimeout(r, ms));
     await sleep(t);

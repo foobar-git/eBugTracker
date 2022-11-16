@@ -55,7 +55,11 @@
                 </div>
                 <div>
                     <h4 *ngIf="noComments$ | async; else none">Comments for this bug</h4>
-                    <ng-template #none><h5>No comments posted.</h5></ng-template>
+                    <ng-template #none>
+                        <h5>No comments posted.</h5>
+                    </ng-template>
+                    <h6 style="cursor: pointer" (click)="newComment()">>> Post a new comment</h6>
+                    <app-comment-edit [hidden]="!writeNewComment"></app-comment-edit>
                     <div *ngFor="let comment of comments">
                         <app-comment-edit></app-comment-edit>
                     </div>

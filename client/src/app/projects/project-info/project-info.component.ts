@@ -16,7 +16,7 @@ export class ProjectInfoComponent implements OnInit {
   id: number;
   usersAssigned: UsersAssigned[];
   bugsAssigned: BugsAssigned[];
-  bugsAssignedNumber: number;                 // bnumber of bugs - when listing bugs in cards
+  bugsAssignedNumber: number;                 // number of bugs - when listing bugs in cards
   bugIdIndex: number = 0;                     // bug index - position in array when loading bugs by id
   noBugsAssigned$: Observable<any>;
   numberOfBugs: number;

@@ -3,13 +3,14 @@
     <div class="card mb-2">
         <div class="card-body">
             <div>
-                <strong>Comment ID: {{comment.id}}</strong><button (click)="getCommentId(comment.id)" class="btn btn-primary float-right"><i class="fa fa-edit"></i></button><br><hr>
+                <strong>Comment ID: {{comment.id}}</strong><button (click)="loadComment()" class="btn btn-primary float-right"><i class="fa fa-edit"></i></button><br><hr>
                 Posted by user: {{comment.postedByUser}}<br>
                 Date created:<br>{{comment.dateCreated}}<br>
-                Content:<br>{{comment.content}}<br>
+                <span [hidden]="editComment">Content:<br>{{comment.content}}</span><br>
+                <span [hidden]="!editComment">Edit:</span><br>
                 <form id="editForm" #editForm="ngForm" [hidden]="!editComment">
                     <textarea class="form-control" [(ngModel)]="comment.content" name="content" id="" rows="3"></textarea>
-                    <button form="editForm" (click)="updateComment(comment.id)" class="btn btn-secondary btn-block p-3">Save</button>
+                    <button form="editForm" (click)="commitComment(comment.id)" class="btn btn-secondary btn-block p-3">Save</button>
                 </form>
             </div>
         </div>

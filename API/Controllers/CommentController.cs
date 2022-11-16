@@ -58,7 +58,7 @@ namespace API.Controllers
         // }
 
         [HttpPut("id/{id}")]
-        public async Task<ActionResult> EditComment([FromBody]CommentEditDto newComment, [FromRoute]int id)
+        public async Task<ActionResult> EditComment([FromBody]CommentEditDto editComment, [FromRoute]int id)
         {
             // v16
             //var comment = await _commentRepository.UpdateCommentAsync(id, newComment);
@@ -67,12 +67,31 @@ namespace API.Controllers
             var comment = await _commentRepository.GetCommentByIdAsync(id);
             if (comment != null)
             {
-                _mapper.Map(newComment, comment);
+                _mapper.Map(editComment, comment);
                 _commentRepository.Update(comment);
             }
             if (await _commentRepository.SaveAllAsync()) return Ok();
             //if the update failes:
             return BadRequest("Failed to edit comment.");
+        }
+
+        [HttpPut("nc/")]
+        public async Task<ActionResult> NewComment([FromBody]Comment newComment)
+        {
+            // var comment = await _context.Comments.FindAsync(id);
+            // if (comment == null)
+            // {
+            //     await _context.Comments.AddAsync(newComment);
+            // }
+            // else {
+            //     Console.WriteLine("Comment ID already taken.");
+            // }
+
+            await _context.Comments.AddAsync(newComment);
+
+            if (await _commentRepository.SaveAllAsync()) return Ok();
+            //if the update failes:
+            return BadRequest("Failed to post new comment.");
         }
     }
 }
