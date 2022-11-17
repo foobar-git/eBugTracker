@@ -13,18 +13,9 @@ import { BugInfoComponent } from 'src/app/bugs/bug-info/bug-info.component';
 })
 export class CommentEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
-  newComment: boolean = false;
   comment: any;
   commentsIndexNumber: number;                   // comment number - position in array
   editComment: boolean = false;
-
-  commentTemplate: any = {
-    "dateCreated": new Date,
-    "postedByUser": this.getUserName(),
-    "content": "",
-    "appUserId": this.getUserId(),
-    "bugId": this.getBugId()
-  }
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
     private commentsService: CommentsService, private toastr: ToastrService,
@@ -40,7 +31,6 @@ export class CommentEditComponent implements OnInit {
   }
 
   loadComment() {
-    this.newComment = false;
     this.editComment = true;
     this.comment = this.bugInfo.comments[this.commentsIndexNumber];
     console.log(this.comment);
@@ -48,38 +38,14 @@ export class CommentEditComponent implements OnInit {
 
   commitComment(id: number) {
     //console.log(this.comment);
-
     // update comment
-    if (!this.newComment) {
-      console.log("UPDATE");
-      console.log(this.newComment);
-      this.commentsService.editComment(id, this.comment).subscribe(() => {
-        this.toastr.success("Comment edited, changes saved.");
-        this.editForm.reset(this.comment);         // reset form status, keeping changes for user
-      })
-    } else {
-      // post a new comment
-      console.log("NEW ENTRY");
-      this.commentsService.newComment(this.commentTemplate).subscribe(() => {
-        this.toastr.success("New comment has been posted.");
-      })
-    }
+    console.log("UPDATE");
+    this.commentsService.editComment(id, this.comment).subscribe(() => {
+      this.toastr.success("Comment edited, changes saved.");
+      this.editForm.reset(this.comment);         // reset form status, keeping changes for user
+    })
     // reset variables
-    this.newComment = false;
     this.editComment = false;
-    this.bugInfo.writeNewComment = false;
-  }
-
-  getUserName() {
-    return "Nedim";
-  }
-  
-  getUserId() {
-    return "2";
-  }
-
-  getBugId() {
-    return "2";
   }
 
 }

@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { CommentsService } from 'src/app/_services/comments.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommentEditComponent } from 'src/app/comments/comment-edit/comment-edit.component';
+import { CommentNewComponent } from 'src/app/comments/comment-new/comment-new.component';
 
 @Component({
   selector: 'app-bug-info',
@@ -27,7 +28,8 @@ export class BugInfoComponent implements OnInit {
   galleryImages: NgxGalleryImage[];
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
-    private commentsService: CommentsService, private toastr: ToastrService,) { }
+    private commentsService: CommentsService, private commentNew: CommentNewComponent,
+    private toastr: ToastrService,) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -88,6 +90,7 @@ export class BugInfoComponent implements OnInit {
   }
 
   checkForCommentsAsync() {
+    console.log(this.commentsNumber);
     return of(this.commentsNumber);
   }
 
@@ -95,12 +98,12 @@ export class BugInfoComponent implements OnInit {
     if(this.commentsNumber > 0) this.commentsNumber--;
   }
 
-  newComment() {
+  initNewComment() {
     console.log("Write a new comment!");
+    //this.commentEditComponent.newComment = true;
     this.writeNewComment = true;
-    this.commentEditComponent.newComment = true;
-    this.commentEditComponent.loadComment();
-    this.commentEditComponent.commitComment(0);
+    //this.commentNewComponent.newCommentForm();
+    this.commentNew.newCommentForm();
 
     // this.commentsService.newComment(newComment).subscribe(() => {
     //   this.toastr.success("New comment has been posted.");
