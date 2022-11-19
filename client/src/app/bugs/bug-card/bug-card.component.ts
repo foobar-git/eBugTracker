@@ -51,9 +51,9 @@ export class BugCardComponent implements OnInit {
       complete: () => {
         //console.log(this.bug);
         this.comments = this.bug.comments;
-        console.log(this.comments);
+        //console.log(this.comments);
         this.numberOfComments = this.comments.length;
-        console.log(this.numberOfComments);
+        //console.log(this.numberOfComments);
         return;
       }
     })

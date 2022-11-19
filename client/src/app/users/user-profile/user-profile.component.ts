@@ -33,7 +33,7 @@ export class UserProfileComponent implements OnInit {
       complete: () => {
         this.getBugsByThisUser(this.user.username);
       }
-    })
+    });
   }
 
   getBugsByThisUser(uname: string) {
@@ -47,6 +47,6 @@ export class UserProfileComponent implements OnInit {
         });
         console.log(this.bugsByThisUser);
       }
-    })
+    });
   }
 }

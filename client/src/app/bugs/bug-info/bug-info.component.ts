@@ -42,6 +42,10 @@ export class BugInfoComponent implements OnInit {
     this.getBugId(this.id);
   }
 
+  ngAfterViewInit() {
+    //this.id = this.commentNew.bugId;
+  }
+
   getBugId(id: number) {
     this.http.get('https://localhost:5001/api/bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.bug = response,
