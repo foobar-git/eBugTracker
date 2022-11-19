@@ -22,6 +22,7 @@ export class BugInfoComponent implements OnInit {
   id: number;
   bugImages: BugImage[];
   comments: Comment[];
+  commentsLength: number;
   commentsNumber: number;                               // number of comments - when listing comments
   noComments$: Observable<any>;
   galleryOptions: NgxGalleryOptions[];
@@ -49,12 +50,15 @@ export class BugInfoComponent implements OnInit {
         console.log(this.bug);
         this.bugImages = this.bug.bugImages;
         this.comments = this.bug.comments;
-        var length = this.comments.length;
+        this.commentsLength = this.comments.length;
+
+        var length = this.commentsLength;
         if (length > 0) this.commentsNumber = length - 1;
         else {
           this.commentsNumber = 0;
         }
         this.noComments$ = this.checkForCommentsAsync();  // delay the check if there are any comments posted
+        
         //console.log(this.commentsNumber);
         //console.log(this.bug);
         //console.log(this.comments);                     // can be used for returning a list of comments
@@ -91,7 +95,9 @@ export class BugInfoComponent implements OnInit {
 
   checkForCommentsAsync() {
     console.log(this.commentsNumber);
-    return of(this.commentsNumber);
+    console.log(this.commentsLength);
+    if (this.commentsLength > 0) return of(true);
+    else return of(false);
   }
 
   updateCommentsNumber() {

@@ -58,7 +58,7 @@
                     <ng-template #none>
                         <h5>No comments posted.</h5>
                     </ng-template>
-                    <h6 style="cursor: pointer" (click)="initNewComment()"> Post a new comment</h6>
+                    <h6 style="cursor: pointer" (click)="initNewComment()"> >>Post a new comment</h6>
                     <app-comment-new [hidden]="!writeNewComment"></app-comment-new>
                     <div *ngFor="let comment of comments">
                         <app-comment-edit></app-comment-edit>

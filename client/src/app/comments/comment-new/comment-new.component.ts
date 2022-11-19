@@ -39,15 +39,15 @@ export class CommentNewComponent implements OnInit {
   }
 
   getUserName() {
-    return "Nedim";
+    return "Ensar";
   }
   
   getUserId() {
-    return "2";
+    return "3";
   }
 
   getBugId() {
-    return "2";
+    return "3";
   }
 
 }

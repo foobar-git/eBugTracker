@@ -1,16 +1,14 @@
-<p>comment-new works!</p>
+<!--p>comment-new works!</p-->
 <div class="col-8">
     <div class="card mb-2">
         <div class="card-body">
             <div>
-                <strong>Comment ID: {{commentTemplate.appUserId}}</strong><br><hr>
-                Posted by user: {{commentTemplate.postedByUser}}<br>
-                Date created:<br>{{commentTemplate.dateCreated}}<br>
-                <span [hidden]="newComment">Content:<br>{{commentTemplate.content}}</span><br>
-                <!--span [hidden]="!newComment">Edit:</span><br-->
+                <strong>{{commentTemplate.postedByUser}}</strong><br>
+                {{commentTemplate.dateCreated}}<hr class="mt-n1">
+                <span [hidden]="newComment">{{commentTemplate.content}}</span>
                 <form id="newForm" #newForm="ngForm" [hidden]="!newComment">
                     <textarea class="form-control" [(ngModel)]="commentTemplate.content" name="content" id="" rows="3"></textarea>
-                    <button form="newForm" (click)="saveNewComment()" class="btn btn-secondary btn-block p-3">Save</button>
+                    <button form="newForm" (click)="saveNewComment()" class="btn btn-secondary btn-block p-3 mt-1">Save</button>
                 </form>
             </div>
         </div>
