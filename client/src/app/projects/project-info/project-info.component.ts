@@ -42,6 +42,8 @@ export class ProjectInfoComponent implements OnInit {
         //this.usersAssigned = JSON.stringify(this.project.usersAssigned);  // can be used for returning a list of user names
         this.usersAssigned = this.project.usersAssigned;
         this.bugsAssigned = this.project.bugsAssigned;
+        //this.bugsAssigned = this.bugsAssigned.reverse();
+        this.bugIdIndex = this.bugsAssigned.length - 1;                     // getting the last index first
         var length = this.bugsAssigned.length;
         if (length > 0) this.bugsAssignedNumber = length - 1;
         else {
@@ -49,9 +51,9 @@ export class ProjectInfoComponent implements OnInit {
         }
         this.noBugsAssigned$ = this.checkForbugsAssignedAsync();            // delay the check if there are any comments posted
         
-        //console.log(this.usersAssigned.length);                             // can be used for returning a list of users in project
+        //console.log(this.usersAssigned.length);                           // can be used for returning a list of users in project
         this.numberOfUsers = this.usersAssigned.length;
-        //console.log(this.bugsAssigned.length);                              // can be used for returning a list of bugs in project
+        //console.log(this.bugsAssigned.length);                            // can be used for returning a list of bugs in project
         this.numberOfBugs = this.bugsAssigned.length;
       }
     })
@@ -66,7 +68,7 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   updateBugIdIndex() {
-    this.bugIdIndex++;
+    this.bugIdIndex--;                                    // when accessing array by index, start from last element and count down
   }
 
 }
