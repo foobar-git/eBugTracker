@@ -7,7 +7,7 @@ namespace API.DTOs
 {
     public class CommentEditDto
     {
-        public DateTime DateEdited { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
         public string Content { get; set; }
         public bool Edited { get; set; }
     }

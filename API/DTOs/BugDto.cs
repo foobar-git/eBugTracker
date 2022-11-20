@@ -8,8 +8,8 @@ namespace API.DTOs
         public string Name { get; set; }
         public string FiledByUser { get; set; }
         public string ImageLocation { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateResolved { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime DateResolved { get; set; } = DateTime.Now;
         public string Description { get; set; }
         public bool IsResolved { get; set; }
         public bool IsActive { get; set; }

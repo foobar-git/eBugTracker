@@ -41,7 +41,8 @@ export class NavComponent implements OnInit {
   logout() {
     this.accountService.logout_service();
     //this.loggedIn = false;            v1
-    this.router.navigateByUrl('/');
+    //this.router.navigateByUrl('/');   v19
+    window.location.reload();
   }
 
   /*getCurrentUser() {                  v1

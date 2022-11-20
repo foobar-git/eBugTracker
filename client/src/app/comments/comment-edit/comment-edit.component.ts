@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { CommentsService } from 'src/app/_services/comments.service';
 import { NgForm } from '@angular/forms';
 import { BugInfoComponent } from 'src/app/bugs/bug-info/bug-info.component';
+import { AuthorizationService } from 'src/app/_services/authorization.service';
+import { HelperFnService } from 'src/app/_services/helper-fn.service';
 
 @Component({
   selector: 'app-comment-edit',
@@ -13,27 +15,30 @@ import { BugInfoComponent } from 'src/app/bugs/bug-info/bug-info.component';
 })
 export class CommentEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
+  ableToEditComment: boolean = false;
+  currentUserName: string;
+  currentUserType: string;                // implemented as string only for development -should be as numbers in produciton (admin = 0, etc.)
   comment: any;
-  commentsIndexNumber: number;                   // comment number - position in array
+  commentsIndexNumber: number;            // comment number - position in array
   editComment: boolean = false;
   commentEdited: boolean = false;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute,
-    private commentsService: CommentsService, private toastr: ToastrService,
-    private bugInfo: BugInfoComponent) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private toastr: ToastrService,
+    private commentsService: CommentsService, private authorization: AuthorizationService,
+    private bugInfo: BugInfoComponent,  private helperFn: HelperFnService) { }
 
   ngOnInit(): void {
-    //console.log(this.bugInfo.comments);
-    this.commentsIndexNumber = this.bugInfo.commentsNumber;
-    //console.log(this.commentsIndexNumber);
-    this.comment = this.bugInfo.comments[this.commentsIndexNumber];
-    if (this.comment.edited == true) this.commentEdited = true;
-    //console.log(this.comment.id);
+    this.getUserData();
+
+    this.getCommentIndexNumber();
+    
+    this.authorizeUser();
+
     this.bugInfo.updateCommentsNumber();         // needed for advancing to the next comment in comments
   }
 
   loadComment() {
-    this.editComment = true;
+    if (this.ableToEditComment) this.editComment = true;
     this.comment = this.bugInfo.comments[this.commentsIndexNumber];
     //console.log(this.comment);
     //console.log(this.comment.edited);
@@ -42,6 +47,7 @@ export class CommentEditComponent implements OnInit {
   commitComment(id: number) {
     // update comment
     this.comment.edited = true;
+    this.comment.dateCreated = this.helperFn.getCurrentDateTime();
     this.commentsService.editComment(id, this.comment).subscribe(() => {
       this.toastr.success("Comment edited, changes saved.");
       this.editForm.reset(this.comment);         // reset form status, keeping changes for user
@@ -49,6 +55,23 @@ export class CommentEditComponent implements OnInit {
     this.commentEdited = true;
     // reset variables
     this.editComment = false;
+  }
+
+  getCommentIndexNumber() {
+    //console.log(this.bugInfo.comments);
+    this.commentsIndexNumber = this.bugInfo.commentsNumber;
+    //console.log(this.commentsIndexNumber);
+    this.comment = this.bugInfo.comments[this.commentsIndexNumber];
+  }
+
+  getUserData() {
+    this.currentUserName = this.authorization.currentLoggedInUser.username;
+    this.currentUserType = this.authorization.userType;
+  }
+
+  authorizeUser() {
+    if (this.comment.edited == true) this.commentEdited = true;
+    if (this.currentUserName === this.comment.postedByUser || this.currentUserType === "Admin") this.ableToEditComment = true;
   }
 
 }

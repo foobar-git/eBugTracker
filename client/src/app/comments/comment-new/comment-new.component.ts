@@ -12,8 +12,9 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
 })
 export class CommentNewComponent implements OnInit {
   newComment: boolean = false;
-  currentUser: string;                        // populated by AccountService
+  currentUserName: string;                // populated by AccountService
   currentUserId: number;
+  //currentUserType: string;                // implemented as string only for development -should be as numbers in produciton (admin = 0, etc.)
   @Input() bugId: number;
 
   commentTemplate: any = {
@@ -29,7 +30,7 @@ export class CommentNewComponent implements OnInit {
     private authorization: AuthorizationService, private helperFn: HelperFnService) { }
 
   ngOnInit(): void {
-    this.currentUser = this.authorization.currentLoggedInUser.username;
+    this.currentUserName = this.authorization.currentLoggedInUser.username;
     //console.log(this.currentUser);
     //console.log(this.bugId);
     this.newCommentForm();
@@ -37,7 +38,7 @@ export class CommentNewComponent implements OnInit {
 
   newCommentForm() {
     this.getDate();
-    this.commentTemplate.postedByUser = this.currentUser;
+    this.commentTemplate.postedByUser = this.currentUserName;
     this.newComment = true;
   }
 

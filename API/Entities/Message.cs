@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string FromUser { get; set; }
         public string ToUser { get; set; }
-        public DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
         public bool IsRead { get; set; }
         public string Content { get; set; }
 

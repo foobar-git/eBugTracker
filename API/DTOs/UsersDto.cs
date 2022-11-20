@@ -9,8 +9,8 @@ namespace API.DTOs
         //====================================================================
         public string ImageUrl { get; set; }
         public int Created { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime LastActive { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime LastActive { get; set; } = DateTime.Now;
         public string UserType { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
