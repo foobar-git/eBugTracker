@@ -51,7 +51,8 @@
                         "PostedByUser": "Emil",
                         "AppUserId": 1,
                         "DateCreated": "2022-09-11",
-                        "Content": "This is a new test-comment, just commenting."
+                        "Content": "This is a new test-comment, just commenting.",
+                        "Edited": false
                     }
                 ]
             },
@@ -104,13 +105,15 @@
                         "PostedByUser": "Ensar",
                         "AppUserId": 3,
                         "DateCreated": "2022-08-09",
-                        "Content": "This is a test-comment, commenting on this comment test."
+                        "Content": "This is a test-comment, commenting on this comment test -edit.",
+                        "Edited": true
                     },
                     {
                         "PostedByUser": "Nedim",
                         "AppUserId": 2,
                         "DateCreated": "2022-08-11",
-                        "Content": "This is a another test-comment, commenting randomly as a comment test."
+                        "Content": "This is a another test-comment, commenting randomly as a comment test.",
+                        "Edited": false
                     }
                 ]
             }

@@ -16,34 +16,37 @@ export class CommentEditComponent implements OnInit {
   comment: any;
   commentsIndexNumber: number;                   // comment number - position in array
   editComment: boolean = false;
+  commentEdited: boolean = false;
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
     private commentsService: CommentsService, private toastr: ToastrService,
     private bugInfo: BugInfoComponent) { }
 
   ngOnInit(): void {
-    console.log(this.bugInfo.comments);
+    //console.log(this.bugInfo.comments);
     this.commentsIndexNumber = this.bugInfo.commentsNumber;
-    console.log(this.commentsIndexNumber);
+    //console.log(this.commentsIndexNumber);
     this.comment = this.bugInfo.comments[this.commentsIndexNumber];
+    if (this.comment.edited == true) this.commentEdited = true;
     //console.log(this.comment.id);
-    this.bugInfo.updateCommentsNumber();    // needed for advancing to the next comment in comments
+    this.bugInfo.updateCommentsNumber();         // needed for advancing to the next comment in comments
   }
 
   loadComment() {
     this.editComment = true;
     this.comment = this.bugInfo.comments[this.commentsIndexNumber];
-    console.log(this.comment);
+    //console.log(this.comment);
+    //console.log(this.comment.edited);
   }
 
   commitComment(id: number) {
-    //console.log(this.comment);
     // update comment
-    console.log("UPDATE");
+    this.comment.edited = true;
     this.commentsService.editComment(id, this.comment).subscribe(() => {
       this.toastr.success("Comment edited, changes saved.");
       this.editForm.reset(this.comment);         // reset form status, keeping changes for user
     })
+    this.commentEdited = true;
     // reset variables
     this.editComment = false;
   }

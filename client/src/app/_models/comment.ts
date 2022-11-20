@@ -6,4 +6,5 @@ export interface Comment {
     content: string | undefined;
     appUserId: number;
     bugId: number;
+    edited: boolean;
 }

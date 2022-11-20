@@ -3,8 +3,8 @@
     <div class="card mb-2">
         <div class="card-body">
             <div>
-                <strong>{{commentTemplate.postedByUser}}</strong><br>
-                {{commentTemplate.dateCreated}}<hr class="mt-n1">
+                <span class="font-weight-bold">{{commentTemplate.postedByUser}}</span><br>
+                <span class="small">{{commentTemplate.dateCreated}}</span><hr class="mt-n1">
                 <span [hidden]="newComment">{{commentTemplate.content}}</span>
                 <form id="newForm" #newForm="ngForm" [hidden]="!newComment">
                     <textarea class="form-control" [(ngModel)]="commentTemplate.content" name="content" id="" rows="3"></textarea>

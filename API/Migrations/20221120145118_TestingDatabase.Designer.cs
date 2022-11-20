@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221108190248_TestingDatabase")]
+    [Migration("20221120145118_TestingDatabase")]
     partial class TestingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,6 +136,9 @@ namespace API.Migrations
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("Edited")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("PostedByUser")
                         .HasColumnType("TEXT");

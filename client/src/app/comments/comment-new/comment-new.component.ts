@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { of } from 'rxjs';
-import { take } from 'rxjs/internal/operators/take';
-import { User } from 'src/app/_models/user';
-import { AccountService } from 'src/app/_services/account.service';
+import { AuthorizationService } from 'src/app/_services/authorization.service';
 import { CommentsService } from 'src/app/_services/comments.service';
+import { HelperFnService } from 'src/app/_services/helper-fn.service';
 
 @Component({
   selector: 'app-comment-new',
@@ -14,57 +12,52 @@ import { CommentsService } from 'src/app/_services/comments.service';
 })
 export class CommentNewComponent implements OnInit {
   newComment: boolean = false;
-  currentUser: User;                        // populated by AccountService
-  user: any;
+  currentUser: string;                        // populated by AccountService
+  currentUserId: number;
   @Input() bugId: number;
 
   commentTemplate: any = {
-    "dateCreated": "GET CURRENT DATE",
-    "postedByUser": "GET CURRENT USER-NAME",
+    "dateCreated": "",
+    "postedByUser": "",
     "content": "",
-    "appUserId": "GET CURRENT USER-ID",
-    "bugId": "GET CURRENT BUG-ID"
+    "appUserId": "",
+    "bugId": "",
+    "edited": false
   }
 
   constructor(private commentsService: CommentsService, private toastr: ToastrService, private http: HttpClient,
-    private accountService: AccountService) {
-      this.accountService.currentUser$.pipe(take(1)).subscribe(appUser => this.currentUser = appUser);
-    }
+    private authorization: AuthorizationService, private helperFn: HelperFnService) { }
 
   ngOnInit(): void {
-    console.log(this.bugId);
+    this.currentUser = this.authorization.currentLoggedInUser.username;
+    //console.log(this.currentUser);
+    //console.log(this.bugId);
     this.newCommentForm();
   }
 
   newCommentForm() {
-    console.log("NEW ENTRY");
-    this.commentTemplate.dateCreated = new Date;
-    this.commentTemplate.postedByUser = this.currentUser.username;
-    this.getUserIdAsync(this.currentUser.username);
-    this.commentTemplate.bugId = this.bugId;
+    this.getDate();
+    this.commentTemplate.postedByUser = this.currentUser;
     this.newComment = true;
   }
 
   saveNewComment() {
     // save the new comment
-    this.commentTemplate.dateCreated = new Date;
+    this.getDate();
+    this.currentUserId = this.authorization.userId;
+    this.commentTemplate.appUserId = this.currentUserId;
+    this.commentTemplate.bugId = this.bugId;
+
+    //console.log(this.commentTemplate);
     this.commentsService.newComment(this.commentTemplate).subscribe(() => {
       this.toastr.success("New comment has been posted.");
     })
     // reset variables
     this.newComment = false;
   }
-  
-  getUserIdAsync(username: string) {
-    this.http.get('https://localhost:5001/api/users/' + username).subscribe({ // observables do nothing until subscribed
-      next: response => this.user = response,
-      error: error => console.log(error),
-      complete: () => {
-        //this.getBugsByThisUser(this.user.username);
-        this.commentTemplate.appUserId = this.user.id;
-        console.log(this.commentTemplate.appUserId);
-      }
-    });
+
+  getDate() {
+    this.commentTemplate.dateCreated = this.helperFn.getCurrentDateTime();
   }
 
 }

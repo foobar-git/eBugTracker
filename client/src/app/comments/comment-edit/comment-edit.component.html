@@ -3,8 +3,8 @@
     <div class="card mb-2">
         <div class="card-body">
             <div>
-                <strong>{{comment.postedByUser}}</strong><button (click)="loadComment()" class="btn btn-primary float-right mt-n2"><i class="fa fa-edit"></i></button><br>
-                {{comment.dateCreated}}<hr class="mt-n1">
+                <span class="font-weight-bold">{{comment.postedByUser}}</span><button (click)="loadComment()" class="btn btn-primary float-right mt-n2"><i class="fa fa-edit"></i></button><mark [hidden]="!commentEdited" class="small mr-3 float-right">&nbsp;<em>Edited</em>&nbsp;</mark><br>
+                <span class="small">{{comment.dateCreated}}</span><hr class="mt-n1">
                 <span [hidden]="editComment">{{comment.content}}</span>
                 <span [hidden]="!editComment">Edit:</span><br>
                 <form id="editForm" #editForm="ngForm" [hidden]="!editComment">

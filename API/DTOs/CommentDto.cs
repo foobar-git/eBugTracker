@@ -6,6 +6,7 @@ namespace API.Entities
         public DateTime DateCreated { get; set; }
         public string PostedByUser { get; set; }
         public string Content { get; set; }
+        public bool Edited { get; set; }
 
         //_EF_Migrations__________________________
         //public AppUser AppUser { get; set; }

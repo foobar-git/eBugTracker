@@ -9,5 +9,6 @@ namespace API.DTOs
     {
         public DateTime DateEdited { get; set; }
         public string Content { get; set; }
+        public bool Edited { get; set; }
     }
 }

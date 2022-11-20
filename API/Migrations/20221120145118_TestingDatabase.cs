@@ -148,6 +148,7 @@ namespace API.Migrations
                     DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
                     PostedByUser = table.Column<string>(type: "TEXT", nullable: true),
                     Content = table.Column<string>(type: "TEXT", nullable: true),
+                    Edited = table.Column<bool>(type: "INTEGER", nullable: false),
                     AppUserId = table.Column<int>(type: "INTEGER", nullable: false),
                     BugId = table.Column<int>(type: "INTEGER", nullable: false)
                 },

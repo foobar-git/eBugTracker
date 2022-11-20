@@ -7,7 +7,6 @@ import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov
 import { Observable, of } from 'rxjs';
 import { CommentsService } from 'src/app/_services/comments.service';
 import { ToastrService } from 'ngx-toastr';
-import { CommentEditComponent } from 'src/app/comments/comment-edit/comment-edit.component';
 import { CommentNewComponent } from 'src/app/comments/comment-new/comment-new.component';
 
 @Component({
@@ -16,7 +15,6 @@ import { CommentNewComponent } from 'src/app/comments/comment-new/comment-new.co
   styleUrls: ['./bug-info.component.css']
 })
 export class BugInfoComponent implements OnInit {
-  @ViewChild('commentEditComponent') commentEditComponent: CommentEditComponent;
   writeNewComment: boolean = false;
   bug: any;
   id: number;
@@ -28,9 +26,8 @@ export class BugInfoComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute,
-    private commentsService: CommentsService, private commentNew: CommentNewComponent,
-    private toastr: ToastrService,) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private toastr: ToastrService,
+    private commentsService: CommentsService, private commentNew: CommentNewComponent) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -40,10 +37,6 @@ export class BugInfoComponent implements OnInit {
     });
 
     this.getBugId(this.id);
-  }
-
-  ngAfterViewInit() {
-    //this.id = this.commentNew.bugId;
   }
 
   getBugId(id: number) {
@@ -110,22 +103,13 @@ export class BugInfoComponent implements OnInit {
 
   initNewComment() {
     console.log("Write a new comment!");
-    //this.commentEditComponent.newComment = true;
     this.writeNewComment = true;
-    //this.commentNewComponent.newCommentForm();
     this.commentNew.newCommentForm();
 
     // this.commentsService.newComment(newComment).subscribe(() => {
     //   this.toastr.success("New comment has been posted.");
     // })
 
-  }
-
-  async testFn_sleepTimer(s: number) {
-    var t = s * 1000;
-    const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-    await sleep(t);
-    console.log("paused for " + s + " seconds.");
   }
 
 }

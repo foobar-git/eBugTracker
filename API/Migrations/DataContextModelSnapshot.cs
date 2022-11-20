@@ -135,6 +135,9 @@ namespace API.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("Edited")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("PostedByUser")
                         .HasColumnType("TEXT");
 
