@@ -22,6 +22,8 @@ export class CommentEditComponent implements OnInit {
   commentsIndexNumber: number;            // comment number - position in array
   editComment: boolean = false;
   commentEdited: boolean = false;
+  dateInfo: string;
+  timeInfo: string;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private toastr: ToastrService,
     private commentsService: CommentsService, private authorization: AuthorizationService,
@@ -35,6 +37,8 @@ export class CommentEditComponent implements OnInit {
     this.authorizeUser();
 
     this.bugInfo.updateCommentsNumber();         // needed for advancing to the next comment in comments
+
+    this.formatDateTime();
   }
 
   loadComment() {
@@ -52,8 +56,11 @@ export class CommentEditComponent implements OnInit {
       this.toastr.success("Comment edited, changes saved.");
       this.editForm.reset(this.comment);         // reset form status, keeping changes for user
     })
+    this.resetVariables();
+  }
+
+  resetVariables() {
     this.commentEdited = true;
-    // reset variables
     this.editComment = false;
   }
 
@@ -72,6 +79,24 @@ export class CommentEditComponent implements OnInit {
   authorizeUser() {
     if (this.comment.edited == true) this.commentEdited = true;
     if (this.currentUserName === this.comment.postedByUser || this.currentUserType === "Admin") this.ableToEditComment = true;
+  }
+
+  removeComment() {
+    this.loadComment();
+    if (this.comment.id != null) {
+      console.log("DELETE COMMENT");
+      console.log(this.comment.id);
+      this.commentsService.deleteComment(this.comment.id).subscribe(() => {
+        this.toastr.success("Comment deleted.");
+        window.location.reload();
+      })
+    }
+    this.resetVariables();
+  }
+
+  formatDateTime() {  // slicing the dateTime variable for easier reading
+    this.dateInfo = (this.comment.dateCreated).slice(0, 10);
+    this.timeInfo = (this.comment.dateCreated).slice(11, 19);
   }
 
 }

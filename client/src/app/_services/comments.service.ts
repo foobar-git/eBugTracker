@@ -17,6 +17,10 @@ export class CommentsService {
     //console.log(comment);
     return this.http.put(this.baseUrl + 'comment/id/' + id, comment);
   }
+
+  deleteComment(id: number) {
+    return this.http.delete(this.baseUrl + 'comment/dc/' + id);
+  }
   
   newComment(comment: CommentNew) {
     //console.log(comment);

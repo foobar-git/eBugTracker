@@ -72,5 +72,10 @@ namespace API.Data
             // mark 'comment' as 'modified'
             _context.Entry(comment).State = EntityState.Modified;
         }
+
+        public void DeleteCommentAsync(Comment comment)
+        {
+            _context.Comments.Remove(comment);
+        }
     }
 }

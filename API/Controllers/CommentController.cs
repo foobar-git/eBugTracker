@@ -75,6 +75,19 @@ namespace API.Controllers
             return BadRequest("Failed to edit comment.");
         }
 
+        [HttpDelete("dc/{id}")]
+        public async Task<ActionResult> DeleteComment(int id)
+        {
+            var comment = await _commentRepository.GetCommentByIdAsync(id);
+            if (comment != null)
+            {
+                _commentRepository.DeleteCommentAsync(comment);
+            }
+            if (await _commentRepository.SaveAllAsync()) return Ok();
+            //if the update failes:
+            return BadRequest("Failed to delete comment.");
+        }
+
         [HttpPut("nc/")]
         public async Task<ActionResult> NewComment([FromBody]Comment newComment)
         {

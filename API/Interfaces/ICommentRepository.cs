@@ -7,6 +7,8 @@ namespace API.Interfaces
     {
         void Update(Comment comment);
 
+        void DeleteCommentAsync(Comment comment);
+
         Task<bool> SaveAllAsync();
         
         //Task<Comment> UpdateCommentAsync(int id, CommentEditDto newComment);

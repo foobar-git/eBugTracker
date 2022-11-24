@@ -26,10 +26,6 @@
 
     <div class="col-8">
         <tabset class="project-tabset">
-            <tab heading="Description">
-                <h4>Bug description</h4>
-                <p>{{bug.description}}</p>
-            </tab>
             <tab heading="Attachments">
                 <div>
                     <h4>Images related to this bug</h4>
@@ -64,6 +60,10 @@
                         <app-comment-edit></app-comment-edit>
                     </div>
                 </div>
+            </tab>
+            <tab heading="Description">
+                <h4>Bug description</h4>
+                <p>{{bug.description}}</p>
             </tab>
             <!--tab heading="Comments">
                 <h4>List of comments attached to this bug</h4>
