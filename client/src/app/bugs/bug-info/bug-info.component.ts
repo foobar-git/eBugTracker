@@ -63,7 +63,7 @@ export class BugInfoComponent implements OnInit {
         //console.log(this.bugImages[0].location);        // can be used for returning a list of bug images
         this.galleryImages = this.getImages();
       }
-    })
+    });
   }
 
   getImages(): NgxGalleryImage[] {

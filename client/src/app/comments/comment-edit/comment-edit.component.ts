@@ -16,29 +16,26 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
 export class CommentEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   ableToEditComment: boolean = false;
-  currentUserName: string;
-  currentUserType: string;                // implemented as string only for development -should be as numbers in produciton (admin = 0, etc.)
   comment: any;
   commentsIndexNumber: number;            // comment number - position in array
   editComment: boolean = false;
   commentEdited: boolean = false;
-  dateInfo: string;
-  timeInfo: string;
+  dateTime: string;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private toastr: ToastrService,
     private commentsService: CommentsService, private authorization: AuthorizationService,
     private bugInfo: BugInfoComponent,  private helperFn: HelperFnService) { }
 
   ngOnInit(): void {
-    this.getUserData();
-
     this.getCommentIndexNumber();
     
+    this.setCommentStatus();
+
     this.authorizeUser();
 
     this.bugInfo.updateCommentsNumber();         // needed for advancing to the next comment in comments
 
-    this.formatDateTime();
+    this.dateTime = this.helperFn.formatDateTime(this.comment.dateCreated);
   }
 
   loadComment() {
@@ -71,32 +68,24 @@ export class CommentEditComponent implements OnInit {
     this.comment = this.bugInfo.comments[this.commentsIndexNumber];
   }
 
-  getUserData() {
-    this.currentUserName = this.authorization.currentLoggedInUser.username;
-    this.currentUserType = this.authorization.userType;
+  setCommentStatus() {
+    if (this.comment.edited == true) this.commentEdited = true;
   }
 
   authorizeUser() {
-    if (this.comment.edited == true) this.commentEdited = true;
-    if (this.currentUserName === this.comment.postedByUser || this.currentUserType === "Admin") this.ableToEditComment = true;
+    this.ableToEditComment = this.authorization.userAuthorized(this.comment.postedByUser);
   }
 
   removeComment() {
     this.loadComment();
     if (this.comment.id != null) {
-      console.log("DELETE COMMENT");
-      console.log(this.comment.id);
+      //console.log(this.comment.id);
       this.commentsService.deleteComment(this.comment.id).subscribe(() => {
         this.toastr.success("Comment deleted.");
         window.location.reload();
-      })
+      });
     }
     this.resetVariables();
-  }
-
-  formatDateTime() {  // slicing the dateTime variable for easier reading
-    this.dateInfo = (this.comment.dateCreated).slice(0, 10);
-    this.timeInfo = (this.comment.dateCreated).slice(11, 19);
   }
 
 }

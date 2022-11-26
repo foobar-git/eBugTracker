@@ -8,7 +8,7 @@
                     <button [hidden]="!ableToEditComment" (click)="loadComment()" class="btn btn-primary float-right mt-n2 mr-1"><i class="fa fa-edit"></i></button>
                     <mark [hidden]="!commentEdited" class="small mr-2 float-right">&nbsp;<em>Edited</em>&nbsp;</mark><br>
                 <!--span class="small">{{comment.dateCreated}}</span><hr class="mt-n1"-->
-                <span class="small">{{dateInfo}}&nbsp;&nbsp;{{timeInfo}}</span><hr class="mt-n1">
+                <span class="small">{{dateTime}}</span><hr class="mt-n1">
                 <span [hidden]="editComment">{{comment.content}}</span>
                 <span [hidden]="!editComment">Edit:</span><br>
                 <form id="editForm" #editForm="ngForm" [hidden]="!editComment">

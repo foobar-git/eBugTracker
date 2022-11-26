@@ -43,6 +43,7 @@ import { CommentNewComponent } from './comments/comment-new/comment-new.componen
     UserProfileComponent,
     BugInfoComponent,
     BugListComponent,
+    BugCardComponent,
     StatsComponent,
     TestErrorsComponent,
     NotFoundComponent,
@@ -56,7 +57,6 @@ import { CommentNewComponent } from './comments/comment-new/comment-new.componen
     UserEditComponent,
     UserEditAdminComponent,
     CommentEditComponent,
-    BugCardComponent,
     CommentNewComponent
   ],
   imports: [
@@ -71,8 +71,8 @@ import { CommentNewComponent } from './comments/comment-new/comment-new.componen
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },    // interceptor for sending tokens
     { provide: ProjectInfoComponent },                                        // make available to other components
-    { provide: BugInfoComponent },                                             // make available to other components
-    { provide: CommentNewComponent }                                             // make available to other components
+    { provide: BugInfoComponent },                                            // make available to other components
+    { provide: CommentNewComponent }                                         // make available to other components
   ],
   bootstrap: [AppComponent]
 })
