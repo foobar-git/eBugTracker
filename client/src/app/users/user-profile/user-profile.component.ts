@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { BugsAssigned } from 'src/app/_models/bugsAssigned';
+import { HelperFnService } from 'src/app/_services/helper-fn.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,8 +14,10 @@ export class UserProfileComponent implements OnInit {
   id: number;
   bugs: any;
   bugsByThisUser: any[] = [];
+  dateTimeCreated: string;
+  dateTimeLastActive: string;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private helperFn: HelperFnService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -32,6 +35,8 @@ export class UserProfileComponent implements OnInit {
       error: error => console.log(error),
       complete: () => {
         this.getBugsByThisUser(this.user.username);
+        this.dateTimeCreated = this.helperFn.formatDateTime(this.user.dateCreated);
+        this.dateTimeLastActive = this.helperFn.formatDateTime(this.user.lastActive);
       }
     });
   }

@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { CommentsService } from 'src/app/_services/comments.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommentNewComponent } from 'src/app/comments/comment-new/comment-new.component';
+import { HelperFnService } from 'src/app/_services/helper-fn.service';
 
 @Component({
   selector: 'app-bug-info',
@@ -25,9 +26,11 @@ export class BugInfoComponent implements OnInit {
   noComments$: Observable<any>;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  dateTimeCreated: string;
+  dateTimeResolved: string;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private toastr: ToastrService,
-    private commentsService: CommentsService, private commentNew: CommentNewComponent) { }
+    private commentsService: CommentsService, private commentNew: CommentNewComponent, private helperFn: HelperFnService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -45,6 +48,8 @@ export class BugInfoComponent implements OnInit {
       error: error => console.log(error),
       complete: () => {
         console.log(this.bug);
+        this.dateTimeCreated = this.helperFn.formatDateTime(this.bug.dateCreated);
+        this.dateTimeResolved = this.helperFn.formatDateTime(this.bug.dateResolved);
         this.bugImages = this.bug.bugImages;
         this.comments = this.bug.comments;
         this.commentsLength = this.comments.length;

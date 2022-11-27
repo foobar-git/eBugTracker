@@ -20,9 +20,9 @@ export class AuthorizationService {
     this.accountService.currentUser$.pipe(take(1)).subscribe(
       user => {
         this.currentLoggedInUser = user;
-        console.log(this.currentLoggedInUser);
-          //this.getUserDataAsync(this.currentLoggedInUser.username);
-          this.getUserDataAsync();
+        //console.log(this.currentLoggedInUser);
+        //this.getUserDataAsync(this.currentLoggedInUser.username);
+        this.getUserDataAsync();
       },
       error => console.log(error)
     );
@@ -39,7 +39,8 @@ export class AuthorizationService {
           this.userType = this.user.userType;
           //console.log(this.userId);
           //console.log(this.userType);
-          this.setUserType(this.userIsAdmin());
+          //this.setUserType(this.userIsAdmin());             // v20
+          this.userIsAdmin();
         }
       });
     }
@@ -54,11 +55,12 @@ export class AuthorizationService {
 
   userIsAdmin() {
     //console.log(this.userType);
-    return this.userType === "Admin" ? true : false;
+    //return this.userType === "Admin" ? true : false;
+    this.userType$.next(this.userType === "Admin" ? true : false);
   }
 
-  setUserType(admin: boolean) {
-    this.userType$.next(admin);
-  }
+  // setUserType(admin: boolean) {
+  //   this.userType$.next(admin);
+  // }
 
 }

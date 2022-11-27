@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UsersAssigned } from 'src/app/_models/usersAssigned';
 import { BugsAssigned } from 'src/app/_models/bugsAssigned';
 import { Observable, of } from 'rxjs';
+import { HelperFnService } from 'src/app/_services/helper-fn.service';
 
 
 @Component({
@@ -21,8 +22,10 @@ export class ProjectInfoComponent implements OnInit {
   noBugsAssigned$: Observable<any>;
   numberOfBugs: number;
   numberOfUsers: number;
+  dateTimeCreated: string;
+  dateTimeCompleted: string;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private helperFn: HelperFnService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -41,9 +44,13 @@ export class ProjectInfoComponent implements OnInit {
         //console.log(this.project.usersAssigned);                          // can be used for returning a list of user names
         //this.usersAssigned = JSON.stringify(this.project.usersAssigned);  // can be used for returning a list of user names
         this.usersAssigned = this.project.usersAssigned;
+        this.dateTimeCreated = this.helperFn.formatDateTime(this.project.dateCreated);
+        this.dateTimeCompleted = this.helperFn.formatDateTime(this.project.dateCompleted);
+        
         this.bugsAssigned = this.project.bugsAssigned;
         //this.bugsAssigned = this.bugsAssigned.reverse();
         this.bugIdIndex = this.bugsAssigned.length - 1;                     // getting the last index first
+        
         var length = this.bugsAssigned.length;
         if (length > 0) this.bugsAssignedNumber = length - 1;
         else {

@@ -23,12 +23,11 @@ export class NavComponent implements OnInit {
     private toastr: ToastrService, private authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
-    //this.getCurrentUser(); // get user from account service   v1
-    //this.currentUser$ = this.account-Service.currentUser$;     v1 + v2
+    //this.getCurrentUser(); // get user from account service     v1
+    //this.currentUser$ = this.account-Service.currentUser$;      v1 + v2
     this.authorizationService.userAuthorization$.subscribe(
       userType => this.isAdmin = userType
     )
-    console.log(this.isAdmin);
   }
 
   login() {
@@ -36,9 +35,11 @@ export class NavComponent implements OnInit {
     this.accountService.login_service(this.model).subscribe(
       () => {
         this.router.navigateByUrl('/stats')
-        //this.loggedIn = true;                   v1
+        //this.loggedIn = true;                                   v1
+
+        //console.log(this.isAdmin);
         this.authorizationService.getUserDataAsync();
-        window.location.href="stats";                   // reload page fetching user data (authorization service)
+        window.location.href="stats";                             // reload page fetching user data (authorization service)
       },
       error => {
         console.log(error),
@@ -48,12 +49,12 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.accountService.logout_service();
-    //this.loggedIn = false;            v1
-    //this.router.navigateByUrl('/');   v19
+    //this.loggedIn = false;                                      v1
+    //this.router.navigateByUrl('/');                             v19
     window.location.reload();
   }
 
-  /*getCurrentUser() {                  v1
+  /*getCurrentUser() {                                            v1
     this.accountService.currentUser$.subscribe(user => {
       // set the loggedIn status for the current user
       this.loggedIn = !!user; // double exclamation marks turn an object into a boolean
