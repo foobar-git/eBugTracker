@@ -12,9 +12,11 @@ import { ProjectListComponent } from './projects/project-list/project-list.compo
 import { StatsComponent } from './stats/stats.component';
 //import { MessagesComponent } from './users/messages/messages.component';
 import { UserListComponent } from './users/user-list/user-list.component';
-import { UserProfileUsernameComponent } from './users/user-profile-username/user-profile-username.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { CommentComponent } from './comments/comment/comment.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserEditAdminComponent } from './users/user-edit-admin/user-edit-admin.component';
 
 /* v5
 const routes: Routes = [
@@ -38,17 +40,21 @@ const routes: Routes = [
     children: [
       { path: 'stats', component: StatsComponent },  // route '...:4200/stats/'
 
-      { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },  // route '...:4200/users/'
-      { path: 'user/:username', component: UserProfileUsernameComponent },  // route '...:4200/user/"username"'
-      { path: 'user/id/:id', component: UserProfileComponent },  // route '...:4200/user/"id"'
+      { path: 'users', component: UserListComponent},  // route '...:4200/users/'
+      { path: 'user/id/:id', component: UserProfileComponent },  // route '...:4200/user/id/"id"'
+      { path: 'user/edit/this', component: UserEditComponent },  // route '...:4200/user/edit/this'
+      { path: 'user/edit/admin', component: UserEditAdminComponent },  // route '...:4200/user/edit/admin'
 
       { path: 'projects', component: ProjectListComponent },  // route '...:4200/projects/'
       { path: 'project/:name', component: ProjectInfoNameComponent },  // route '...:4200/project/"projectname"'
-      { path: 'project/id/:id', component: ProjectInfoComponent },  // route '...:4200/project/"id"/'
+      { path: 'project/id/:id', component: ProjectInfoComponent },  // route '...:4200/project/id/"id"/'
 
       { path: 'bugs', component: BugListComponent },  // route '...:4200/bugs/'
       //{ path: 'bug/:name', component: BugInfoNameComponent },  // route '...:4200/bug/"bugname"'
-      { path: 'bug/id/:id', component: BugInfoComponent },  // route '...:4200/bug/"id"/'
+      { path: 'bug/id/:id', component: BugInfoComponent },  // route '...:4200/bug//id/"id"/'
+
+      //{ path: 'comments', component: CommentListComponent },  // route '...:4200/comments/'
+      { path: 'comment/id/:id', component: CommentComponent },  // route '...:4200/comment/id/"id"/'
 
       //{ path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'
     ]

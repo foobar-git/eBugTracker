@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,10 +19,18 @@ import { TestErrorsComponent } from './errors/test-errors/test-errors.component'
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import { UserProfileUsernameComponent } from './users/user-profile-username/user-profile-username.component';
 import { ProjectListComponent } from './projects/project-list/project-list.component';
 import { ProjectInfoComponent } from './projects/project-info/project-info.component';
 import { ProjectInfoNameComponent } from './projects/project-info-name/project-info-name.component';
+import { UserCardComponent } from './users/user-card/user-card.component';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { ProjectCardComponent } from './projects/project-card/project-card.component';
+import { CommentComponent } from './comments/comment/comment.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserEditAdminComponent } from './users/user-edit-admin/user-edit-admin.component';
+import { CommentEditComponent } from './comments/comment-edit/comment-edit.component';
+import { BugCardComponent } from './bugs/bug-card/bug-card.component';
+import { CommentNewComponent } from './comments/comment-new/comment-new.component';
 
 @NgModule({
   declarations: [
@@ -36,14 +43,21 @@ import { ProjectInfoNameComponent } from './projects/project-info-name/project-i
     UserProfileComponent,
     BugInfoComponent,
     BugListComponent,
+    BugCardComponent,
     StatsComponent,
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    UserProfileUsernameComponent,
     ProjectListComponent,
     ProjectInfoComponent,
-    ProjectInfoNameComponent
+    ProjectInfoNameComponent,
+    UserCardComponent,
+    ProjectCardComponent,
+    CommentComponent,
+    UserEditComponent,
+    UserEditAdminComponent,
+    CommentEditComponent,
+    CommentNewComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +68,11 @@ import { ProjectInfoNameComponent } from './projects/project-info-name/project-i
     SharedModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },    // interceptor for sending tokens
+    { provide: ProjectInfoComponent },                                        // make available to other components
+    { provide: BugInfoComponent },                                            // make available to other components
+    { provide: CommentNewComponent }                                         // make available to other components
   ],
   bootstrap: [AppComponent]
 })

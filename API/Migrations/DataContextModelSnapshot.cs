@@ -23,9 +23,6 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CommentId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
@@ -58,8 +55,6 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CommentId");
-
                     b.ToTable("AppUsers");
                 });
 
@@ -67,9 +62,6 @@ namespace API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CommentId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateCreated")
@@ -122,13 +114,16 @@ namespace API.Migrations
 
                     b.HasIndex("BugId");
 
-                    b.ToTable("Images");
+                    b.ToTable("BugImages");
                 });
 
             modelBuilder.Entity("API.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AppUserId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("BugId")
@@ -140,10 +135,15 @@ namespace API.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("Edited")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("PostedByUser")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("BugId");
 
@@ -201,7 +201,7 @@ namespace API.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("UserImage");
+                    b.ToTable("UserImages");
                 });
 
             modelBuilder.Entity("API.Entities.UsersAssigned", b =>
@@ -226,15 +226,6 @@ namespace API.Migrations
                     b.ToTable("UsersAssigned");
                 });
 
-            modelBuilder.Entity("API.Entities.AppUser", b =>
-                {
-                    b.HasOne("API.Entities.Comment", "Comment")
-                        .WithMany()
-                        .HasForeignKey("CommentId");
-
-                    b.Navigation("Comment");
-                });
-
             modelBuilder.Entity("API.Entities.Bug", b =>
                 {
                     b.HasOne("API.Entities.Project", null)
@@ -247,7 +238,7 @@ namespace API.Migrations
             modelBuilder.Entity("API.Entities.BugImage", b =>
                 {
                     b.HasOne("API.Entities.Bug", null)
-                        .WithMany("Images")
+                        .WithMany("BugImages")
                         .HasForeignKey("BugId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -255,6 +246,12 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Comment", b =>
                 {
+                    b.HasOne("API.Entities.AppUser", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("API.Entities.Bug", null)
                         .WithMany("Comments")
                         .HasForeignKey("BugId")
@@ -286,14 +283,16 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("UserImage");
                 });
 
             modelBuilder.Entity("API.Entities.Bug", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("BugImages");
 
-                    b.Navigation("Images");
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("API.Entities.Project", b =>

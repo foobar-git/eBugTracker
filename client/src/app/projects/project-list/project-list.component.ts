@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { AppProject } from 'src/app/_models/appProject';
+import { ProjectsService } from 'src/app/_services/projects.service';
 
 @Component({
   selector: 'app-project-list',
@@ -9,19 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class ProjectListComponent implements OnInit {
-  projects: any;
+  appProjects: AppProject[];
 
-  constructor(private http: HttpClient) { }
+  constructor(private projectService: ProjectsService) { }
 
   ngOnInit(): void {
-    this.getProjects();
+    this.loadProjects();
   }
 
-  getProjects() {
-    this.http.get('https://localhost:5001/api/project').subscribe({ // observables do nothing until subscribed
-      next: response => this.projects = response,
-      error: error => console.log(error)//,
-      //complete: () => void
+  loadProjects() {
+    this.projectService.getAppProjects().subscribe(projects => {
+      this.appProjects = projects;
     })
   }
 

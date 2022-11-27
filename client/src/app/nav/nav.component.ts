@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
+import { AuthorizationService } from '../_services/authorization.service';
 
 @Component({
   selector: 'app-nav',
@@ -14,37 +15,46 @@ export class NavComponent implements OnInit {
   model: any = {} // initialize to an empty object
   //loggedIn : boolean = false;       v1
   //currentUser$: Observable<User>;   v2 (using async pipe)
+  isAdmin: boolean = false;
 
   //constructor(private accountService: AccountService) { }                       v1 + v2
   //constructor(public accountService: AccountService, private router: Router) { }  // v5
-  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) { }
+  constructor(public accountService: AccountService, private router: Router,
+    private toastr: ToastrService, private authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
-    //this.getCurrentUser(); // get user from account service   v1
-    //this.currentUser$ = this.accountService.currentUser$;     v1 + v2
+    //this.getCurrentUser(); // get user from account service     v1
+    //this.currentUser$ = this.account-Service.currentUser$;      v1 + v2
+    this.authorizationService.userAuthorization$.subscribe(
+      userType => this.isAdmin = userType
+    )
   }
 
   login() {
     //console.log(this.model);
-    this.accountService.login_service(this.model).subscribe(response => {
-      //console.log(response);          v4
-      this.router.navigateByUrl('/stats')
-      //this.loggedIn = true;           v1
-    }, error => {
-      console.log(error)//,
-      //complete: () => void;
+    this.accountService.login_service(this.model).subscribe(
+      () => {
+        this.router.navigateByUrl('/stats')
+        //this.loggedIn = true;                                   v1
 
-      this.toastr.error(error.error);
-    })
+        //console.log(this.isAdmin);
+        this.authorizationService.getUserDataAsync();
+        window.location.href="stats";                             // reload page fetching user data (authorization service)
+      },
+      error => {
+        console.log(error),
+        this.toastr.error(error.error);
+      });
   }
 
   logout() {
     this.accountService.logout_service();
-    //this.loggedIn = false;            v1
-    this.router.navigateByUrl('/');
+    //this.loggedIn = false;                                      v1
+    //this.router.navigateByUrl('/');                             v19
+    window.location.reload();
   }
 
-  /*getCurrentUser() {                  v1
+  /*getCurrentUser() {                                            v1
     this.accountService.currentUser$.subscribe(user => {
       // set the loggedIn status for the current user
       this.loggedIn = !!user; // double exclamation marks turn an object into a boolean

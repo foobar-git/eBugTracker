@@ -1,0 +1,21 @@
+<!--p>comment-edit works!</p-->
+<div class="col-8">
+    <div class="card mb-2">
+        <div class="card-body">
+            <div>
+                <span class="font-weight-bold">{{comment.postedByUser}}</span>
+                    <button [hidden]="!ableToEditComment" (click)="removeComment()" class="btn btn-primary float-right mt-n2"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    <button [hidden]="!ableToEditComment" (click)="loadComment()" class="btn btn-primary float-right mt-n2 mr-1"><i class="fa fa-edit"></i></button>
+                    <mark [hidden]="!commentEdited" class="small mr-2 float-right">&nbsp;<em>Edited</em>&nbsp;</mark><br>
+                <!--span class="small">{{comment.dateCreated}}</span><hr class="mt-n1"-->
+                <span class="small">{{dateTime}}</span><hr class="mt-n1">
+                <span [hidden]="editComment">{{comment.content}}</span>
+                <span [hidden]="!editComment">Edit:</span><br>
+                <form id="editForm" #editForm="ngForm" [hidden]="!editComment">
+                    <textarea class="form-control" [(ngModel)]="comment.content" name="content" id="" rows="3"></textarea>
+                    <button form="editForm" (click)="commitComment(comment.id)" class="btn btn-secondary btn-block p-3 mt-1">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

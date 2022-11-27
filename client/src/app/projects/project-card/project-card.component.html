@@ -1,0 +1,18 @@
+<!--p>project-card works!</p-->
+<div class="card mb-4">
+    <div class="card-img-wrapper mt-2">
+        <div class="px-3">
+            <span>Project ID: </span><span style="float:right" class="text-end">{{appProject.id}}</span><br>
+            <span>Project name: </span><span style="float:right" class="text-end"><strong>{{appProject.name}}</strong></span>
+        </div><hr>
+        <ul class="list-inline user-icons animate text-center">
+            <li class="list-inline-item"><button routerLink="/project/id/{{appProject.id}}" class="btn btn-primary"><i class="fa fa-folder"></i></button></li>
+            <!--li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-bug"></i></button></li-->
+            <!--li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-user"></i></button></li-->
+        </ul>
+    </div>
+    <div class="card-body p-2">
+        <span class="card-title text-center mb-1"><i class="fa fa-check"> Project complete:</i></span><span style="float:right" class="text-end">{{appProject.isComplete}}</span>
+        <span class="card-text text-muted text-center"><i class="fa fa-pause"> Project on-hold:</i></span><span style="float:right" class="text-end">{{appProject.isOnHold}}</span>
+    </div>
+</div>

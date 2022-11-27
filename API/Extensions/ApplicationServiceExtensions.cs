@@ -19,6 +19,7 @@ namespace API.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IBugRepository, BugRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             
             services.AddAutoMapper(typeof(HelperFunctions.AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
@@ -84,6 +85,22 @@ namespace API.Controllers
             //return await _userRepository.GetUserByUsernameAsync(FormatUsername.Format(username)); // v9
             //AppUser user = await _userRepository.GetUserByUsernameAsync(FormatUsername.Format(username)); //v11
             return _mapper.Map<UsersDto>(await _userRepository.GetUserDtoAsync(FormatName.Format(username)));
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(UserUpdateDto userUpdateDto)
+        {
+            // returns the username for the user from the token
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userRepository.GetUserAsync(username);
+
+            _mapper.Map(userUpdateDto, user);
+            _userRepository.Update(user);
+
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+
+            //if the update failes:
+            return BadRequest("Failed to update user.");
         }
     }
 }

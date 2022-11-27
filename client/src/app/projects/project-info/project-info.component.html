@@ -1,7 +1,63 @@
-<p>project-info works!</p>
+<!--p>project-info works!</p>
 <div class="container" style="margin-top: 5rem;">
   <ng-container *ngIf="project">
-    <p>{{project.id}} - {{project.name}}</p>
-    <p>{{project.createdByUser}} - {{project.description}}</p>
+    <p>{{project.id}} - {{project.projectname}}</p>
   </ng-container>
+</div-->
+<div class="row" *ngIf="project">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <div>
+          <strong>Project ID: {{project.id}}</strong><br><hr>
+          Project name: {{project.name}}<br>
+          Created by user: {{project.createdByUser}}<br>
+          Date created:<br>{{dateTimeCreated}}<br>
+          Date completed:<br>{{dateTimeCompleted}}<br>
+          Project is complete: {{project.isComplete}}<br>
+          Project is on-hold: {{project.isOnHold}}<br>
+          <!-- Description: {{project.description}}<br-->
+          Bugs in project: {{numberOfBugs}}<br>
+          Users in project: {{numberOfUsers}}<br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-8">
+    <tabset class="project-tabset">
+      <tab heading="Bugs Tracked">
+        <h4>Bugs tracked in this project</h4>
+        <div class="row">
+          <div *ngFor="let bug of bugsAssigned">
+            <app-bug-card></app-bug-card>
+          </div>
+        </div>
+      </tab>
+      <tab heading="Users Assigned">
+        <h4>List of users assigned to this project:</h4>
+        <div class="row">
+          <div *ngFor="let user of usersAssigned">
+            <div class="card mb-4 ml-4 mr-4">
+              <div class="mt-2">
+                  <!--img src="{{user.imageUrl}}" alt="{{user.username}}" class="card-img-top"-->
+                  <ul class="list-inline user-icons animate text-center">
+                      <li class="list-inline-item"><button routerLink="/user/id/{{user.id}}" class="btn btn-primary"><i class="fa fa-user"></i></button></li>
+                      <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-envelope"></i></button></li>
+                  </ul>
+              </div>
+              <div class="card-body p-1">
+                  <h6 class="card-title text-center mb-1"><i class="fa fa-user mr-2"> {{user.username}}</i></h6>
+                  <p class="card-text text-muted text-center">{{user.userType}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tab>
+      <tab heading="Project description">
+        <h4>Description</h4>
+        <p>{{project.description}}</p>
+      </tab>
+    </tabset>
+  </div>
 </div>

@@ -1,7 +1,74 @@
-<p>bug-info works!</p>
+<!--p>bug-info works!</p>
 <div class="container" style="margin-top: 5rem;">
     <ng-container *ngIf="bug">
         <p>{{bug.id}} - {{bug.name}}</p>
-        <p>{{bug.createdByUser}} - {{bug.description}}</p>
+        <p>{{bug.filedByUser}} - {{bug.description}}</p>
     </ng-container>
+</div-->
+<div class="row" *ngIf="bug">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <strong>Bug ID: {{bug.id}}</strong><br><hr>
+                    Project ID: {{bug.projectId}}<br>
+                    Bug name: {{bug.name}}<br>
+                    Filed by user: {{bug.filedByUser}}<br>
+                    Date created:<br>{{dateTimeCreated}}<br>
+                    Date resolved:<br>{{dateTimeResolved}}<br>
+                    Bug is resolved: {{bug.isResolved}}<br>
+                    Bug is active: {{bug.isActive}}<br>
+                    <!-- Description: {{bug.description}}<br-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8">
+        <tabset class="project-tabset">
+            <tab heading="Attachments">
+                <div>
+                    <h4>Images related to this bug</h4>
+                    <ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
+                    <!--div class="row">
+                        <div *ngFor="let image of bugImages">
+                            <div class="card mb-4 ml-4 mr-4">
+                                <div class="mt-2">
+                                    <ul class="list-inline user-icons animate text-center">
+                                        <li class="list-inline-item"><button routerLink="/bug/id/{{bug.id}}" class="btn btn-primary"><i class="fa fa-bug"></i></button></li>
+                                        <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></li>
+                                    </ul>
+                                </div>
+                                <div class="card-body p-1">
+                                    <div class="text-center">Image location:</div>
+                                    <h6 class="card-title text-center mb-1">{{bugImages[0].location}}</h6>
+                                    <img src="{{bugImage[0].location}}" alt="{{bugImages[0].location}}" class="card-img-top">
+                                    <p class="card-text text-muted text-center"><i class="fa fa-info-circle mr-2">Active: {{bug.isActive}}</i></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div-->
+                </div>
+                <div>
+                    <h4 *ngIf="noComments$ | async; else none">Comments for this bug</h4>
+                    <ng-template #none>
+                        <h5>No comments posted.</h5>
+                    </ng-template>
+                    <h6 style="cursor: pointer" (click)="initNewComment()"> >>Post a new comment</h6>
+                    <app-comment-new [bugId]="bug.id" [hidden]="!writeNewComment"></app-comment-new>
+                    <div *ngFor="let comment of comments">
+                        <app-comment-edit></app-comment-edit>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="Description">
+                <h4>Bug description</h4>
+                <p>{{bug.description}}</p>
+            </tab>
+            <!--tab heading="Comments">
+                <h4>List of comments attached to this bug</h4>
+                ...
+            </tab-->
+        </tabset>
+    </div>
 </div>

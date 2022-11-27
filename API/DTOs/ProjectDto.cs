@@ -7,8 +7,8 @@ namespace API.DTOs
         public int Id { get; set; }
         public string Name { get; set; }
         public string CreatedByUser { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateCompleted { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime DateCompleted { get; set; } = DateTime.Now;
         public bool IsComplete { get; set; }
         public bool IsOnHold { get; set; }
         public string Description { get; set; }
@@ -22,3 +22,4 @@ namespace API.DTOs
         //________________________________________
     }
 }
+//

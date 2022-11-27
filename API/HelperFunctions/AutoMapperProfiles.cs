@@ -22,21 +22,28 @@ namespace API.HelperFunctions
             
             CreateMap<UserImage, UserImageDto>();
 
+            CreateMap<UserUpdateDto, AppUser>();        // users editing their own profiles
+
+            CreateMap<UserUpdateAdminDto, AppUser>();   // admin editing other users
+
+            CreateMap<CommentEditDto, Comment>();       // users editing their comments
+
             CreateMap<Project, ProjectDto>()
                 .ForMember( destination => destination.Users_, option => option.MapFrom (
                     source => source.UsersAssigned.FirstOrDefault().Username) )
                 // .ForMember( destination => destination.BugsAssigned_, option => option.MapFrom (
                 //     source => source.BugsAssigned.FirstOrDefault().Name) );
-                    .ForMember( destination => destination.Bugs_, option => option.MapFrom (
+                .ForMember( destination => destination.Bugs_, option => option.MapFrom (
                     source => source.BugsAssigned.FirstOrDefault().Name) );
             
             CreateMap<Bug, BugDto>()
                 .ForMember( destination => destination.ImageLocation, option => option.MapFrom (
-                    source => source.Images.FirstOrDefault().Location) );
+                    source => source.BugImages.FirstOrDefault().Location) );
 
-            CreateMap<BugImage, ImageDto>();
+            CreateMap<BugImage, BugImageDto>();
 
             CreateMap<Comment, CommentDto>();
         }
     }
 }
+//

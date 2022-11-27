@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   constructor(/*private http: HttpClient,*/ private accountService: AccountService) { } // making an http request in this constructor is considered too early
 
   ngOnInit() { // this is initialized after the constructor
-    //this.getUsers(); //       v2
+    //this.getUsers();                // v2
     this.setCurrentUser();
   }
 
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     this.accountService.setCurrentUser_service(user);            // and set it for current user via account service
   }
 
-  /*getUsers() {              v2
+  /*getUsers() {                     // v2
     this.http.get('https://localhost:5001/api/users').subscribe({ // observables do nothing until subscribed
       next: response => this.users = response,
       error: error => console.log(error)//,

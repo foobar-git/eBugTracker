@@ -1,6 +1,72 @@
-<p>user-profile works!</p>
+<!--p>user-profile works!</p>
 <div class="container" style="margin-top: 5rem;">
   <ng-container *ngIf="user">
     <p>{{user.id}} - {{user.username}}</p>
   </ng-container>
+</div-->
+<div class="row" *ngIf="user">
+  <div class="col-4">
+    <div class="card">
+      <img src="{{user.imageUrl || './assets/images/user.png'}}" alt="{{user.username}}" class="card-img-top img-thumbnail">
+      <div class="card-body">
+        <div>
+          {{user.username}} - <strong>{{user.userType}}</strong> - ID: {{user.id}}<br><hr>
+          Name: {{user.name}}<br>
+          Surname: {{user.surname}}<br>
+          Team: {{user.team}}<br>
+          Registered:<br>{{dateTimeCreated}}<br>
+          Last active:<br>{{dateTimeLastActive}}<br>
+          <!-- Description: {{user.description}}<br-->
+        </div>
+      </div>
+      <!--div class="card-footer">
+        <div class="btn-group d-flex">
+          <button class="btn btn-primary">Message</button>
+        </div>
+      </div-->
+    </div>
+  </div>
+
+  <div class="col-8">
+    <tabset class="user-tabset">
+      <tab heading="Profile">
+        <h4>Description</h4>
+        <p>{{user.description}}</p>
+      </tab>
+      <tab heading="Bugs">
+        <h4>Bugs submitted</h4>
+        <!--div class="container">
+          <ul>
+              <li *ngFor="let bug of bugsByThisUser">{{bug.id}} - {{bug.name}}</li>
+          </ul>
+        </div-->
+        <hr>
+        <div class="row">
+          <div *ngFor="let bug of bugsByThisUser">
+            <div class="card mb-4 ml-4 mr-4">
+              <div class="mt-2">
+                  <ul class="list-inline user-icons animate text-center">
+                      <li class="list-inline-item"><button routerLink="/bug/id/{{bug.id}}" class="btn btn-primary"><i class="fa fa-bug"></i></button></li>
+                      <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></li>
+                  </ul>
+              </div>
+              <div class="card-body p-1">
+                  <div class="text-center">Bug name:</div>
+                  <h6 class="card-title text-center mb-1">{{bug.name}}</h6>
+                  <p class="card-text text-muted text-center"><i class="fa fa-info-circle mr-2">Active: {{bug.isActive}}</i></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tab>
+      <!--tab heading="Image">
+        <h4>Profile image</h4>
+        <p>EDIT: image upload goes here.</p>
+      </tab-->
+      <!--tab heading="Messages">
+        <h4>Messages</h4>
+        <p>EDIT: messages go here.</p>
+      </tab-->
+    </tabset>
+  </div>
 </div>

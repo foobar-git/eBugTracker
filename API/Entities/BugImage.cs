@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Entities
 {
-    [Table("Images")]   // EF name created table: 'Images' instead of 'Photo'
+    //[Table("Images")]   // EF name created table: 'Images' instead of 'Photo'     v13
     public class BugImage
     {
         public int Id { get; set; }

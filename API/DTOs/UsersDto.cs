@@ -9,8 +9,8 @@ namespace API.DTOs
         //====================================================================
         public string ImageUrl { get; set; }
         public int Created { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime LastActive { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime LastActive { get; set; } = DateTime.Now;
         public string UserType { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -19,8 +19,8 @@ namespace API.DTOs
         
         //_EF_Migrations__________________________
         //public Message Message { get; set; }
-        public Comment Comment { get; set; }
         public ICollection<UserImageDto> UserImage { get; set; }    // one user - one (profile) image
+        public ICollection<CommentDto> Comments { get; set; }
         //________________________________________
     }
 }
