@@ -31,7 +31,7 @@ export class CommentEditComponent implements OnInit {
     
     this.setCommentStatus();
 
-    this.authorizeUser();
+    this.authorizeUser(this.comment.postedByUser);
 
     this.bugInfo.updateCommentsNumber();         // needed for advancing to the next comment in comments
 
@@ -52,7 +52,7 @@ export class CommentEditComponent implements OnInit {
     this.commentsService.editComment(id, this.comment).subscribe(() => {
       this.toastr.success("Comment edited, changes saved.");
       this.editForm.reset(this.comment);         // reset form status, keeping changes for user
-    })
+    });
     this.resetVariables();
   }
 
@@ -72,8 +72,8 @@ export class CommentEditComponent implements OnInit {
     if (this.comment.edited == true) this.commentEdited = true;
   }
 
-  authorizeUser() {
-    this.ableToEditComment = this.authorization.userAuthorized(this.comment.postedByUser);
+  authorizeUser(user: string) {
+    this.ableToEditComment = this.authorization.userAuthorized(user);
   }
 
   removeComment() {

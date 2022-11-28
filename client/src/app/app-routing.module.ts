@@ -16,7 +16,6 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
 import { AuthGuard } from './_guards/auth.guard';
 import { CommentComponent } from './comments/comment/comment.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
-import { UserEditAdminComponent } from './users/user-edit-admin/user-edit-admin.component';
 
 /* v5
 const routes: Routes = [
@@ -43,7 +42,6 @@ const routes: Routes = [
       { path: 'users', component: UserListComponent},  // route '...:4200/users/'
       { path: 'user/id/:id', component: UserProfileComponent },  // route '...:4200/user/id/"id"'
       { path: 'user/edit/this', component: UserEditComponent },  // route '...:4200/user/edit/this'
-      { path: 'user/edit/admin', component: UserEditAdminComponent },  // route '...:4200/user/edit/admin'
 
       { path: 'projects', component: ProjectListComponent },  // route '...:4200/projects/'
       { path: 'project/:name', component: ProjectInfoNameComponent },  // route '...:4200/project/"projectname"'

@@ -27,7 +27,6 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ProjectCardComponent } from './projects/project-card/project-card.component';
 import { CommentComponent } from './comments/comment/comment.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
-import { UserEditAdminComponent } from './users/user-edit-admin/user-edit-admin.component';
 import { CommentEditComponent } from './comments/comment-edit/comment-edit.component';
 import { BugCardComponent } from './bugs/bug-card/bug-card.component';
 import { CommentNewComponent } from './comments/comment-new/comment-new.component';
@@ -55,7 +54,6 @@ import { CommentNewComponent } from './comments/comment-new/comment-new.componen
     ProjectCardComponent,
     CommentComponent,
     UserEditComponent,
-    UserEditAdminComponent,
     CommentEditComponent,
     CommentNewComponent
   ],
