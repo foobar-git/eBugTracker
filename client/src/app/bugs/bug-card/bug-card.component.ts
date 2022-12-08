@@ -44,7 +44,7 @@ export class BugCardComponent implements OnInit {
   }
 
   getBugId(id: number) {
-    console.log(id);
+    //console.log(id);
     this.http.get('https://localhost:5001/api/bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.bug = response,
       error: error => console.log(error),

@@ -24,7 +24,8 @@ namespace API.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Surname = table.Column<string>(type: "TEXT", nullable: true),
                     Team = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,7 +58,6 @@ namespace API.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Url = table.Column<string>(type: "TEXT", nullable: true),
-                    PublicId = table.Column<string>(type: "TEXT", nullable: true),
                     AppUserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -125,7 +125,6 @@ namespace API.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Location = table.Column<string>(type: "TEXT", nullable: true),
-                    PublicId = table.Column<string>(type: "TEXT", nullable: true),
                     BugId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

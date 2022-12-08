@@ -29,6 +29,9 @@ namespace API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("LastActive")
                         .HasColumnType("TEXT");
 
@@ -105,9 +108,6 @@ namespace API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Location")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PublicId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -190,9 +190,6 @@ namespace API.Migrations
 
                     b.Property<int>("AppUserId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("PublicId")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");

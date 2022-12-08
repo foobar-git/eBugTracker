@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { UserImage } from 'src/app/_models/userImage';
 import { AuthorizationService } from 'src/app/_services/authorization.service';
 import { UsersService } from 'src/app/_services/users.service';
 
@@ -13,6 +15,7 @@ export class UserEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   //currentUser: User;                      // populated by AccountService  // v20
   user: any;
+  user$: Observable<any>;
   isAdmin: boolean = false;
 
   // v20
@@ -28,7 +31,7 @@ export class UserEditComponent implements OnInit {
     //this.loadUser();                      // v20
     this.authorization.userAuthorization$.subscribe(userType => this.isAdmin = userType);
     this.authorization.userData$.subscribe(user => this.user = user);
-
+    console.log(this.user.imageUrl);
   }
 
   // loadUser() {                           // v20
@@ -39,6 +42,7 @@ export class UserEditComponent implements OnInit {
 
   updateUser() {
     console.log(this.user);
+
     this.userService.updateAppUser(this.user).subscribe(() => {
       this.toastr.success("Profile edited, changes saved.")
       this.editForm.reset(this.user);       // reset form status, keeping changes for user

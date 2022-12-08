@@ -16,6 +16,7 @@ namespace API.Entities
         public string Surname { get; set; }
         public string Team { get; set; }
         public string Description { get; set; }
+        public string ImageUrl { get; set; }
         
         //_EF_Migrations__________________________
         //public Message Message { get; set; }

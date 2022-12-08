@@ -6,7 +6,6 @@ namespace API.Entities
     {
         public int Id { get; set; }
         public string Url { get; set; }
-        public string PublicId { get; set; }    // TODO EDIT
 
         //_EF_Migrations__________________________
         public AppUser AppUser { get; set; }

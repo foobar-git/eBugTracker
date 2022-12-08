@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221127161826_TestingDatabase")]
+    [Migration("20221206194013_TestingDatabase")]
     partial class TestingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,9 @@ namespace API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("LastActive")
@@ -107,9 +110,6 @@ namespace API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Location")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PublicId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -192,9 +192,6 @@ namespace API.Migrations
 
                     b.Property<int>("AppUserId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("PublicId")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");

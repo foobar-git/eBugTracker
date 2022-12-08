@@ -37,13 +37,15 @@ export class AuthorizationService {
     console.log("authorization service running...");
   }
 
-  getUserDataAsync() {
+  getUserDataAsync(id?: number) {
     if (this.currentLoggedInUser != null) {
-      this.user$ = this.userService.getAppUser(this.currentLoggedInUser.username);
+      if (id != null) this.user$ = this.userService.getAppUserById(id);
+      else this.user$ = this.userService.getAppUser(this.currentLoggedInUser.username);
       this.user$.subscribe(
         user => {
           this.user = user
           this.username = this.user.username;
+          console.log(this.username);
           this.userId = this.user.id;
           this.userType = this.user.userType;
           this.setUserCredentials();

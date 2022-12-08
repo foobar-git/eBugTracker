@@ -24,8 +24,6 @@ namespace API.HelperFunctions
 
             CreateMap<UserUpdateDto, AppUser>();        // users editing their own profiles
 
-            CreateMap<UserUpdateAdminDto, AppUser>();   // admin editing other users
-
             CreateMap<CommentEditDto, Comment>();       // users editing their comments
 
             CreateMap<Project, ProjectDto>()
