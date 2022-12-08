@@ -36,12 +36,14 @@ namespace API.Data
 
         public async Task<AppUser> GetUserAsync(string username)
         {
-            return await _context.AppUsers.Include(image => image.UserImage).SingleOrDefaultAsync(user => user.Username == username);
+            //return await _context.AppUsers.Include(image => image.UserImage).SingleOrDefaultAsync(user => user.Username == username);
+            return await _context.AppUsers.SingleOrDefaultAsync(user => user.Username == username);
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-            return await _context.AppUsers.Include(image => image.UserImage).ToListAsync();
+            //return await _context.AppUsers.Include(image => image.UserImage).ToListAsync();
+            return await _context.AppUsers.ToListAsync();
         }
 
         public async Task<IEnumerable<UsersDto>> GetUsersDtoAsync()

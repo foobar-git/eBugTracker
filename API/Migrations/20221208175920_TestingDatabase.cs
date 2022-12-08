@@ -25,7 +25,7 @@ namespace API.Migrations
                     Surname = table.Column<string>(type: "TEXT", nullable: true),
                     Team = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true)
+                    UserImage = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,26 +49,6 @@ namespace API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserImages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Url = table.Column<string>(type: "TEXT", nullable: true),
-                    AppUserId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserImages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserImages_AppUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AppUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,11 +169,6 @@ namespace API.Migrations
                 column: "BugId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserImages_AppUserId",
-                table: "UserImages",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UsersAssigned_ProjectId",
                 table: "UsersAssigned",
                 column: "ProjectId");
@@ -208,16 +183,13 @@ namespace API.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "UserImages");
-
-            migrationBuilder.DropTable(
                 name: "UsersAssigned");
 
             migrationBuilder.DropTable(
-                name: "Bugs");
+                name: "AppUsers");
 
             migrationBuilder.DropTable(
-                name: "AppUsers");
+                name: "Bugs");
 
             migrationBuilder.DropTable(
                 name: "Projects");

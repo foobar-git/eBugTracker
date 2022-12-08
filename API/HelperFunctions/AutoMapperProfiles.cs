@@ -15,12 +15,8 @@ namespace API.HelperFunctions
             //         source => source.UserImage.FirstOrDefault().Url) );
 
             CreateMap<AppUser, UsersDto>()
-                .ForMember( destination => destination.ImageUrl, option => option.MapFrom (
-                    source => source.UserImage.FirstOrDefault().Url) )
                 .ForMember( destination => destination.Created, option => option.MapFrom (
                     source => source.DateCreated.CalculateTimeFromUserCreated()));
-            
-            CreateMap<UserImage, UserImageDto>();
 
             CreateMap<UserUpdateDto, AppUser>();        // users editing their own profiles
 

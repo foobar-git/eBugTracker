@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221206194013_TestingDatabase")]
+    [Migration("20221208175920_TestingDatabase")]
     partial class TestingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,9 +31,6 @@ namespace API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("LastActive")
                         .HasColumnType("TEXT");
 
@@ -50,6 +47,9 @@ namespace API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Team")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserImage")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserType")
@@ -184,25 +184,6 @@ namespace API.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("API.Entities.UserImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("UserImages");
-                });
-
             modelBuilder.Entity("API.Entities.UsersAssigned", b =>
                 {
                     b.Property<int>("Id")
@@ -258,17 +239,6 @@ namespace API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("API.Entities.UserImage", b =>
-                {
-                    b.HasOne("API.Entities.AppUser", "AppUser")
-                        .WithMany("UserImage")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("API.Entities.UsersAssigned", b =>
                 {
                     b.HasOne("API.Entities.Project", "Project")
@@ -283,8 +253,6 @@ namespace API.Migrations
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("UserImage");
                 });
 
             modelBuilder.Entity("API.Entities.Bug", b =>

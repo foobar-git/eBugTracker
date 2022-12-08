@@ -8,6 +8,6 @@ namespace API.DTOs
     public class UserUpdateDto
     {
         public string Description { get; set; }
-        public string ImageUrl { get; set; }
+        public string UserImage { get; set; }
     }
 }

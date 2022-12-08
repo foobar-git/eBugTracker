@@ -31,7 +31,6 @@ export class UserEditComponent implements OnInit {
     //this.loadUser();                      // v20
     this.authorization.userAuthorization$.subscribe(userType => this.isAdmin = userType);
     this.authorization.userData$.subscribe(user => this.user = user);
-    console.log(this.user.imageUrl);
   }
 
   // loadUser() {                           // v20
