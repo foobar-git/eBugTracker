@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { UserImage } from 'src/app/_models/userImage';
 import { AuthorizationService } from 'src/app/_services/authorization.service';
 import { UsersService } from 'src/app/_services/users.service';
 
@@ -40,8 +39,7 @@ export class UserEditComponent implements OnInit {
   // }
 
   updateUser() {
-    console.log(this.user);
-
+    //console.log(this.user);
     this.userService.updateAppUser(this.user).subscribe(() => {
       this.toastr.success("Profile edited, changes saved.")
       this.editForm.reset(this.user);       // reset form status, keeping changes for user

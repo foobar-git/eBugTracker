@@ -1,5 +1,4 @@
 import { Comment } from "./comment";
-import { UserImage } from "../_models/userImage";
 
 export interface AppUser {
     id: number;

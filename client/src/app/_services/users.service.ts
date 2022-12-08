@@ -77,7 +77,7 @@ export class UsersService {
   // }
 
   updateAppUser(user: AppUser) {
-    console.log(user);
+    //console.log(user);
     return this.http.put(this.baseUrl + 'users/id/' + user.id, user);
   }
 

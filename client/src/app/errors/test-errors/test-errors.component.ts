@@ -16,7 +16,7 @@ export class TestErrorsComponent implements OnInit {
 
   }
 
-  get_400Error() {
+  get_400_Error() {
     this.http.get(this.baseUrl + 'error/bad-request').subscribe(response => {
       console.log(response);
     }, error => {
@@ -25,7 +25,7 @@ export class TestErrorsComponent implements OnInit {
     })
   }
 
-  get_400ValidationError() {
+  get_400_ValidationError() {
     this.http.post(this.baseUrl + 'account/register', {}).subscribe(response => {
       console.log(response);
     }, error => {
@@ -39,7 +39,7 @@ export class TestErrorsComponent implements OnInit {
     })
   }
 
-  get_401Error() {
+  get_401_Error() {   // this error is working properly if the user is not logged in
     this.http.get(this.baseUrl + 'error/auth').subscribe(response => {
       console.log(response);
     }, error => {
@@ -48,7 +48,7 @@ export class TestErrorsComponent implements OnInit {
     })
   }
 
-  get_404Error() {
+  get_404_Error() {
     this.http.get(this.baseUrl + 'error/not-found').subscribe(response => {
       console.log(response);
     }, error => {
@@ -57,7 +57,7 @@ export class TestErrorsComponent implements OnInit {
     })
   }
 
-  get_500Error() {
+  get_500_Error() {
     this.http.get(this.baseUrl + 'error/server-error').subscribe(response => {
       console.log(response);
     }, error => {
@@ -67,3 +67,4 @@ export class TestErrorsComponent implements OnInit {
   }
 
 }
+//
