@@ -28,6 +28,8 @@
     <tabset class="project-tabset">
       <tab heading="Bugs Tracked">
         <h4>Bugs tracked in this project</h4>
+        <h6 style="cursor: pointer" (click)="initNewBug()"> >>Post a new bug entry</h6>
+        <app-bug-new [projectId]="project.id" [hidden]="!newBugEntry"></app-bug-new>
         <div class="row">
           <div *ngFor="let bug of bugsAssigned">
             <app-bug-card></app-bug-card>

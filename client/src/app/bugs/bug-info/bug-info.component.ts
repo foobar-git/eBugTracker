@@ -107,14 +107,9 @@ export class BugInfoComponent implements OnInit {
   }
 
   initNewComment() {
-    console.log("Write a new comment!");
+    console.log("Writing a new comment...");
     this.writeNewComment = true;
     this.commentNew.newCommentForm();
-
-    // this.commentsService.newComment(newComment).subscribe(() => {
-    //   this.toastr.success("New comment has been posted.");
-    // })
-
   }
 
 }

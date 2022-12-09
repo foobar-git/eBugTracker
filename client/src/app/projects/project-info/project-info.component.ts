@@ -5,6 +5,7 @@ import { UsersAssigned } from 'src/app/_models/usersAssigned';
 import { BugsAssigned } from 'src/app/_models/bugsAssigned';
 import { Observable, of } from 'rxjs';
 import { HelperFnService } from 'src/app/_services/helper-fn.service';
+import { BugNewComponent } from 'src/app/bugs/bug-new/bug-new.component';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
   styleUrls: ['./project-info.component.css']
 })
 export class ProjectInfoComponent implements OnInit {
+  newBugEntry: boolean = false;
   project: any;
   id: number;
   usersAssigned: UsersAssigned[];
@@ -25,7 +27,8 @@ export class ProjectInfoComponent implements OnInit {
   dateTimeCreated: string;
   dateTimeCompleted: string;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private helperFn: HelperFnService) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private helperFn: HelperFnService,
+    private bugNew: BugNewComponent) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -76,6 +79,13 @@ export class ProjectInfoComponent implements OnInit {
 
   updateBugIdIndex() {
     this.bugIdIndex--;                                    // when accessing array by index, start from last element and count down
+  }
+
+  initNewBug() {
+    console.log("New bug entry...");
+    console.log(this.project.id);
+    this.newBugEntry = true;
+    this.bugNew.newBugForm();
   }
 
 }
