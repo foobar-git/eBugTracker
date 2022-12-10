@@ -7,6 +7,7 @@ export interface AppBug {
     imageLocation: string;
     dateCreated: Date;
     dateResolved: Date;
+    edited: boolean;
     description: string;
     isResolved: boolean;
     isActive: boolean;

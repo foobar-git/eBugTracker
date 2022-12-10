@@ -10,6 +10,7 @@ namespace API.DTOs
         public string ImageLocation { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public DateTime DateResolved { get; set; } = DateTime.Now;
+        public bool Edited { get; set; }
         public string Description { get; set; }
         public bool IsResolved { get; set; }
         public bool IsActive { get; set; }

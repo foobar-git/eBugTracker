@@ -82,5 +82,10 @@ namespace API.Data
             // mark 'bug' as 'modified'
             _context.Entry(bug).State = EntityState.Modified;
         }
+
+        public void DeleteBugAsync(Bug bug)
+        {
+            _context.Bugs.Remove(bug);
+        }
     }
 }

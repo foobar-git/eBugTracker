@@ -24,7 +24,7 @@ export class BugsService {
   
   newBug(bug: AppBugNew) {
     //console.log(bug);
-    return this.http.put(this.baseUrl + 'comment/nc/', bug);
+    return this.http.put(this.baseUrl + 'bug/nb/', bug);
   }
 
 }

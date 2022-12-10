@@ -52,5 +52,28 @@ namespace API.Controllers
         {
             return await _bugRepository.GetBugDtoAsync(FormatName.Format(bugname));
         }
+
+        [HttpDelete("db/{id}")]     // "db" for delete bug
+        public async Task<ActionResult> DeleteBug(int id)
+        {
+            var comment = await _bugRepository.GetBugByIdAsync(id);
+            if (comment != null)
+            {
+                _bugRepository.DeleteBugAsync(comment);
+            }
+            if (await _bugRepository.SaveAllAsync()) return Ok();
+            //if the update failes:
+            return BadRequest("Failed to delete comment.");
+        }
+
+        [HttpPut("nb/")]            // "nb" for new bug
+        public async Task<ActionResult> NewBug([FromBody]Bug newBug)
+        {
+            await _context.Bugs.AddAsync(newBug);
+
+            if (await _bugRepository.SaveAllAsync()) return Ok();
+            //if the save failes:
+            return BadRequest("Failed to post new bug entry.");
+        }
     }
 }

@@ -75,7 +75,7 @@ namespace API.Controllers
             return BadRequest("Failed to edit comment.");
         }
 
-        [HttpDelete("dc/{id}")]
+        [HttpDelete("dc/{id}")]     // "dc" for delete comment
         public async Task<ActionResult> DeleteComment(int id)
         {
             var comment = await _commentRepository.GetCommentByIdAsync(id);
@@ -88,7 +88,7 @@ namespace API.Controllers
             return BadRequest("Failed to delete comment.");
         }
 
-        [HttpPut("nc/")]
+        [HttpPut("nc/")]            // "nc" for new comment
         public async Task<ActionResult> NewComment([FromBody]Comment newComment)
         {
             // var comment = await _context.Comments.FindAsync(id);
@@ -103,7 +103,7 @@ namespace API.Controllers
             await _context.Comments.AddAsync(newComment);
 
             if (await _commentRepository.SaveAllAsync()) return Ok();
-            //if the update failes:
+            //if the save failes:
             return BadRequest("Failed to post new comment.");
         }
     }

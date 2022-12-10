@@ -5,6 +5,9 @@ import { ProjectInfoComponent } from 'src/app/projects/project-info/project-info
 import { BugInfoComponent } from '../bug-info/bug-info.component';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { BugsService } from 'src/app/_services/bugs.service';
+import { ToastrService } from 'ngx-toastr';
+import { AuthorizationService } from 'src/app/_services/authorization.service';
 
 @Component({
   selector: 'app-bug-card',
@@ -12,6 +15,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./bug-card.component.css']
 })
 export class BugCardComponent implements OnInit {
+  ableToEditBug: boolean = false;
+  editBug: boolean = false;
+  bugEdited: boolean = false;
   id: number;
   bug_p: any;                       // bug loaded from profile-info component
   bug: any;
@@ -21,11 +27,15 @@ export class BugCardComponent implements OnInit {
   commentsNumber: number;
   numberOfComments: number;         // number of comments posted about the bug
 
-  constructor(private http: HttpClient, private route: ActivatedRoute,
-    private projectInfo: ProjectInfoComponent, private bugInfo: BugInfoComponent) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private authorization: AuthorizationService, private bugsService: BugsService,
+    private projectInfo: ProjectInfoComponent, private bugInfo: BugInfoComponent, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadBugCard();
+
+    //this.setBugStatus();
+
+    //this.authorizeUser(this.bug.filedByUser);
   }
 
   loadBugCard() {
@@ -50,6 +60,8 @@ export class BugCardComponent implements OnInit {
       error: error => console.log(error),
       complete: () => {
         //console.log(this.bug);
+        this.setBugStatus();
+        this.authorizeUser(this.bug.filedByUser);
         this.comments = this.bug.comments;
         //console.log(this.comments);
         this.numberOfComments = this.comments.length;
@@ -57,6 +69,31 @@ export class BugCardComponent implements OnInit {
         return;
       }
     })
+  }
+
+  setBugStatus() {
+    if (this.bug.edited == true) this.bugEdited = true;
+  }
+
+  authorizeUser(user: string) {
+    this.ableToEditBug = this.authorization.userAuthorized(user);
+  }
+
+  removeBug() {
+    if (this.ableToEditBug) this.editBug = true;
+    if (this.bug.id != null) {
+      //console.log(this.bug.id);
+      this.bugsService.deleteBug(this.bug.id).subscribe(() => {
+        this.toastr.success("Bug entry removed.");
+        window.location.reload();
+      });
+    }
+    this.resetVariables();
+  }
+
+  resetVariables() {
+    this.bugEdited = true;
+    this.editBug = false;
   }
 
 }

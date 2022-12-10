@@ -76,6 +76,9 @@ namespace API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("Edited")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("FiledByUser")
                         .HasColumnType("TEXT");
 

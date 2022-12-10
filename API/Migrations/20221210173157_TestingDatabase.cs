@@ -61,6 +61,7 @@ namespace API.Migrations
                     FiledByUser = table.Column<string>(type: "TEXT", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DateResolved = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Edited = table.Column<bool>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     IsResolved = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: false),

@@ -7,6 +7,8 @@ namespace API.Interfaces
     {
         void Update(Bug bug);
 
+        void DeleteBugAsync(Bug bug);
+
         Task<bool> SaveAllAsync();
         
         Task<IEnumerable<Bug>> GetBugsAsync();

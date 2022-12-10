@@ -29,6 +29,7 @@
                 "DateResolved": "1901-01-01",
                 "IsResolved": false,
                 "IsActive": true,
+                "Edited": true,
                 "Description": "Display error number XYZ failed to show...\r\n",
                 "BugImages": [
                     {
@@ -42,6 +43,7 @@
                 "DateCreated": "2022-09-09",
                 "IsResolved": false,
                 "IsActive": true,
+                "Edited": false,
                 "Description": "Failed to initialize this and that...\r\n",
                 "BugImages": [
                     {
@@ -65,6 +67,7 @@
                 "DateResolved": "1901-01-01",
                 "IsResolved": false,
                 "IsActive": true,
+                "Edited": false,
                 "Description": "Display error number XYZ failed again to show the same...\r\n",
                 "BugImages": [
                     {
@@ -96,6 +99,7 @@
                 "DateResolved": "2022-08-10",
                 "IsResolved": true,
                 "IsActive": false,
+                "Edited": false,
                 "Description": "Classic networking error number XYZ...\r\n",
                 "BugImages": [
                     {

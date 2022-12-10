@@ -19,7 +19,6 @@ export class BugNewComponent implements OnInit {
     "name": "",
     "filedByUser": "",
     "dateCreated": "",
-    "dateResolved": "",
     "description": "",
     "isResolved": false,
     "isActive": true,
@@ -31,7 +30,7 @@ export class BugNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserName = this.authorization.currentLoggedInUser.username;
-    //this.newBugForm();    EDIT
+    this.newBugForm();
   }
 
   newBugForm() {
@@ -49,6 +48,7 @@ export class BugNewComponent implements OnInit {
 
     //console.log(this.bugTemplate);
     this.bugsService.newBug(this.bugTemplate).subscribe(() => {
+      console.log(this.bugTemplate);
       this.toastr.success("New bug entry has been posted.");
     })
     // reset variables
