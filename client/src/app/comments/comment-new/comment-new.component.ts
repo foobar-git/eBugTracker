@@ -51,7 +51,9 @@ export class CommentNewComponent implements OnInit {
 
     //console.log(this.commentTemplate);
     this.commentsService.newComment(this.commentTemplate).subscribe(() => {
-      this.toastr.success("New comment has been posted.");
+      this.toastr.success("New comment has been posted.").onHidden.subscribe(
+        () => window.location.reload()
+      );
     })
     // reset variables
     this.newComment = false;

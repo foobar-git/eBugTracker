@@ -21,6 +21,8 @@ namespace API.HelperFunctions
             CreateMap<UserUpdateDto, AppUser>();        // users editing their own profiles
 
             CreateMap<CommentEditDto, Comment>();       // users editing their comments
+            
+            CreateMap<BugEditDto, Bug>();               // users editing bug entries
 
             CreateMap<Project, ProjectDto>()
                 .ForMember( destination => destination.Users_, option => option.MapFrom (

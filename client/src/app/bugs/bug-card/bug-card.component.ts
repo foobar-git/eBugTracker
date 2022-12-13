@@ -15,6 +15,7 @@ import { AuthorizationService } from 'src/app/_services/authorization.service';
   styleUrls: ['./bug-card.component.css']
 })
 export class BugCardComponent implements OnInit {
+  removingBugEntry: boolean = false;
   ableToEditBug: boolean = false;
   editBug: boolean = false;
   bugEdited: boolean = false;
@@ -33,9 +34,9 @@ export class BugCardComponent implements OnInit {
   ngOnInit(): void {
     this.loadBugCard();
 
-    //this.setBugStatus();
+    // set bug status
 
-    //this.authorizeUser(this.bug.filedByUser);
+    // authorize user
   }
 
   loadBugCard() {
@@ -79,13 +80,19 @@ export class BugCardComponent implements OnInit {
     this.ableToEditBug = this.authorization.userAuthorized(user);
   }
 
+  enableBugEditComponent() {
+    this.editBug = true;
+  }
+
   removeBug() {
-    if (this.ableToEditBug) this.editBug = true;
+    //if (this.ableToEditBug) this.editBug = true;
     if (this.bug.id != null) {
       //console.log(this.bug.id);
+      this.removingBugEntry = true;
       this.bugsService.deleteBug(this.bug.id).subscribe(() => {
-        this.toastr.success("Bug entry removed.");
-        window.location.reload();
+        this.toastr.success("Bug entry removed.").onHidden.subscribe(
+          () => window.location.reload()
+        );
       });
     }
     this.resetVariables();

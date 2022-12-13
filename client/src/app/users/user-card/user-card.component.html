@@ -4,7 +4,9 @@
         <img routerLink="/user/id/{{user.id}}" class="btn btn-primary" src="{{user.userImage || './assets/images/user.png'}}" alt="{{user.username}}" class="card-img-top">
         <ul class="list-inline user-icons animate text-center">
             <!--li class="list-inline-item"><button routerLink="/user/id/{{appUser.id}}" class="btn btn-primary"><i class="fa fa-user"></i></button></li-->
-            <li [hidden]="!isAdmin" class="list-inline-item"><button  class="btn btn-primary" [routerLink]="['/user/edit/this']" routerLinkActive="router-link-active" (click)="editUser()"><i class="fa fa-edit"></i></button></li>
+            <ng-container *ngIf="isAdmin">
+                <li class="list-inline-item"><button  class="btn btn-primary" [routerLink]="['/user/edit/this']" routerLinkActive="router-link-active" (click)="editUser()"><i class="fa fa-edit"></i></button></li>
+            </ng-container>
             <!--li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-envelope"></i></button></li-->
         </ul>
     </div>

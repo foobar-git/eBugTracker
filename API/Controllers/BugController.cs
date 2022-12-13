@@ -6,6 +6,7 @@ using API.DTOs;
 using API.Entities;
 using API.HelperFunctions;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,11 +21,13 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly IBugRepository _bugRepository;
+        private readonly IMapper _mapper;
 
-        public BugController(IBugRepository bugRepository, DataContext context)
+        public BugController(IBugRepository bugRepository, DataContext context, IMapper mapper)
         {
             _bugRepository = bugRepository;
             _context = context;
+            _mapper = mapper;
         }
         
         // API:     /api/bug
@@ -64,6 +67,20 @@ namespace API.Controllers
             if (await _bugRepository.SaveAllAsync()) return Ok();
             //if the update failes:
             return BadRequest("Failed to delete comment.");
+        }
+
+        [HttpPut("id/{id}")]
+        public async Task<ActionResult> EditBug([FromBody]BugEditDto editBug, [FromRoute]int id)
+        {
+            var bug = await _bugRepository.GetBugByIdAsync(id);
+            if (bug != null)
+            {
+                _mapper.Map(editBug, bug);
+                _bugRepository.Update(bug);
+            }
+            if (await _bugRepository.SaveAllAsync()) return Ok();
+            //if the update failes:
+            return BadRequest("Failed to edit bug.");
         }
 
         [HttpPut("nb/")]            // "nb" for new bug

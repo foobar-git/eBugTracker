@@ -31,6 +31,7 @@ import { CommentEditComponent } from './comments/comment-edit/comment-edit.compo
 import { BugCardComponent } from './bugs/bug-card/bug-card.component';
 import { CommentNewComponent } from './comments/comment-new/comment-new.component';
 import { BugNewComponent } from './bugs/bug-new/bug-new.component';
+import { BugEditComponent } from './bugs/bug-edit/bug-edit.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { BugNewComponent } from './bugs/bug-new/bug-new.component';
     UserEditComponent,
     CommentEditComponent,
     CommentNewComponent,
-    BugNewComponent
+    BugNewComponent,
+    BugEditComponent
   ],
   imports: [
     BrowserModule,

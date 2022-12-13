@@ -15,6 +15,7 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
 })
 export class CommentEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
+  removingCommentEntry: boolean = false;
   ableToEditComment: boolean = false;
   comment: any;
   commentsIndexNumber: number;            // comment number - position in array
@@ -80,9 +81,11 @@ export class CommentEditComponent implements OnInit {
     this.loadComment();
     if (this.comment.id != null) {
       //console.log(this.comment.id);
+      this.removingCommentEntry = true;
       this.commentsService.deleteComment(this.comment.id).subscribe(() => {
-        this.toastr.success("Comment deleted.");
-        window.location.reload();
+        this.toastr.success("Comment deleted.").onHidden.subscribe(
+          () => window.location.reload()
+        );
       });
     }
     this.resetVariables();

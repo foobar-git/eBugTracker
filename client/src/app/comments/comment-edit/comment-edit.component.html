@@ -4,9 +4,13 @@
         <div class="card-body">
             <div>
                 <span class="font-weight-bold">{{comment.postedByUser}}</span>
-                    <button [hidden]="!ableToEditComment" (click)="removeComment()" class="btn btn-primary float-right mt-n2"><i class="fa fa-times" aria-hidden="true"></i></button>
-                    <button [hidden]="!ableToEditComment" (click)="loadComment()" class="btn btn-primary float-right mt-n2 mr-1"><i class="fa fa-edit"></i></button>
-                    <mark [hidden]="!commentEdited" class="small mr-2 float-right">&nbsp;<em>Edited</em>&nbsp;</mark><br>
+                <span [hidden]="removingCommentEntry">
+                    <ng-container *ngIf="ableToEditComment">
+                        <button (click)="removeComment()" class="btn btn-primary float-right mt-n2"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        <button (click)="loadComment()" class="btn btn-primary float-right mt-n2 mr-1"><i class="fa fa-edit"></i></button>
+                    </ng-container>
+                </span>
+                <mark [hidden]="!commentEdited" class="small mr-2 float-right">&nbsp;<em>Edited</em>&nbsp;</mark><br>
                 <!--span class="small">{{comment.dateCreated}}</span><hr class="mt-n1"-->
                 <span class="small">{{dateTime}}</span><hr class="mt-n1">
                 <span [hidden]="editComment">{{comment.content}}</span>

@@ -49,10 +49,13 @@ export class BugNewComponent implements OnInit {
     //console.log(this.bugTemplate);
     this.bugsService.newBug(this.bugTemplate).subscribe(() => {
       console.log(this.bugTemplate);
-      this.toastr.success("New bug entry has been posted.");
+      this.toastr.success("New bug entry has been posted.").onHidden.subscribe(
+        () => window.location.reload()
+      );
     })
     // reset variables
     this.newBug = false;
+    window.location.reload();
   }
 
   getDate() {
