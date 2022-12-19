@@ -10,11 +10,15 @@
                 <ng-container *ngIf="ableToEditBug">
                     <li class="list-inline-item"><button (click)="enableBugEditComponent()" class="btn btn-primary"><i class="fa fa-edit"></i></button></li>
                     <li class="list-inline-item"><button (click)="removeBug()" class="btn btn-primary"><i class="fa fa-times" aria-hidden="true"></i></button></li>
-                    <mark [hidden]="!bugEdited" class="small mr-2 float-right">&nbsp;<em>Edited</em>&nbsp;</mark><br>
                 </ng-container>
             </ul>
         </div>
         <div class="card-body p-1">
+            <ng-container *ngIf="bugEdited">
+                <div class="text-center">
+                <mark class="small">&nbsp;<em>Edited</em>&nbsp;</mark><br>
+            </div>
+            </ng-container>            
             <div class="text-center">Bug name:</div>
             <h6 class="card-title text-center mb-1">{{bug_p.name}}</h6>
             <p class="card-text text-muted text-center">

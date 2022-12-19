@@ -6,7 +6,7 @@ namespace API.Entities
     public class BugImage
     {
         public int Id { get; set; }
-        public string Location { get; set; }
+        public string Path { get; set; }
 
         //_EF_Migrations__________________________
         //public Bug Bug { get; set; }            // by defining these two properties we have done what´s called

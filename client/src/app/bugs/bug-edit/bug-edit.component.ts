@@ -16,17 +16,17 @@ export class BugEditComponent implements OnInit {
   constructor(private bugsService: BugsService, private helperFn: HelperFnService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-
+    console.log(this.bug);
   }
 
   updateBug(id: number) {
     console.log("Update bug!");
     console.log(this.bug);
-    //this.comment.edited = true;
+    this.bug.edited = true;
     this.bug.dateCreated = this.helperFn.getCurrentDateTime();
     this.bugsService.editBug(id, this.bug).subscribe(() => {
       this.toastr.success("Comment edited, changes saved.").onHidden.subscribe(
-        () => window.location.reload()
+        //() => window.location.reload()
       );
     });
   }

@@ -74,7 +74,8 @@ export class CommentEditComponent implements OnInit {
   }
 
   authorizeUser(user: string) {
-    this.ableToEditComment = this.authorization.userAuthorized(user);
+    //this.ableToEditComment = this.authorization.userAuthorized(user);         // v22
+    this.ableToEditComment = this.authorization.userAuthorized_levelNormalUser(user);
   }
 
   removeComment() {

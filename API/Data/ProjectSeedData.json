@@ -30,10 +30,23 @@
                 "IsResolved": false,
                 "IsActive": true,
                 "Edited": true,
-                "Description": "Display error number XYZ failed to show...\r\n",
+                "Description": "Display error number XYZ failed to show... Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n",
+                "ImageURL": "https://thumbs.dreamstime.com/b/sebilj-fountain-old-town-sarajevo-bosnia-bascarsija-square-wooden-capital-city-herzegovina-86290286.jpg",
                 "BugImages": [
                     {
-                        "Location": "./assets/images/image.png"
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
                     }
                 ]
             },
@@ -44,10 +57,23 @@
                 "IsResolved": false,
                 "IsActive": true,
                 "Edited": false,
-                "Description": "Failed to initialize this and that...\r\n",
+                "Description": "Failed to initialize this and that... Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n",
+                "ImageURL": "",
                 "BugImages": [
                     {
-                        "Location": "./assets/images/image.png"
+                        "Path": "./assets/images/image.png"
+                    },
+                    {
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
                     }
                 ],
                 "Comments": [
@@ -68,10 +94,23 @@
                 "IsResolved": false,
                 "IsActive": true,
                 "Edited": false,
-                "Description": "Display error number XYZ failed again to show the same...\r\n",
+                "Description": "Display error number XYZ failed again to show the same... Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n",
+                "ImageURL": "",
                 "BugImages": [
                     {
-                        "Location": "./assets/images/image.png"
+                        "Path": "./assets/images/image.png"
+                    },
+                    {
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
                     }
                 ]
             }
@@ -100,13 +139,23 @@
                 "IsResolved": true,
                 "IsActive": false,
                 "Edited": false,
-                "Description": "Classic networking error number XYZ...\r\n",
+                "Description": "Classic networking error number XYZ... Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n",
+                "ImageURL": "",
                 "BugImages": [
                     {
-                        "Location": "./assets/images/image.png"
+                        "Path": "./assets/images/image.png"
                     },
                     {
-                        "Location": "./assets/images/image.png"
+                        "Path": "./assets/images/imageTest.png"
+                    },
+                    {
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
+                    },
+                    {
+                        "Path": ""
                     }
                 ],
                 "Comments": [

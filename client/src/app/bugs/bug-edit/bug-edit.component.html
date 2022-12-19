@@ -7,13 +7,19 @@
                 <button (click)="removeBug()" class="btn btn-primary float-right mt-n4"><i class="fa fa-times" aria-hidden="true"></i></button>
                 <mark [hidden]="!bugEdited" class="small mr-2 float-right">&nbsp;<em>Edited</em>&nbsp;</mark><br>
                 <span class="small">{{bug.dateCreated}}</span><hr class="mt-n1">
+                <label class="float-right"><em>Note: upload up to five images and one URL resource (image).</em></label>
                 <form id="newForm" #newForm="ngForm">
                     <label for="name">Bug name</label>
                     <input type="text" class="form-control" [(ngModel)]="bug.name" name="name">
                     <label for="description" class="mt-3">Bug description</label>
                     <textarea class="form-control" [(ngModel)]="bug.description" name="description" id="" rows="3"></textarea>
-                    <label>Note: add images in the next step after saving.</label>
-                    <button form="newForm" (click)="updateBug(bug.id)" class="btn btn-secondary btn-block p-3 mt-1">Save</button>
+                    <label for="imageURL" class="mt-3">Bug Image URL:</label>
+                    <input type="text" class="form-control" [(ngModel)]="bug.imageURL" name="imageURL">
+                    <div *ngFor="let image of bug.bugImages; let i = index">
+                        <label for="image" class="mt-3">Bug image {{i+1}} {{image.path}}</label>
+                        <input type="text" class="form-control" [(ngModel)]="image.path" name="path">
+                    </div>
+                    <button form="newForm" (click)="updateBug(bug.id)" class="btn btn-secondary btn-block p-3 mt-4">Save</button>
                 </form>
             </div>
         </div>

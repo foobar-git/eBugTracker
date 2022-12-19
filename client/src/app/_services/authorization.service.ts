@@ -64,11 +64,27 @@ export class AuthorizationService {
     this.userType$.next(this.userIsAdmin());
   }
 
-  userAuthorized(author: string) {
+  userAuthorized_levelAdmin(author: string) {
+    //console.log(this.user);
+    //console.log(author);
+    if (this.userType === "Admin") return true;
+    else return false;
+  }
+
+  userAuthorized_levelSuperUser(author: string) {
+    //console.log(this.user);
+    //console.log(author);
+    if (this.username === author || this.userType === "SuperUser" || this.userType === "Admin" ) return true;
+    else return false;
+  }
+
+  userAuthorized_levelNormalUser(author: string) {
     //console.log(this.user);
     //console.log(author);
     if (this.username === author || this.userType === "Admin") return true;
     else return false;
   }
+
+
 
 }

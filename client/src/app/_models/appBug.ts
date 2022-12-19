@@ -4,7 +4,7 @@ export interface AppBug {
     id: number;
     name: string;
     filedByUser: string;
-    imageLocation: string;
+    imageURL: string;
     dateCreated: Date;
     dateResolved: Date;
     edited: boolean;

@@ -63,6 +63,7 @@ namespace API.Migrations
                     DateResolved = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Edited = table.Column<bool>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
+                    ImageURL = table.Column<string>(type: "TEXT", nullable: true),
                     IsResolved = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
                     ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -105,7 +106,7 @@ namespace API.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Location = table.Column<string>(type: "TEXT", nullable: true),
+                    Path = table.Column<string>(type: "TEXT", nullable: true),
                     BugId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

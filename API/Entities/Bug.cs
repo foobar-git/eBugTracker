@@ -9,6 +9,7 @@ namespace API.Entities
         public DateTime DateResolved { get; set; } = DateTime.Now;
         public bool Edited { get; set; }
         public string Description { get; set; }
+        public string ImageURL { get; set; }
         public bool IsResolved { get; set; }
         public bool IsActive { get; set; }
 

@@ -1,7 +1,7 @@
 
 export interface BugImage {
     id: number;
-    location: string;
+    path: string;
     publicId?: any;
     bugId: number;
 }

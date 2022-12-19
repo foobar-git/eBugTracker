@@ -77,7 +77,8 @@ export class BugCardComponent implements OnInit {
   }
 
   authorizeUser(user: string) {
-    this.ableToEditBug = this.authorization.userAuthorized(user);
+    //this.ableToEditBug = this.authorization.userAuthorized(user);         // v22
+    this.ableToEditBug = this.authorization.userAuthorized_levelSuperUser(user);
   }
 
   enableBugEditComponent() {

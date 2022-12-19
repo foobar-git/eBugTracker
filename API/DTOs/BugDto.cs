@@ -7,7 +7,7 @@ namespace API.DTOs
         public int Id { get; set; }
         public string Name { get; set; }
         public string FiledByUser { get; set; }
-        public string ImageLocation { get; set; }
+        public string ImageURL { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public DateTime DateResolved { get; set; } = DateTime.Now;
         public bool Edited { get; set; }

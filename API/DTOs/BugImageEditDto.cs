@@ -1,8 +1,7 @@
 namespace API.Entities
 {
-    public class BugImageDto
+    public class BugImageEditDto
     {
-        public int Id { get; set; }
         public string Path { get; set; }
         public string PublicId { get; set; }    // TODO EDIT
 

@@ -82,6 +82,9 @@ namespace API.Migrations
                     b.Property<string>("FiledByUser")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
 
@@ -110,7 +113,7 @@ namespace API.Migrations
                     b.Property<int>("BugId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("Path")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
