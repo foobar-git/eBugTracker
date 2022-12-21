@@ -1,10 +1,14 @@
-import { BugImage } from "./bugImage";
 
 export interface AppBug {
     id: number;
     name: string;
     filedByUser: string;
     imageURL: string;
+    bugImage1: string;
+    bugImage2: string;
+    bugImage3: string;
+    bugImage4: string;
+    bugImage5: string;
     dateCreated: Date;
     dateResolved: Date;
     edited: boolean;
@@ -12,7 +16,6 @@ export interface AppBug {
     isResolved: boolean;
     isActive: boolean;
     images_?: any;
-    bugImages: BugImage[];
     comments: any[];
     projectId: number;
 }

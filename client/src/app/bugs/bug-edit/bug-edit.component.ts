@@ -12,11 +12,13 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
 export class BugEditComponent implements OnInit {
   @Input() bug: AppBug;
   bugEdited: boolean = false;
+  bugImages: string[] = [];
 
   constructor(private bugsService: BugsService, private helperFn: HelperFnService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     console.log(this.bug);
+    this.bugImages.push(this.bug.bugImage1, this.bug.bugImage2, this.bug.bugImage3, this.bug.bugImage4, this.bug.bugImage5)
   }
 
   updateBug(id: number) {
@@ -25,8 +27,8 @@ export class BugEditComponent implements OnInit {
     this.bug.edited = true;
     this.bug.dateCreated = this.helperFn.getCurrentDateTime();
     this.bugsService.editBug(id, this.bug).subscribe(() => {
-      this.toastr.success("Comment edited, changes saved.").onHidden.subscribe(
-        //() => window.location.reload()
+      this.toastr.success("Image edited, changes saved.").onHidden.subscribe(
+        () => window.location.reload()
       );
     });
   }

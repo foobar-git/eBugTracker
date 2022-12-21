@@ -10,11 +10,16 @@ namespace API.Entities
         public bool Edited { get; set; }
         public string Description { get; set; }
         public string ImageURL { get; set; }
+        public string BugImage1 { get; set; }
+        public string BugImage2 { get; set; }
+        public string BugImage3 { get; set; }
+        public string BugImage4 { get; set; }
+        public string BugImage5 { get; set; }
         public bool IsResolved { get; set; }
         public bool IsActive { get; set; }
 
         //_EF_Migrations__________________________
-        public ICollection<BugImage> BugImages { get; set; }  // EF: one Bug (entry with many images)
+        //public ICollection<BugImage> BugImages { get; set; }  // EF: one Bug (entry with many images)
         public ICollection<Comment> Comments { get; set; }
         public int ProjectId { get; set; }
         //________________________________________

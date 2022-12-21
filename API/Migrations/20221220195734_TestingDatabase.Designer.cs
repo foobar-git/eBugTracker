@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221219154845_TestingDatabase")]
+    [Migration("20221220195734_TestingDatabase")]
     partial class TestingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,6 +69,21 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("BugImage1")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BugImage2")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BugImage3")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BugImage4")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BugImage5")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
@@ -104,25 +119,6 @@ namespace API.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Bugs");
-                });
-
-            modelBuilder.Entity("API.Entities.BugImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BugId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Path")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BugId");
-
-                    b.ToTable("BugImages");
                 });
 
             modelBuilder.Entity("API.Entities.Comment", b =>
@@ -221,15 +217,6 @@ namespace API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("API.Entities.BugImage", b =>
-                {
-                    b.HasOne("API.Entities.Bug", null)
-                        .WithMany("BugImages")
-                        .HasForeignKey("BugId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("API.Entities.Comment", b =>
                 {
                     b.HasOne("API.Entities.AppUser", null)
@@ -263,8 +250,6 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Bug", b =>
                 {
-                    b.Navigation("BugImages");
-
                     b.Navigation("Comments");
                 });
 

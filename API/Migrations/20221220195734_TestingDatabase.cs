@@ -64,6 +64,11 @@ namespace API.Migrations
                     Edited = table.Column<bool>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     ImageURL = table.Column<string>(type: "TEXT", nullable: true),
+                    BugImage1 = table.Column<string>(type: "TEXT", nullable: true),
+                    BugImage2 = table.Column<string>(type: "TEXT", nullable: true),
+                    BugImage3 = table.Column<string>(type: "TEXT", nullable: true),
+                    BugImage4 = table.Column<string>(type: "TEXT", nullable: true),
+                    BugImage5 = table.Column<string>(type: "TEXT", nullable: true),
                     IsResolved = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
                     ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -101,26 +106,6 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BugImages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Path = table.Column<string>(type: "TEXT", nullable: true),
-                    BugId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BugImages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BugImages_Bugs_BugId",
-                        column: x => x.BugId,
-                        principalTable: "Bugs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -151,11 +136,6 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BugImages_BugId",
-                table: "BugImages",
-                column: "BugId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Bugs_ProjectId",
                 table: "Bugs",
                 column: "ProjectId");
@@ -178,9 +158,6 @@ namespace API.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "BugImages");
-
             migrationBuilder.DropTable(
                 name: "Comments");
 

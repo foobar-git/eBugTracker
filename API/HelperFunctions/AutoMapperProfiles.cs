@@ -26,9 +26,9 @@ namespace API.HelperFunctions
 
             CreateMap<BugEditDto, Bug>();               // users editing bug entries
 
-            CreateMap<BugImage, BugImageDto>();
+            //CreateMap<BugImage, BugImageDto>();
             
-            CreateMap<BugImageEditDto, BugImage>();     // users editing bug images
+            //CreateMap<BugImageEditDto, BugImage>();     // users editing bug images
 
             CreateMap<Comment, CommentDto>();
 

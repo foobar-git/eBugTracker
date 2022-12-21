@@ -6,10 +6,10 @@
     <div class="card mb-4 ml-4 mr-4">
         <div class="mt-2" [hidden]="removingBugEntry">
             <ul class="list-inline user-icons animate text-center">
-                <li class="list-inline-item"><button routerLink="/bug/id/{{bug_p.id}}" class="btn btn-primary"><i class="fa fa-bug"></i></button></li>
+                <li class="list-inline-item"><button routerLink="/bug/id/{{bug_p.id}}" class="btn btn-primary" title="Load bug"><i class="fa fa-bug"></i></button></li>
                 <ng-container *ngIf="ableToEditBug">
-                    <li class="list-inline-item"><button (click)="enableBugEditComponent()" class="btn btn-primary"><i class="fa fa-edit"></i></button></li>
-                    <li class="list-inline-item"><button (click)="removeBug()" class="btn btn-primary"><i class="fa fa-times" aria-hidden="true"></i></button></li>
+                    <li class="list-inline-item"><button (click)="enableBugEditComponent()" class="btn btn-primary" title="Edit bug"><i class="fa fa-edit"></i></button></li>
+                    <li class="list-inline-item"><button (click)="removeBug()" class="btn btn-primary" title="Delete bug"><i class="fa fa-times" aria-hidden="true"></i></button></li>
                 </ng-container>
             </ul>
         </div>

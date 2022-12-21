@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { BugImage } from 'src/app/_models/bugImage';
 import { Comment } from 'src/app/_models/comment';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Observable, of } from 'rxjs';
@@ -20,7 +19,7 @@ export class BugInfoComponent implements OnInit {
   bug: any;
   id: number;
   imageURL: string;
-  bugImages: BugImage[];
+  bugImages: string[] = [];
   comments: Comment[];
   commentsLength: number;
   commentsNumber: number;                               // number of comments - when listing comments
@@ -52,7 +51,8 @@ export class BugInfoComponent implements OnInit {
         this.dateTimeCreated = this.helperFn.formatDateTime(this.bug.dateCreated);
         this.dateTimeResolved = this.helperFn.formatDateTime(this.bug.dateResolved);
         this.imageURL = this.bug.imageURL;
-        this.bugImages = this.bug.bugImages;
+        this.bugImages.push(this.bug.bugImage1, this.bug.bugImage2, this.bug.bugImage3, this.bug.bugImage4, this.bug.bugImage5);
+        //console.log(this.bugImages);
         this.comments = this.bug.comments;
         this.commentsLength = this.comments.length;
 
@@ -84,24 +84,24 @@ export class BugInfoComponent implements OnInit {
     ]
     let runOnce = true;
     const imageUrls = [];
-    for (const image of this.bugImages) {
-      if (image?.path != "") {                                    // check if URL strings are "empty, if so then skip"
+    for (let image of this.bugImages) {
+      if (image != "") {                      // check if URL strings are "empty, if so then skip"
         imageUrls.push({
-          small: image?.path,
-          medium: image?.path,
-          big: image?.path
+          small: image,
+          medium: image,
+          big: image
         })
       } else {
         if (runOnce) {
           if (this.imageURL != "") {
-            image.path = this.imageURL;     // if imageURL is not empty, copy the value  the first image
+            image = this.imageURL;            // if imageURL is not empty, copy the value  the first image
             imageUrls.push({
-              small: image?.path,
-              medium: image?.path,
-              big: image?.path
+              small: image,
+              medium: image,
+              big: image
             })
           }
-          runOnce = false;                  // only run it for the first image
+          runOnce = false;                    // only run it for the first image
         }
         
       }

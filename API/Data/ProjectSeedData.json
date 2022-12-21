@@ -32,23 +32,11 @@
                 "Edited": true,
                 "Description": "Display error number XYZ failed to show... Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n",
                 "ImageURL": "https://thumbs.dreamstime.com/b/sebilj-fountain-old-town-sarajevo-bosnia-bascarsija-square-wooden-capital-city-herzegovina-86290286.jpg",
-                "BugImages": [
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    }
-                ]
+                "BugImage1": "",
+                "BugImage2": "",
+                "BugImage3": "",
+                "BugImage4": "",
+                "BugImage5": ""
             },
             {
                 "Name": "Bug_Runtime",
@@ -59,23 +47,11 @@
                 "Edited": false,
                 "Description": "Failed to initialize this and that... Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n",
                 "ImageURL": "",
-                "BugImages": [
-                    {
-                        "Path": "./assets/images/image.png"
-                    },
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    }
-                ],
+                "BugImage1": "./assets/images/image.png",
+                "BugImage2": "",
+                "BugImage3": "",
+                "BugImage4": "",
+                "BugImage5": "",
                 "Comments": [
                     {
                         "PostedByUser": "Emil",
@@ -96,23 +72,11 @@
                 "Edited": false,
                 "Description": "Display error number XYZ failed again to show the same... Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n",
                 "ImageURL": "",
-                "BugImages": [
-                    {
-                        "Path": "./assets/images/image.png"
-                    },
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    }
-                ]
+                "BugImage1": "./assets/images/image.png",
+                "BugImage2": "",
+                "BugImage3": "",
+                "BugImage4": "",
+                "BugImage5": ""
             }
         ]        
     },
@@ -141,23 +105,11 @@
                 "Edited": false,
                 "Description": "Classic networking error number XYZ... Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n",
                 "ImageURL": "",
-                "BugImages": [
-                    {
-                        "Path": "./assets/images/image.png"
-                    },
-                    {
-                        "Path": "./assets/images/imageTest.png"
-                    },
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    },
-                    {
-                        "Path": ""
-                    }
-                ],
+                "BugImage1": "./assets/images/image.png",
+                "BugImage2": "./assets/images/imageTest.png",
+                "BugImage3": "",
+                "BugImage4": "",
+                "BugImage5": "",
                 "Comments": [
                     {
                         "PostedByUser": "Ensar",
