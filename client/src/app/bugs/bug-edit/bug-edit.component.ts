@@ -17,7 +17,7 @@ export class BugEditComponent implements OnInit {
   constructor(private bugsService: BugsService, private helperFn: HelperFnService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    console.log(this.bug);
+    //console.log(this.bug);
     this.bugImages.push(this.bug.bugImage1, this.bug.bugImage2, this.bug.bugImage3, this.bug.bugImage4, this.bug.bugImage5)
   }
 
@@ -27,20 +27,22 @@ export class BugEditComponent implements OnInit {
     this.bug.edited = true;
     this.bug.dateCreated = this.helperFn.getCurrentDateTime();
     this.bugsService.editBug(id, this.bug).subscribe(() => {
-      this.toastr.success("Image edited, changes saved.").onHidden.subscribe(
-        () => window.location.reload()
+      this.toastr.success("Bug edited, changes saved.").onHidden.subscribe(
+        //() => window.location.reload()
       );
     });
   }
 
   removeBug() {
-    if (this.bug.id != null) {
-      //console.log(this.bug.id);
-      this.bugsService.deleteBug(this.bug.id).subscribe(() => {
-        this.toastr.success("Bug entry removed.").onHidden.subscribe(
-          () => window.location.reload()
-        );
-      });
+    if (window.confirm("Delete this bug?")) {
+      if (this.bug.id != null) {
+        //console.log(this.bug.id);
+        this.bugsService.deleteBug(this.bug.id).subscribe(() => {
+          this.toastr.success("Bug entry removed.").onHidden.subscribe(
+            () => window.location.reload()
+          );
+        });
+      }
     }
   }
 

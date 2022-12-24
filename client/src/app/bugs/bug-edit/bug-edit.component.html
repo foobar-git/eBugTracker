@@ -17,15 +17,20 @@
                     <input type="text" class="form-control" [(ngModel)]="bug.imageURL" name="imageURL">
                     
                     <label for="bug.bugImage1" class="mt-3">Image 1 - {{bug.bugImage1}}</label>
-                    <input type="text" class="form-control" [(ngModel)]="bug.bugImage1" name="bugImage1">
+                    <!--input type="text" class="form-control" [(ngModel)]="bug.bugImage1" name="bugImage1"-->
+                    <app-file-upload [numberString]="1"></app-file-upload>
                     <label for="bug.bugImage2" class="mt-3">Image 2 - {{bug.bugImage2}}</label>
-                    <input type="text" class="form-control" [(ngModel)]="bug.bugImage2" name="bugImage2">
+                    <!--input type="text" class="form-control" [(ngModel)]="bug.bugImage2" name="bugImage2"-->
+                    <app-file-upload [numberString]="2"></app-file-upload>
                     <label for="bug.bugImage3" class="mt-3">Image 3 - {{bug.bugImage3}}</label>
-                    <input type="text" class="form-control" [(ngModel)]="bug.bugImage3" name="bugImage3">
+                    <!--input type="text" class="form-control" [(ngModel)]="bug.bugImage3" name="bugImage3"-->
+                    <app-file-upload [numberString]="3"></app-file-upload>
                     <label for="bug.bugImage4" class="mt-3">Image 4 - {{bug.bugImage4}}</label>
-                    <input type="text" class="form-control" [(ngModel)]="bug.bugImage4" name="bugImage4">
+                    <!--input type="text" class="form-control" [(ngModel)]="bug.bugImage4" name="bugImage4"-->
+                    <app-file-upload [numberString]="4"></app-file-upload>
                     <label for="bug.bugImage5" class="mt-3">Image 5 - {{bug.bugImage5}}</label>
-                    <input type="text" class="form-control" [(ngModel)]="bug.bugImage5" name="bugImage5">
+                    <!--input type="text" class="form-control" [(ngModel)]="bug.bugImage5" name="bugImage5"-->
+                    <app-file-upload [numberString]="5"></app-file-upload>
 
                     <button form="newForm" (click)="updateBug(bug.id)" class="btn btn-secondary btn-block p-3 mt-4">Save</button>
                 </form>

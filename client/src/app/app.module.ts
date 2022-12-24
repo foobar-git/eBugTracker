@@ -32,6 +32,8 @@ import { BugCardComponent } from './bugs/bug-card/bug-card.component';
 import { CommentNewComponent } from './comments/comment-new/comment-new.component';
 import { BugNewComponent } from './bugs/bug-new/bug-new.component';
 import { BugEditComponent } from './bugs/bug-edit/bug-edit.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { RouteRedirectComponent } from './route-redirect/route-redirect.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { BugEditComponent } from './bugs/bug-edit/bug-edit.component';
     CommentEditComponent,
     CommentNewComponent,
     BugNewComponent,
-    BugEditComponent
+    BugEditComponent,
+    FileUploadComponent,
+    RouteRedirectComponent
   ],
   imports: [
     BrowserModule,
@@ -74,8 +78,9 @@ import { BugEditComponent } from './bugs/bug-edit/bug-edit.component';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },    // interceptor for sending tokens
     { provide: ProjectInfoComponent },                                        // make available to other components
     { provide: BugInfoComponent },                                            // make available to other components
-    { provide: BugNewComponent },                                            // make available to other components
-    { provide: CommentNewComponent }                                         // make available to other components
+    { provide: BugNewComponent },                                             // make available to other components
+    { provide: CommentNewComponent },                                         // make available to other components
+    { provide: BugEditComponent }                                             // make available to other components
   ],
   bootstrap: [AppComponent]
 })

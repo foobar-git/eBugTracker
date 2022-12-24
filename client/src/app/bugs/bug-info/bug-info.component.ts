@@ -47,7 +47,7 @@ export class BugInfoComponent implements OnInit {
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {
-        console.log(this.bug);
+        //console.log(this.bug);
         this.dateTimeCreated = this.helperFn.formatDateTime(this.bug.dateCreated);
         this.dateTimeResolved = this.helperFn.formatDateTime(this.bug.dateResolved);
         this.imageURL = this.bug.imageURL;
@@ -86,6 +86,7 @@ export class BugInfoComponent implements OnInit {
     const imageUrls = [];
     for (let image of this.bugImages) {
       if (image != "") {                      // check if URL strings are "empty, if so then skip"
+        image = "https://localhost:5001/upload/" + image;
         imageUrls.push({
           small: image,
           medium: image,
@@ -94,7 +95,7 @@ export class BugInfoComponent implements OnInit {
       } else {
         if (runOnce) {
           if (this.imageURL != "") {
-            image = this.imageURL;            // if imageURL is not empty, copy the value  the first image
+            image = this.imageURL;            // if imageURL is not empty, copy the value to the first image
             imageUrls.push({
               small: image,
               medium: image,
@@ -110,8 +111,8 @@ export class BugInfoComponent implements OnInit {
   }
 
   checkForCommentsAsync() {
-    console.log(this.commentsNumber);
-    console.log(this.commentsLength);
+    //console.log(this.commentsNumber);
+    //console.log(this.commentsLength);
     if (this.commentsLength > 0) return of(true);
     else return of(false);
   }

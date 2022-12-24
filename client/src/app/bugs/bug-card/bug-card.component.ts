@@ -87,14 +87,16 @@ export class BugCardComponent implements OnInit {
 
   removeBug() {
     //if (this.ableToEditBug) this.editBug = true;
-    if (this.bug.id != null) {
-      //console.log(this.bug.id);
-      this.removingBugEntry = true;
-      this.bugsService.deleteBug(this.bug.id).subscribe(() => {
-        this.toastr.success("Bug entry removed.").onHidden.subscribe(
-          () => window.location.reload()
-        );
-      });
+    if (window.confirm("Delete this bug?")) {
+      if (this.bug.id != null) {
+        //console.log(this.bug.id);
+        this.removingBugEntry = true;
+        this.bugsService.deleteBug(this.bug.id).subscribe(() => {
+          this.toastr.success("Bug entry removed.").onHidden.subscribe(
+            () => window.location.reload()
+          );
+        });
+      }
     }
     this.resetVariables();
   }
