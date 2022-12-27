@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BugEditComponent } from '../bugs/bug-edit/bug-edit.component';
 import { BugsService } from '../_services/bugs.service';
 import { FileUploadService } from '../_services/file-upload.service';
+import { HelperFnService } from '../_services/helper-fn.service';
 
 @Component({
 	selector: 'app-file-upload',
@@ -10,14 +11,17 @@ import { FileUploadService } from '../_services/file-upload.service';
 	styleUrls: ['./file-upload.component.css']
 })
 export class FileUploadComponent implements OnInit {
-	// Variable to store shortLink from api response
+  maxFileSize: number = 5242880; // 5 MB
+  maxFileSizeInfo: string = this.maxFileSize.toString().charAt(0);
+	requiredFileTypes: string[] = [ "image/avif", "image/jpg", "image/jpeg", "image/png", "image/tiff" ];
 	file: File = null;                // Variable to store file
   @Input() numberString: string;
   bugImageNumber: number;
   _bugEdit: any;
   _toastr: any;
 
-	constructor(private fileUploadService: FileUploadService, private toastr: ToastrService, private bugEdit: BugEditComponent, private bugsService: BugsService) { }
+	constructor(private fileUploadService: FileUploadService, private toastr: ToastrService,
+    private bugEdit: BugEditComponent, private bugsService: BugsService, private helperFn: HelperFnService) { }
 
 	ngOnInit(): void {
     this._bugEdit = this.bugEdit;
@@ -37,33 +41,42 @@ export class FileUploadComponent implements OnInit {
     let file = this.file;
     if (this.file != null) {
 		  console.log(this.file);
-      this.fileUploadService.upload(this.file).subscribe({
-        next() {
-          console.log("Running 'next' branch.");
-        },
-        error (error) {     // this is a workaround, completing the request via error
-          //console.log("Running 'error' branch.");
-          
-          enum biIndex {
-            "bugImage1" = 1,
-            "bugImage2" = 2,
-            "bugImage3" = 3,
-            "bugImage4" = 4,
-            "bugImage5" = 5
-          };
-          let i = biIndex[imageNumber];
-          console.log(i);   //console.log(Object.values(bugEditComp.bug)[imageNumber]);
-          console.log(file.name);
-          bugEditComp.bug[i] = file.name;
-          console.log(bugEditComp.bug);
-
-          toastrServ.clear();
-          toastrServ.success("File ready for upload. Save when ready.", null, {timeOut: 10000});
-        },
-        complete() {
-          console.log("Running 'complete' branch.");
+      if (this.helperFn.validateFileType(this.requiredFileTypes, this.file)) {
+        if (this.file.size <= this.maxFileSize) {
+          this.fileUploadService.upload(this.file).subscribe({
+            next() {
+              console.log("Running 'next' branch.");
+            },
+            error (error) {     // this is a workaround, completing the request via error
+              //console.log("Running 'error' branch.");
+              enum biIndex {
+                "bugImage1" = 1,
+                "bugImage2" = 2,
+                "bugImage3" = 3,
+                "bugImage4" = 4,
+                "bugImage5" = 5
+              };
+              let i = biIndex[imageNumber];
+              console.log(i);   //console.log(Object.values(bugEditComp.bug)[imageNumber]);
+              console.log(file.name);
+              bugEditComp.bug[i] = file.name;
+              console.log(bugEditComp.bug);
+  
+              toastrServ.clear();
+              toastrServ.success("File ready for upload. Save when ready.", null, {timeOut: 10000});
+            },
+            complete() {
+              console.log("Running 'complete' branch.");
+            }
+          });
         }
-      });
+        else {
+          toastrServ.error("File size limit: " + this.maxFileSizeInfo + " MB");
+        }
+      }
+      else {
+        toastrServ.error("File type not allowed.");
+      }
     }
     else {
       toastrServ.error("No file selected");

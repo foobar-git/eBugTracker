@@ -30,4 +30,14 @@ export class HelperFnService {
     return (dateTime).slice(11, 19);
   }
 
+  validateFileType(requiredFileTypes: string[], file: any) {
+    var arrayLength = requiredFileTypes.length;
+    for (var i = 0; i < arrayLength; i++) {
+        if (requiredFileTypes[i] == file.type) {
+          return true;
+        }
+    };
+    return false;
+  }
+
 }
