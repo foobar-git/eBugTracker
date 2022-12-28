@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BugsService } from 'src/app/_services/bugs.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthorizationService } from 'src/app/_services/authorization.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-bug-card',
@@ -15,6 +16,7 @@ import { AuthorizationService } from 'src/app/_services/authorization.service';
   styleUrls: ['./bug-card.component.css']
 })
 export class BugCardComponent implements OnInit {
+  baseUrl = environment.apiUrl;
   removingBugEntry: boolean = false;
   ableToEditBug: boolean = false;
   editBug: boolean = false;
@@ -56,7 +58,7 @@ export class BugCardComponent implements OnInit {
 
   getBugId(id: number) {
     //console.log(id);
-    this.http.get('https://localhost:5001/api/bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {

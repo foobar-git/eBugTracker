@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment';
       formData.append("files", file, file.name);
         
       // Make http post request over api with formData as req
-      return this.http.post(this.baseUrl + "fileupload/", formData);
+      return this.http.put(this.baseUrl + "fileupload/", formData);
     }    
   }
 

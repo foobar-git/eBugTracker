@@ -8,6 +8,7 @@ import { CommentsService } from 'src/app/_services/comments.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommentNewComponent } from 'src/app/comments/comment-new/comment-new.component';
 import { HelperFnService } from 'src/app/_services/helper-fn.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-bug-info',
@@ -15,6 +16,7 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
   styleUrls: ['./bug-info.component.css']
 })
 export class BugInfoComponent implements OnInit {
+  baseUrl = environment.apiUrl;
   writeNewComment: boolean = false;
   bug: any;
   id: number;
@@ -43,7 +45,7 @@ export class BugInfoComponent implements OnInit {
   }
 
   getBugId(id: number) {
-    this.http.get('https://localhost:5001/api/bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {
@@ -86,7 +88,7 @@ export class BugInfoComponent implements OnInit {
     const imageUrls = [];
     for (let image of this.bugImages) {
       if (image != "") {                      // check if URL strings are "empty, if so then skip"
-        image = "https://localhost:5001/upload/" + image;
+        image = this.baseUrl + "upload/" + image;
         imageUrls.push({
           small: image,
           medium: image,

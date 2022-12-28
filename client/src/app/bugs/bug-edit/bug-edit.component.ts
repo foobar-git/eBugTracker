@@ -46,4 +46,8 @@ export class BugEditComponent implements OnInit {
     }
   }
 
+  removeImage() {
+    
+  }
+
 }

@@ -6,6 +6,7 @@ import { BugsAssigned } from 'src/app/_models/bugsAssigned';
 import { Observable, of } from 'rxjs';
 import { HelperFnService } from 'src/app/_services/helper-fn.service';
 import { BugNewComponent } from 'src/app/bugs/bug-new/bug-new.component';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { BugNewComponent } from 'src/app/bugs/bug-new/bug-new.component';
   styleUrls: ['./project-info.component.css']
 })
 export class ProjectInfoComponent implements OnInit {
+  baseUrl = environment.apiUrl;
   newBugEntry: boolean = false;
   project: any;
   id: number;
@@ -40,7 +42,7 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   getProjectId(id: number) {
-    this.http.get('https://localhost:5001/api/project/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'api/project/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.project = response,
       error: error => console.log(error),
       complete: () => {

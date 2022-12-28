@@ -45,10 +45,7 @@ export class FileUploadComponent implements OnInit {
         if (this.file.size <= this.maxFileSize) {
           this.fileUploadService.upload(this.file).subscribe({
             next() {
-              console.log("Running 'next' branch.");
-            },
-            error (error) {     // this is a workaround, completing the request via error
-              //console.log("Running 'error' branch.");
+              //console.log("Running 'next'.");
               enum biIndex {
                 "bugImage1" = 1,
                 "bugImage2" = 2,
@@ -61,12 +58,16 @@ export class FileUploadComponent implements OnInit {
               console.log(file.name);
               bugEditComp.bug[i] = file.name;
               console.log(bugEditComp.bug);
-  
-              toastrServ.clear();
-              toastrServ.success("File ready for upload. Save when ready.", null, {timeOut: 10000});
+            },
+            error (error) {
+              console.log("Running 'error'.");
+              toastrServ.error("File was not uploaded.", null, {timeOut: 10000});
             },
             complete() {
-              console.log("Running 'complete' branch.");
+              //console.log("Running 'complete'.");
+              toastrServ.success("File uploaded.").onHidden.subscribe(
+                () => bugEditComp.updateBug(bugEditComp.bug.id)
+              );
             }
           });
         }

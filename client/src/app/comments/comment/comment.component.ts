@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-comment',
@@ -8,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./comment.component.css']
 })
 export class CommentComponent implements OnInit {
+  baseUrl = environment.apiUrl;
   comment: any;
   id: number;
 
@@ -23,7 +25,7 @@ export class CommentComponent implements OnInit {
   }
 
   getCommentId(id: number) {
-    this.http.get('https://localhost:5001/api/comment/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'api/comment/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.comment = response,
       error: error => console.log(error),
       complete: () => {

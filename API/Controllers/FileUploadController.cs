@@ -26,8 +26,9 @@ namespace API.Controllers
             public IFormFile files { get; set; }
         }
 
-        [HttpPost]
-        public async Task<string> Post([FromForm]FileUploadAPI objFile)
+        // API:     /api/fileupload/
+        [HttpPut]
+        public async Task<ActionResult> SaveFileToDirectory([FromForm]FileUploadAPI objFile)
         {
             string fileUploadDirectory = "upload";                      // name of directory
             string dirChar = "//";                                      // identifier for directories
@@ -36,6 +37,25 @@ namespace API.Controllers
 
             if (objFile.files.Length > 0)
             {
+                // try
+                // {
+                //     if (!Directory.Exists(_environment.WebRootPath + location))
+                //     {
+                //         Directory.CreateDirectory(_environment.WebRootPath + location);
+                //     }
+
+                //     using (FileStream fileStream = System.IO.File.Create(_environment.WebRootPath + location + objFile.files.FileName))
+                //     {
+                //         objFile.files.CopyTo(fileStream);
+                //         fileStream.Flush();
+                //         return location + objFile.files.FileName;
+                //     }
+                // }
+                // catch (Exception ex)
+                // {
+                //     return ex.Message.ToString();
+                // }
+
                 try
                 {
                     if (!Directory.Exists(_environment.WebRootPath + location))
@@ -43,22 +63,48 @@ namespace API.Controllers
                         Directory.CreateDirectory(_environment.WebRootPath + location);
                     }
 
-                    using (FileStream fileStream = System.IO.File.Create(_environment.WebRootPath + location + objFile.files.FileName))
-                    {
-                        objFile.files.CopyTo(fileStream);
-                        fileStream.Flush();
-                        return location + objFile.files.FileName;
-                    }
+                    SetFileStream(location, objFile);
+                    return Ok();
                 }
                 catch (Exception ex)
                 {
-                    return ex.Message.ToString();
+                    return BadRequest(ex.Message.ToString());
                 }
+                
             }
             else
             {
-                return "Failed to upload file.";
+                return BadRequest("Failed to upload file.");
             }
+        }
+
+        private string SetFileStream(string location, FileUploadAPI objFile) {
+            using (FileStream fileStream = System.IO.File.Create(_environment.WebRootPath + location + objFile.files.FileName))
+            {
+                objFile.files.CopyTo(fileStream);
+                fileStream.Flush();
+                return location + objFile.files.FileName;
+            }
+        }
+
+        // API:     /api/fileupload/df/{filename}
+        [HttpDelete("df/{filename}")]
+        public async Task<ActionResult> DeleteFile(string filename)
+        {
+            string fileUploadDirectory = "upload";                      // name of directory
+            string dirChar = "//";                                      // identifier for directories
+            if (OperatingSystem.IsWindows()) dirChar = "\\";
+            string location = dirChar + fileUploadDirectory + dirChar;
+
+            if (Directory.Exists(_environment.WebRootPath + location))
+            {
+                var pathToFile = _environment.WebRootPath + location;
+                System.IO.File.Delete(pathToFile + filename);
+                //Console.WriteLine("EDIT >>> " + pathToFile + filename);
+                return Ok();
+            }
+            Console.WriteLine("No such file.");
+            return BadRequest("No such file.");
         }
     }
 }
