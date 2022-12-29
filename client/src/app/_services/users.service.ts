@@ -36,8 +36,15 @@ export class UsersService {
 export class UsersService {
   baseUrl = environment.apiUrl;
   users: AppUser[] = [];
+  userIdToEdit: number;
 
   constructor(private http: HttpClient) { }
+
+  getAppUserById(id: number) {
+    const user = this.users.find(u => u.id === id);
+    if (user !== undefined) return of(user);
+    return this.http.get<AppUser[]>(this.baseUrl + 'users/id/' + id);
+  }
 
   getAppUser(username: string) {
     //return this.http.get<AppUser[]>(this.baseUrl + 'users/' + username);  // v15
@@ -57,13 +64,21 @@ export class UsersService {
     )
   }
 
+  // v21
+  // updateAppUser(user: AppUser) {
+  //   //console.log(user);
+  //   //return this.http.put(this.baseUrl + 'users/', user);   // v15
+  //   return this.http.put(this.baseUrl + 'users/', user).pipe(
+  //     map( () => {
+  //       const index = this.users.indexOf(user);
+  //       this.users[index] = user;
+  //     })
+  //   )
+  // }
+
   updateAppUser(user: AppUser) {
-    //return this.http.put(this.baseUrl + 'users/', user);   // v15
-    return this.http.put(this.baseUrl + 'users/', user).pipe(
-      map( () => {
-        const index = this.users.indexOf(user);
-        this.users[index] = user;
-      })
-    )
+    //console.log(user);
+    return this.http.put(this.baseUrl + 'users/id/' + user.id, user);
   }
+
 }

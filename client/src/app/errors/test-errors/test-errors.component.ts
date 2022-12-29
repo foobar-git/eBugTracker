@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-test-errors',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./test-errors.component.css']
 })
 export class TestErrorsComponent implements OnInit {
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = environment.apiUrl;
   validationErrors: string[] = [];
 
   constructor(private http: HttpClient) { }
@@ -16,7 +17,7 @@ export class TestErrorsComponent implements OnInit {
 
   }
 
-  get_400Error() {
+  get_400_Error() {
     this.http.get(this.baseUrl + 'error/bad-request').subscribe(response => {
       console.log(response);
     }, error => {
@@ -25,7 +26,7 @@ export class TestErrorsComponent implements OnInit {
     })
   }
 
-  get_400ValidationError() {
+  get_400_ValidationError() {
     this.http.post(this.baseUrl + 'account/register', {}).subscribe(response => {
       console.log(response);
     }, error => {
@@ -39,7 +40,7 @@ export class TestErrorsComponent implements OnInit {
     })
   }
 
-  get_401Error() {
+  get_401_Error() {   // this error is working properly if the user is not logged in
     this.http.get(this.baseUrl + 'error/auth').subscribe(response => {
       console.log(response);
     }, error => {
@@ -48,7 +49,7 @@ export class TestErrorsComponent implements OnInit {
     })
   }
 
-  get_404Error() {
+  get_404_Error() {
     this.http.get(this.baseUrl + 'error/not-found').subscribe(response => {
       console.log(response);
     }, error => {
@@ -57,7 +58,7 @@ export class TestErrorsComponent implements OnInit {
     })
   }
 
-  get_500Error() {
+  get_500_Error() {
     this.http.get(this.baseUrl + 'error/server-error').subscribe(response => {
       console.log(response);
     }, error => {
@@ -67,3 +68,4 @@ export class TestErrorsComponent implements OnInit {
   }
 
 }
+//

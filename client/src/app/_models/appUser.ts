@@ -1,10 +1,9 @@
 import { Comment } from "./comment";
-import { UserImage } from "../_models/userImage";
 
 export interface AppUser {
     id: number;
     username: string;
-    imageUrl: string;
+    userImage: string;
     created: number;
     dateCreated: Date;
     lastActive: Date;
@@ -13,6 +12,5 @@ export interface AppUser {
     surname: string;
     team: string;
     description: string;
-    userImage: UserImage[];
     comments: Comment[];
 }

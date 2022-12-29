@@ -15,16 +15,22 @@ namespace API.HelperFunctions
             //         source => source.UserImage.FirstOrDefault().Url) );
 
             CreateMap<AppUser, UsersDto>()
-                .ForMember( destination => destination.ImageUrl, option => option.MapFrom (
-                    source => source.UserImage.FirstOrDefault().Url) )
                 .ForMember( destination => destination.Created, option => option.MapFrom (
                     source => source.DateCreated.CalculateTimeFromUserCreated()));
-            
-            CreateMap<UserImage, UserImageDto>();
 
             CreateMap<UserUpdateDto, AppUser>();        // users editing their own profiles
+            
+            CreateMap<Bug, BugDto>();
+                // .ForMember( destination => destination.ImageURL, option => option.MapFrom (
+                //     source => source.BugImages.FirstOrDefault().Path) );
 
-            CreateMap<UserUpdateAdminDto, AppUser>();   // admin editing other users
+            CreateMap<BugEditDto, Bug>();               // users editing bug entries
+
+            //CreateMap<BugImage, BugImageDto>();
+            
+            //CreateMap<BugImageEditDto, BugImage>();     // users editing bug images
+
+            CreateMap<Comment, CommentDto>();
 
             CreateMap<CommentEditDto, Comment>();       // users editing their comments
 
@@ -35,14 +41,6 @@ namespace API.HelperFunctions
                 //     source => source.BugsAssigned.FirstOrDefault().Name) );
                 .ForMember( destination => destination.Bugs_, option => option.MapFrom (
                     source => source.BugsAssigned.FirstOrDefault().Name) );
-            
-            CreateMap<Bug, BugDto>()
-                .ForMember( destination => destination.ImageLocation, option => option.MapFrom (
-                    source => source.BugImages.FirstOrDefault().Location) );
-
-            CreateMap<BugImage, BugImageDto>();
-
-            CreateMap<Comment, CommentDto>();
         }
     }
 }

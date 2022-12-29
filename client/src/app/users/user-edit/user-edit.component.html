@@ -5,7 +5,7 @@
         <div class="col-8">
             <div class="alert alert-info">
                 <h1>EDIT PROFILE MODE</h1>
-            </div>        
+            </div>
         </div>
         <div class="col-4">
             <div class="btn-group d-flex alert">
@@ -18,7 +18,7 @@
 <div class="row" *ngIf="user">
     <div class="col-4">
       <div class="card">
-        <img src="{{user.imageUrl || './assets/images/user.png'}}" alt="{{user.username}}" class="card-img-top img-thumbnail">
+        <img src="{{user.userImage || (baseUrl + 'default/user.png')}}" alt="{{user.username}}" class="card-img-top img-thumbnail">
         <div class="card-body">
           <div>
             {{user.username}} - <strong>{{user.userType}}</strong> - ID: {{user.id}}<br><hr>
@@ -51,8 +51,8 @@
                 <form id="editForm" #editForm="ngForm" (ngSubmit)="updateUser()">
                     <textarea class="form-control" [(ngModel)]="user.description" name="description" id="" rows="10"></textarea>
                     <div class="form-inline mt-4 mx-4">
-                        <label for="imageUrl">Image URL: </label>
-                        <input [(ngModel)]="user.imageUrl" type="text" name="imageUrl" class=" col-6 mx-2">
+                        <label for="userImage">Image URL: </label>
+                        <input [(ngModel)]="user.userImage" type="text" name="userImage" class="col-6 mx-2">
                     </div>
                     <!--div class="form-inline">
                         <label for="city">City: </label>

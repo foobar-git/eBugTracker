@@ -16,7 +16,7 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
 import { AuthGuard } from './_guards/auth.guard';
 import { CommentComponent } from './comments/comment/comment.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
-import { UserEditAdminComponent } from './users/user-edit-admin/user-edit-admin.component';
+import { RouteRedirectComponent } from './route-redirect/route-redirect.component';
 
 /* v5
 const routes: Routes = [
@@ -43,7 +43,6 @@ const routes: Routes = [
       { path: 'users', component: UserListComponent},  // route '...:4200/users/'
       { path: 'user/id/:id', component: UserProfileComponent },  // route '...:4200/user/id/"id"'
       { path: 'user/edit/this', component: UserEditComponent },  // route '...:4200/user/edit/this'
-      { path: 'user/edit/admin', component: UserEditAdminComponent },  // route '...:4200/user/edit/admin'
 
       { path: 'projects', component: ProjectListComponent },  // route '...:4200/projects/'
       { path: 'project/:name', component: ProjectInfoNameComponent },  // route '...:4200/project/"projectname"'
@@ -57,12 +56,14 @@ const routes: Routes = [
       { path: 'comment/id/:id', component: CommentComponent },  // route '...:4200/comment/id/"id"/'
 
       //{ path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'
+      
+      //{ path: '/:url', component: RouteRedirectComponent },  // route '...:4200/"url"/'
     ]
   },
   { path: 'errors', component: TestErrorsComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
-  { path: '**', component: NotFoundComponent, pathMatch: 'full' },  // route '...:4200/...' (a catch-all route, still has to match)
+  { path: '**', component: NotFoundComponent, pathMatch: 'full' },  // route '...:4200/...' (a catch-all route)
 ];
 
 @NgModule({

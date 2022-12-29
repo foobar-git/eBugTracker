@@ -36,12 +36,14 @@ namespace API.Data
 
         public async Task<Bug> GetBugAsync(string bugname)
         {
-            return await _context.Bugs.Include(image => image.BugImages).SingleOrDefaultAsync(bug => bug.Name == bugname);
+            //return await _context.Bugs.Include(image => image.BugImages).SingleOrDefaultAsync(bug => bug.Name == bugname);
+            return await _context.Bugs.SingleOrDefaultAsync(bug => bug.Name == bugname);
         }
 
         public async Task<IEnumerable<Bug>> GetBugsAsync()
         {
-            return await _context.Bugs.Include(image => image.BugImages).ToListAsync();
+            //return await _context.Bugs.Include(image => image.BugImages).ToListAsync();
+            return await _context.Bugs.ToListAsync();
         }
 
         public async Task<IEnumerable<BugDto>> GetBugsDtoAsync()
@@ -81,6 +83,11 @@ namespace API.Data
         {
             // mark 'bug' as 'modified'
             _context.Entry(bug).State = EntityState.Modified;
+        }
+
+        public void DeleteBugAsync(Bug bug)
+        {
+            _context.Bugs.Remove(bug);
         }
     }
 }

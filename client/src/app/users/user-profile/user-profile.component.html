@@ -7,7 +7,7 @@
 <div class="row" *ngIf="user">
   <div class="col-4">
     <div class="card">
-      <img src="{{user.imageUrl || './assets/images/user.png'}}" alt="{{user.username}}" class="card-img-top img-thumbnail">
+      <img src="{{user.userImage || (baseUrl + 'default/user.png')}}" alt="{{user.username}}" class="card-img-top img-thumbnail">
       <div class="card-body">
         <div>
           {{user.username}} - <strong>{{user.userType}}</strong> - ID: {{user.id}}<br><hr>

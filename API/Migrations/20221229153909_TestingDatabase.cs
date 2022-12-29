@@ -24,7 +24,8 @@ namespace API.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Surname = table.Column<string>(type: "TEXT", nullable: true),
                     Team = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    UserImage = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,27 +52,6 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserImages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Url = table.Column<string>(type: "TEXT", nullable: true),
-                    PublicId = table.Column<string>(type: "TEXT", nullable: true),
-                    AppUserId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserImages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserImages_AppUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AppUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Bugs",
                 columns: table => new
                 {
@@ -81,7 +61,12 @@ namespace API.Migrations
                     FiledByUser = table.Column<string>(type: "TEXT", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DateResolved = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Edited = table.Column<bool>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
+                    ImageURL1 = table.Column<string>(type: "TEXT", nullable: true),
+                    ImageURL2 = table.Column<string>(type: "TEXT", nullable: true),
+                    BugImage1 = table.Column<string>(type: "TEXT", nullable: true),
+                    BugImage2 = table.Column<string>(type: "TEXT", nullable: true),
                     IsResolved = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
                     ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -119,27 +104,6 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BugImages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Location = table.Column<string>(type: "TEXT", nullable: true),
-                    PublicId = table.Column<string>(type: "TEXT", nullable: true),
-                    BugId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BugImages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BugImages_Bugs_BugId",
-                        column: x => x.BugId,
-                        principalTable: "Bugs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -170,11 +134,6 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BugImages_BugId",
-                table: "BugImages",
-                column: "BugId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Bugs_ProjectId",
                 table: "Bugs",
                 column: "ProjectId");
@@ -190,11 +149,6 @@ namespace API.Migrations
                 column: "BugId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserImages_AppUserId",
-                table: "UserImages",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UsersAssigned_ProjectId",
                 table: "UsersAssigned",
                 column: "ProjectId");
@@ -203,22 +157,16 @@ namespace API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BugImages");
-
-            migrationBuilder.DropTable(
                 name: "Comments");
-
-            migrationBuilder.DropTable(
-                name: "UserImages");
 
             migrationBuilder.DropTable(
                 name: "UsersAssigned");
 
             migrationBuilder.DropTable(
-                name: "Bugs");
+                name: "AppUsers");
 
             migrationBuilder.DropTable(
-                name: "AppUsers");
+                name: "Bugs");
 
             migrationBuilder.DropTable(
                 name: "Projects");

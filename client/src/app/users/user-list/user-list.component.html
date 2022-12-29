@@ -12,6 +12,6 @@
 </div-->
 <div class="row">
   <div *ngFor="let user of users$ | async" class="col-2">
-    <app-user-card [appUser]="user"></app-user-card>
+    <app-user-card [user]="user"></app-user-card>
   </div>
 </div>

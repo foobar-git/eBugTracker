@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { BugImage } from 'src/app/_models/bugImage';
 import { Comment } from 'src/app/_models/comment';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Observable, of } from 'rxjs';
@@ -9,6 +8,8 @@ import { CommentsService } from 'src/app/_services/comments.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommentNewComponent } from 'src/app/comments/comment-new/comment-new.component';
 import { HelperFnService } from 'src/app/_services/helper-fn.service';
+import { environment } from 'src/environments/environment';
+import { BugImageIndex } from 'src/app/_models/bugImageIndex';
 
 @Component({
   selector: 'app-bug-info',
@@ -16,10 +17,14 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
   styleUrls: ['./bug-info.component.css']
 })
 export class BugInfoComponent implements OnInit {
+  baseUrl = environment.apiUrl;
   writeNewComment: boolean = false;
   bug: any;
   id: number;
-  bugImages: BugImage[];
+  imageURL1: string;
+  imageURL2: string;
+  bugImages: string[] = [];
+  biIndex = BugImageIndex;
   comments: Comment[];
   commentsLength: number;
   commentsNumber: number;                               // number of comments - when listing comments
@@ -40,64 +45,80 @@ export class BugInfoComponent implements OnInit {
     });
 
     this.getBugId(this.id);
+
+
   }
 
   getBugId(id: number) {
-    this.http.get('https://localhost:5001/api/bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {
-        console.log(this.bug);
+        //console.log(this.bug);
         this.dateTimeCreated = this.helperFn.formatDateTime(this.bug.dateCreated);
         this.dateTimeResolved = this.helperFn.formatDateTime(this.bug.dateResolved);
-        this.bugImages = this.bug.bugImages;
+        this.setBugImages();
+        //console.log(this.bugImages);
         this.comments = this.bug.comments;
         this.commentsLength = this.comments.length;
 
         var length = this.commentsLength;
         if (length > 0) this.commentsNumber = length - 1;
-        else {
-          this.commentsNumber = 0;
-        }
+        else this.commentsNumber = 0;
         this.noComments$ = this.checkForCommentsAsync();  // delay the check if there are any comments posted
         
         //console.log(this.commentsNumber);
         //console.log(this.bug);
         //console.log(this.comments);                     // can be used for returning a list of comments
         //console.log(this.bugImages);
-        //console.log(this.bugImages[0].location);        // can be used for returning a list of bug images
+
         this.galleryImages = this.getImages();
       }
     });
   }
 
   getImages(): NgxGalleryImage[] {
-    this.galleryOptions = [
-      {
+    this.galleryOptions = [ {
         width: '500px',
         height: '500px',
         imagePercent: 100,
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide,
-        preview: false
+        preview: true
       }
     ]
-
-    const imageUrls = [];
-    for (const image of this.bugImages) {
-      imageUrls.push({
-        //small: image.url,
-        small: image?.location,
-        medium: image?.location,
-        big: image?.location
-      })
+    const imagesArray = [];
+    for (let image of this.bugImages) {
+      if (image != "") {                      // check if URL strings are "empty, if so then skip"
+        if (image === "default") image = this.baseUrl + "default/image.png";
+        else image = this.baseUrl + "upload/" + image;
+        
+        imagesArray.push({
+          small: image,
+          medium: image,
+          big: image
+        })
+      }
     }
-    return imageUrls;
+    //console.log(this.bug.imageURL1);
+    //console.log(this.bug.imageURL2);
+    if (this.bug.imageURL1 != "") imagesArray.push({
+      small: this.bug.imageURL1,
+      medium: this.bug.imageURL1,
+      big: this.bug.imageURL1
+    });
+    if (this.bug.imageURL2 != "") imagesArray.push({
+      small: this.bug.imageURL2,
+      medium: this.bug.imageURL2,
+      big: this.bug.imageURL2
+    });
+    //console.log(imagesArray);
+    return imagesArray;
   }
 
   checkForCommentsAsync() {
-    console.log(this.commentsNumber);
-    console.log(this.commentsLength);
+    //console.log(this.commentsNumber);
+    //console.log(this.commentsLength);
     if (this.commentsLength > 0) return of(true);
     else return of(false);
   }
@@ -107,14 +128,20 @@ export class BugInfoComponent implements OnInit {
   }
 
   initNewComment() {
-    console.log("Write a new comment!");
+    console.log("Writing a new comment...");
     this.writeNewComment = true;
     this.commentNew.newCommentForm();
+  }
 
-    // this.commentsService.newComment(newComment).subscribe(() => {
-    //   this.toastr.success("New comment has been posted.");
-    // })
-
+  setBugImages() {
+    const biiLength = Object.keys(this.biIndex).length / 2;   // dividing by two to get the correct length because
+    //console.log(biiLength);                                   // the enum biIndex is made of numerical values
+    for (let i = 1; i <= biiLength; i++) {
+      let n = this.biIndex[i];
+      //console.log(this.bug[n]);
+      this.bugImages.push(this.bug[n]);
+      //console.log(this.bugImages[i-1]);
+    }
   }
 
 }

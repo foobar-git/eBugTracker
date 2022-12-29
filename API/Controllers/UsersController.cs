@@ -88,16 +88,30 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateUser(UserUpdateDto userUpdateDto)
+        public async Task<ActionResult> UpdateUser(UserUpdateDto userUpdate)
         {
             // returns the username for the user from the token
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = await _userRepository.GetUserAsync(username);
 
-            _mapper.Map(userUpdateDto, user);
+            _mapper.Map(userUpdate, user);
             _userRepository.Update(user);
 
             if (await _userRepository.SaveAllAsync()) return NoContent();
+
+            //if the update failes:
+            return BadRequest("Failed to update user.");
+        }
+
+        [HttpPut("id/{id}")]    // "edit user by admin"
+        public async Task<ActionResult> UpdateUser([FromBody]UserUpdateDto editUser, [FromRoute]int id)
+        {
+            var user = await _userRepository.GetUserByIdAsync(id);
+
+            _mapper.Map(editUser, user);
+            _userRepository.Update(user);
+
+            if (await _userRepository.SaveAllAsync()) return Ok();
 
             //if the update failes:
             return BadRequest("Failed to update user.");

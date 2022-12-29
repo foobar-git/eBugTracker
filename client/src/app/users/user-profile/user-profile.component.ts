@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { BugsAssigned } from 'src/app/_models/bugsAssigned';
 import { HelperFnService } from 'src/app/_services/helper-fn.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-profile',
@@ -10,6 +11,7 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+  baseUrl = environment.apiUrl;
   user: any;
   id: number;
   bugs: any;
@@ -30,7 +32,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUserId(id: number) {
-    this.http.get('https://localhost:5001/api/users/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'users/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.user = response,
       error: error => console.log(error),
       complete: () => {
@@ -42,7 +44,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getBugsByThisUser(uname: string) {
-    this.http.get('https://localhost:5001/api/bug').subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'bug').subscribe({ // observables do nothing until subscribed
       next: response => this.bugs = response,
       error: error => console.log(error),
       complete: () => {
@@ -54,4 +56,5 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
+
 }

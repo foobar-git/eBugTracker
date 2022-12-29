@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -51,9 +52,13 @@ namespace API
         {
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();        // superseded error handling middleware    // v6
+                //app.UseDeveloperExceptionPage();        // superseded by error handling middleware    // v6
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv5 v1"));
+            }
+            else
+            {
+                app.UseHsts();
             }
 
             app.UseMiddleware<ExceptionMiddleware>();       // custom error handlig
@@ -67,6 +72,8 @@ namespace API
             app.UseAuthentication();
             
             app.UseAuthorization();
+
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {

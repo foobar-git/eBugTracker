@@ -15,6 +15,7 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
 })
 export class CommentEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
+  removingCommentEntry: boolean = false;
   ableToEditComment: boolean = false;
   comment: any;
   commentsIndexNumber: number;            // comment number - position in array
@@ -31,7 +32,7 @@ export class CommentEditComponent implements OnInit {
     
     this.setCommentStatus();
 
-    this.authorizeUser();
+    this.authorizeUser(this.comment.postedByUser);
 
     this.bugInfo.updateCommentsNumber();         // needed for advancing to the next comment in comments
 
@@ -52,7 +53,7 @@ export class CommentEditComponent implements OnInit {
     this.commentsService.editComment(id, this.comment).subscribe(() => {
       this.toastr.success("Comment edited, changes saved.");
       this.editForm.reset(this.comment);         // reset form status, keeping changes for user
-    })
+    });
     this.resetVariables();
   }
 
@@ -72,20 +73,25 @@ export class CommentEditComponent implements OnInit {
     if (this.comment.edited == true) this.commentEdited = true;
   }
 
-  authorizeUser() {
-    this.ableToEditComment = this.authorization.userAuthorized(this.comment.postedByUser);
+  authorizeUser(user: string) {
+    //this.ableToEditComment = this.authorization.userAuthorized(user);         // v22
+    this.ableToEditComment = this.authorization.userAuthorized_levelNormalUser(user);
   }
 
   removeComment() {
-    this.loadComment();
-    if (this.comment.id != null) {
-      //console.log(this.comment.id);
-      this.commentsService.deleteComment(this.comment.id).subscribe(() => {
-        this.toastr.success("Comment deleted.");
-        window.location.reload();
-      });
+    if (window.confirm("Delete this comment?")) {
+      this.loadComment();
+      if (this.comment.id != null) {
+        //console.log(this.comment.id);
+        this.removingCommentEntry = true;
+        this.commentsService.deleteComment(this.comment.id).subscribe(() => {
+          this.toastr.success("Comment deleted.").onHidden.subscribe(
+            () => window.location.reload()
+          );
+        });
+      }
+      this.resetVariables();
     }
-    this.resetVariables();
   }
 
 }

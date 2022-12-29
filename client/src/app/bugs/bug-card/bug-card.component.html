@@ -1,17 +1,33 @@
 <!--p>bug-card works!</p-->
-<div class="card mb-4 ml-4 mr-4">
-    <div class="mt-2">
-        <ul class="list-inline user-icons animate text-center">
-            <li class="list-inline-item"><button routerLink="/bug/id/{{bug_p.id}}" class="btn btn-primary"><i class="fa fa-bug"></i></button></li>
-            <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></li>
-        </ul>
+<ng-container *ngIf="editBug">
+    <div class="text-center mb-n5" style="z-index: 99; position: relative;">
+        <button (click)="closeEditForm()" class="btn btn-primary" title="Close">Close edit form</button>
     </div>
-    <div class="card-body p-1">
-        <div class="text-center">Bug name:</div>
-        <h6 class="card-title text-center mb-1">{{bug_p.name}}</h6>
-        <p class="card-text text-muted text-center">
-            Comments: {{numberOfComments}}<br>
-            <i class="fa fa-info-circle mr-2"> Active: {{bug_p.isActive}}</i>
-        </p>
+    <app-bug-edit [bug]="bug" [hidden]="!editBug"></app-bug-edit>
+</ng-container>
+<ng-container *ngIf="!editBug">
+    <div class="card mb-4 ml-4 mr-4">
+        <div class="mt-2" [hidden]="removingBugEntry">
+            <ul class="list-inline user-icons animate text-center">
+                <li class="list-inline-item"><button routerLink="/bug/id/{{bug_p.id}}" class="btn btn-primary" title="Load bug"><i class="fa fa-bug"></i></button></li>
+                <ng-container *ngIf="ableToEditBug">
+                    <li class="list-inline-item"><button (click)="enableBugEditComponent()" class="btn btn-primary" title="Edit bug"><i class="fa fa-edit"></i></button></li>
+                    <li class="list-inline-item"><button (click)="removeBug()" class="btn btn-primary" title="Delete bug"><i class="fa fa-times" aria-hidden="true"></i></button></li>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="card-body p-1">
+            <ng-container *ngIf="bugEdited">
+                <div class="text-center">
+                <mark class="small">&nbsp;<em>Edited</em>&nbsp;</mark><br>
+            </div>
+            </ng-container>            
+            <div class="text-center">Bug name:</div>
+            <h6 class="card-title text-center mb-1">{{bug_p.name}}</h6>
+            <p class="card-text text-muted text-center">
+                Comments: {{numberOfComments}}<br>
+                <i class="fa fa-info-circle mr-2"> Active: {{bug_p.isActive}}</i>
+            </p>
+        </div>
     </div>
-</div>
+</ng-container>

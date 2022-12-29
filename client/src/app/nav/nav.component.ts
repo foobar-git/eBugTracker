@@ -38,7 +38,6 @@ export class NavComponent implements OnInit {
         //this.loggedIn = true;                                   v1
 
         //console.log(this.isAdmin);
-        this.authorizationService.getUserDataAsync();
         window.location.href="stats";                             // reload page fetching user data (authorization service)
       },
       error => {
@@ -51,7 +50,7 @@ export class NavComponent implements OnInit {
     this.accountService.logout_service();
     //this.loggedIn = false;                                      v1
     //this.router.navigateByUrl('/');                             v19
-    window.location.reload();
+    window.location.href="/";
   }
 
   /*getCurrentUser() {                                            v1

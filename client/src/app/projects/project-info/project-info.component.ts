@@ -5,6 +5,8 @@ import { UsersAssigned } from 'src/app/_models/usersAssigned';
 import { BugsAssigned } from 'src/app/_models/bugsAssigned';
 import { Observable, of } from 'rxjs';
 import { HelperFnService } from 'src/app/_services/helper-fn.service';
+import { BugNewComponent } from 'src/app/bugs/bug-new/bug-new.component';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -13,6 +15,8 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
   styleUrls: ['./project-info.component.css']
 })
 export class ProjectInfoComponent implements OnInit {
+  baseUrl = environment.apiUrl;
+  newBugEntry: boolean = false;
   project: any;
   id: number;
   usersAssigned: UsersAssigned[];
@@ -25,7 +29,8 @@ export class ProjectInfoComponent implements OnInit {
   dateTimeCreated: string;
   dateTimeCompleted: string;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private helperFn: HelperFnService) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private helperFn: HelperFnService,
+    private bugNew: BugNewComponent) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -37,7 +42,7 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   getProjectId(id: number) {
-    this.http.get('https://localhost:5001/api/project/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'project/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.project = response,
       error: error => console.log(error),
       complete: () => {
@@ -76,6 +81,13 @@ export class ProjectInfoComponent implements OnInit {
 
   updateBugIdIndex() {
     this.bugIdIndex--;                                    // when accessing array by index, start from last element and count down
+  }
+
+  initNewBug() {
+    console.log("New bug entry...");
+    console.log(this.project.id);
+    this.newBugEntry = true;
+    this.bugNew.newBugForm();
   }
 
 }

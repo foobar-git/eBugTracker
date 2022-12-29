@@ -61,7 +61,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         break;
 
       case 401:   // Unauthorized
-        //this.toastr.error(error_response.statusText, error_response.status)           // v6
+        //this.toastr.error(error_r.statusText, error_r.status)           // v6
         this.statusText_string = "Unauthorized";
         break;
 
