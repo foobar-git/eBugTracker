@@ -88,7 +88,6 @@ export class BugCardComponent implements OnInit {
   }
 
   removeBug() {
-    //if (this.ableToEditBug) this.editBug = true;
     if (window.confirm("Delete this bug?")) {
       if (this.bug.id != null) {
         //console.log(this.bug.id);
@@ -99,13 +98,17 @@ export class BugCardComponent implements OnInit {
           );
         });
       }
+      this.resetVariables();
     }
-    this.resetVariables();
   }
 
   resetVariables() {
     this.bugEdited = true;
     this.editBug = false;
+  }
+
+  closeEditForm() {
+    this.resetVariables();
   }
 
 }

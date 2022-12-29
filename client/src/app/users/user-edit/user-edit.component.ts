@@ -43,7 +43,7 @@ export class UserEditComponent implements OnInit {
   updateUser() {
     //console.log(this.user);
     this.userService.updateAppUser(this.user).subscribe(() => {
-      this.toastr.success("Profile edited, changes saved.")
+      this.toastr.success("Profile edited, changes saved.");
       this.editForm.reset(this.user);       // reset form status, keeping changes for user
     });
   }

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BugEditComponent } from '../bugs/bug-edit/bug-edit.component';
+import { BugImageIndex } from '../_models/bugImageIndex';
 import { BugsService } from '../_services/bugs.service';
 import { FileUploadService } from '../_services/file-upload.service';
 import { HelperFnService } from '../_services/helper-fn.service';
@@ -17,6 +18,7 @@ export class FileUploadComponent implements OnInit {
 	file: File = null;                // Variable to store file
   @Input() numberString: string;
   bugImageNumber: number;
+  biIndex = BugImageIndex;
   _bugEdit: any;
   _toastr: any;
 
@@ -33,7 +35,9 @@ export class FileUploadComponent implements OnInit {
 
 	// On file Select
 	onChange(event) {
+    this.bugEdit.saving = true;
 		this.file = event.target.files[0];
+    this.onUpload(this._toastr, this._bugEdit, this.bugImageNumber);
 	}
 
 	// OnClick of button Upload
@@ -43,21 +47,14 @@ export class FileUploadComponent implements OnInit {
 		  console.log(this.file);
       if (this.helperFn.validateFileType(this.requiredFileTypes, this.file)) {
         if (this.file.size <= this.maxFileSize) {
+          let i = this.biIndex[imageNumber];
           this.fileUploadService.upload(this.file).subscribe({
             next() {
               //console.log("Running 'next'.");
-              enum biIndex {
-                "bugImage1" = 1,
-                "bugImage2" = 2,
-                "bugImage3" = 3,
-                "bugImage4" = 4,
-                "bugImage5" = 5
-              };
-              let i = biIndex[imageNumber];
-              console.log(i);   //console.log(Object.values(bugEditComp.bug)[imageNumber]);
-              console.log(file.name);
+              //console.log(i);   //console.log(Object.values(bugEditComp.bug)[imageNumber]);
+              //console.log(file.name);
               bugEditComp.bug[i] = file.name;
-              console.log(bugEditComp.bug);
+              //console.log(bugEditComp.bug);
             },
             error (error) {
               console.log("Running 'error'.");
@@ -65,7 +62,7 @@ export class FileUploadComponent implements OnInit {
             },
             complete() {
               //console.log("Running 'complete'.");
-              toastrServ.success("File uploaded.").onHidden.subscribe(
+              toastrServ.success("File uploaded.", null, {timeOut: 2000}).onHidden.subscribe(
                 () => bugEditComp.updateBug(bugEditComp.bug.id)
               );
             }

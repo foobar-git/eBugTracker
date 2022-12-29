@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommentNewComponent } from 'src/app/comments/comment-new/comment-new.component';
 import { HelperFnService } from 'src/app/_services/helper-fn.service';
 import { environment } from 'src/environments/environment';
+import { BugImageIndex } from 'src/app/_models/bugImageIndex';
 
 @Component({
   selector: 'app-bug-info',
@@ -20,8 +21,10 @@ export class BugInfoComponent implements OnInit {
   writeNewComment: boolean = false;
   bug: any;
   id: number;
-  imageURL: string;
+  imageURL1: string;
+  imageURL2: string;
   bugImages: string[] = [];
+  biIndex = BugImageIndex;
   comments: Comment[];
   commentsLength: number;
   commentsNumber: number;                               // number of comments - when listing comments
@@ -42,6 +45,8 @@ export class BugInfoComponent implements OnInit {
     });
 
     this.getBugId(this.id);
+
+
   }
 
   getBugId(id: number) {
@@ -52,8 +57,7 @@ export class BugInfoComponent implements OnInit {
         //console.log(this.bug);
         this.dateTimeCreated = this.helperFn.formatDateTime(this.bug.dateCreated);
         this.dateTimeResolved = this.helperFn.formatDateTime(this.bug.dateResolved);
-        this.imageURL = this.bug.imageURL;
-        this.bugImages.push(this.bug.bugImage1, this.bug.bugImage2, this.bug.bugImage3, this.bug.bugImage4, this.bug.bugImage5);
+        this.setBugImages();
         //console.log(this.bugImages);
         this.comments = this.bug.comments;
         this.commentsLength = this.comments.length;
@@ -74,8 +78,7 @@ export class BugInfoComponent implements OnInit {
   }
 
   getImages(): NgxGalleryImage[] {
-    this.galleryOptions = [
-      {
+    this.galleryOptions = [ {
         width: '500px',
         height: '500px',
         imagePercent: 100,
@@ -84,37 +87,33 @@ export class BugInfoComponent implements OnInit {
         preview: true
       }
     ]
-    let runOnce = true;
-    const imageUrls = [];
+    const imagesArray = [];
     for (let image of this.bugImages) {
-      
       if (image != "") {                      // check if URL strings are "empty, if so then skip"
         if (image === "default") image = this.baseUrl + "default/image.png";
         else image = this.baseUrl + "upload/" + image;
         
-        imageUrls.push({
+        imagesArray.push({
           small: image,
           medium: image,
           big: image
         })
-        
-      } else {
-        if (runOnce) {
-          if (this.imageURL != "") {
-            //image = this.imageURL;            // if imageURL is not empty, copy the value to the first image
-            //image = this.baseUrl + "upload/" + this.imageURL;
-            imageUrls.push({
-              small: image,
-              medium: image,
-              big: image
-            })
-          }
-          runOnce = false;                    // only run it for the first image
-        }
-        
       }
     }
-    return imageUrls;
+    //console.log(this.bug.imageURL1);
+    //console.log(this.bug.imageURL2);
+    if (this.bug.imageURL1 != "") imagesArray.push({
+      small: this.bug.imageURL1,
+      medium: this.bug.imageURL1,
+      big: this.bug.imageURL1
+    });
+    if (this.bug.imageURL2 != "") imagesArray.push({
+      small: this.bug.imageURL2,
+      medium: this.bug.imageURL2,
+      big: this.bug.imageURL2
+    });
+    //console.log(imagesArray);
+    return imagesArray;
   }
 
   checkForCommentsAsync() {
@@ -132,6 +131,17 @@ export class BugInfoComponent implements OnInit {
     console.log("Writing a new comment...");
     this.writeNewComment = true;
     this.commentNew.newCommentForm();
+  }
+
+  setBugImages() {
+    const biiLength = Object.keys(this.biIndex).length / 2;   // dividing by two to get the correct length because
+    //console.log(biiLength);                                   // the enum biIndex is made of numerical values
+    for (let i = 1; i <= biiLength; i++) {
+      let n = this.biIndex[i];
+      //console.log(this.bug[n]);
+      this.bugImages.push(this.bug[n]);
+      //console.log(this.bugImages[i-1]);
+    }
   }
 
 }

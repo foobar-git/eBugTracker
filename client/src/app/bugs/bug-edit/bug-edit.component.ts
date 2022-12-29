@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AppBug } from 'src/app/_models/appBug';
+import { BugImageIndex } from 'src/app/_models/bugImageIndex';
 import { BugsService } from 'src/app/_services/bugs.service';
+import { FileUploadService } from 'src/app/_services/file-upload.service';
 import { HelperFnService } from 'src/app/_services/helper-fn.service';
 
 @Component({
@@ -10,15 +12,19 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
   styleUrls: ['./bug-edit.component.css']
 })
 export class BugEditComponent implements OnInit {
+  saving: boolean = false;
   @Input() bug: AppBug;
   bugEdited: boolean = false;
-  bugImages: string[] = [];
+  //bugImages: string[] = [];
+  biIndex = BugImageIndex;
 
-  constructor(private bugsService: BugsService, private helperFn: HelperFnService, private toastr: ToastrService) { }
+  constructor(private bugsService: BugsService, private helperFn: HelperFnService,
+    private toastr: ToastrService, private fileUploadService: FileUploadService) { }
 
   ngOnInit(): void {
     //console.log(this.bug);
-    this.bugImages.push(this.bug.bugImage1, this.bug.bugImage2, this.bug.bugImage3, this.bug.bugImage4, this.bug.bugImage5)
+    // v26
+    //this.bugImages.push(this.bug.bugImage1, this.bug.bugImage2, this.bug.bugImage3, this.bug.bugImage4, this.bug.bugImage5);
   }
 
   updateBug(id: number) {
@@ -28,7 +34,7 @@ export class BugEditComponent implements OnInit {
     this.bug.dateCreated = this.helperFn.getCurrentDateTime();
     this.bugsService.editBug(id, this.bug).subscribe(() => {
       this.toastr.success("Bug edited, changes saved.").onHidden.subscribe(
-        //() => window.location.reload()
+        () => window.location.reload()
       );
     });
   }
@@ -46,8 +52,16 @@ export class BugEditComponent implements OnInit {
     }
   }
 
-  removeImage() {
-    
+  removeImage(imageNumber : number) {
+    let n = this.biIndex[imageNumber];
+    //console.log(this.bug[n]);
+    if (window.confirm("Delete this bug?")) {
+      this.fileUploadService.delete(this.bug[n]).subscribe(() => {
+        this.toastr.success("File deleted.")
+      });
+    }
+    this.bug[n] = "";
+    //console.log(this.bug[n]);
   }
 
 }

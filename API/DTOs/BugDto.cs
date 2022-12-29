@@ -7,12 +7,10 @@ namespace API.DTOs
         public int Id { get; set; }
         public string Name { get; set; }
         public string FiledByUser { get; set; }
-        public string ImageURL { get; set; }
+        public string ImageURL1 { get; set; }
+        public string ImageURL2 { get; set; }
         public string BugImage1 { get; set; }
         public string BugImage2 { get; set; }
-        public string BugImage3 { get; set; }
-        public string BugImage4 { get; set; }
-        public string BugImage5 { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public DateTime DateResolved { get; set; } = DateTime.Now;
         public bool Edited { get; set; }

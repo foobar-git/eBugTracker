@@ -73,15 +73,6 @@ namespace API.Migrations
                     b.Property<string>("BugImage2")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("BugImage3")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BugImage4")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BugImage5")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
@@ -97,7 +88,10 @@ namespace API.Migrations
                     b.Property<string>("FiledByUser")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImageURL")
+                    b.Property<string>("ImageURL1")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImageURL2")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsActive")

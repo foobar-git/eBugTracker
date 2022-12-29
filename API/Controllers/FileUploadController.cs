@@ -30,8 +30,8 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult> SaveFileToDirectory([FromForm]FileUploadAPI objFile)
         {
-            string fileUploadDirectory = "upload";                      // name of directory
-            string dirChar = "//";                                      // identifier for directories
+            string fileUploadDirectory = "api/upload";                      // name of directory
+            string dirChar = "//";                                          // identifier for directories
             if (OperatingSystem.IsWindows()) dirChar = "\\";
             string location = dirChar + fileUploadDirectory + dirChar;
 
@@ -91,8 +91,8 @@ namespace API.Controllers
         [HttpDelete("df/{filename}")]
         public async Task<ActionResult> DeleteFile(string filename)
         {
-            string fileUploadDirectory = "upload";                      // name of directory
-            string dirChar = "//";                                      // identifier for directories
+            string fileUploadDirectory = "api/upload";                      // name of directory
+            string dirChar = "//";                                          // identifier for directories
             if (OperatingSystem.IsWindows()) dirChar = "\\";
             string location = dirChar + fileUploadDirectory + dirChar;
 

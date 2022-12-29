@@ -1,5 +1,8 @@
 <!--p>bug-card works!</p-->
 <ng-container *ngIf="editBug">
+    <div class="text-center mb-n5" style="z-index: 99; position: relative;">
+        <button (click)="closeEditForm()" class="btn btn-primary" title="Close">Close edit form</button>
+    </div>
     <app-bug-edit [bug]="bug" [hidden]="!editBug"></app-bug-edit>
 </ng-container>
 <ng-container *ngIf="!editBug">

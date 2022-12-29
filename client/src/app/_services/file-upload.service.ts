@@ -11,8 +11,7 @@ import { environment } from 'src/environments/environment';
     
   constructor(private http:HttpClient) { }
 
-  // Returns an observable
-  upload(file): Observable<any> {
+  upload(file: any): Observable<any> {
     if (file != null) {
       // Create form data
       const formData = new FormData();
@@ -20,9 +19,14 @@ import { environment } from 'src/environments/environment';
       // Store form name as "files" with file data
       formData.append("files", file, file.name);
         
-      // Make http post request over api with formData as req
+      // Make http post request over api with formData as request
       return this.http.put(this.baseUrl + "fileupload/", formData);
     }    
+  }
+
+  delete(filename: string) {
+    //console.log(filename);
+    return this.http.delete(this.baseUrl + "fileupload/df/" + filename);
   }
 
 }

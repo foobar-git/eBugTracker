@@ -79,17 +79,19 @@ export class CommentEditComponent implements OnInit {
   }
 
   removeComment() {
-    this.loadComment();
-    if (this.comment.id != null) {
-      //console.log(this.comment.id);
-      this.removingCommentEntry = true;
-      this.commentsService.deleteComment(this.comment.id).subscribe(() => {
-        this.toastr.success("Comment deleted.").onHidden.subscribe(
-          () => window.location.reload()
-        );
-      });
+    if (window.confirm("Delete this comment?")) {
+      this.loadComment();
+      if (this.comment.id != null) {
+        //console.log(this.comment.id);
+        this.removingCommentEntry = true;
+        this.commentsService.deleteComment(this.comment.id).subscribe(() => {
+          this.toastr.success("Comment deleted.").onHidden.subscribe(
+            () => window.location.reload()
+          );
+        });
+      }
+      this.resetVariables();
     }
-    this.resetVariables();
   }
 
 }
