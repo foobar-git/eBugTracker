@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AppUser } from 'src/app/_models/appUser';
 import { AuthorizationService } from 'src/app/_services/authorization.service';
 import { UsersService } from 'src/app/_services/users.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-card',
@@ -9,6 +10,7 @@ import { UsersService } from 'src/app/_services/users.service';
   styleUrls: ['./user-card.component.css']
 })
 export class UserCardComponent implements OnInit {
+  baseUrl = environment.apiUrl;
   @Input() user: AppUser;
   isAdmin: boolean = false;
 

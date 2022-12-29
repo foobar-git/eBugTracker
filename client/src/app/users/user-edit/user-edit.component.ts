@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { AuthorizationService } from 'src/app/_services/authorization.service';
 import { UsersService } from 'src/app/_services/users.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-edit',
@@ -11,6 +12,7 @@ import { UsersService } from 'src/app/_services/users.service';
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
+  baseUrl = environment.apiUrl;
   @ViewChild('editForm') editForm: NgForm;
   //currentUser: User;                      // populated by AccountService  // v20
   user: any;

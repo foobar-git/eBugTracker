@@ -42,7 +42,7 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   getProjectId(id: number) {
-    this.http.get(this.baseUrl + 'api/project/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'project/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.project = response,
       error: error => console.log(error),
       complete: () => {

@@ -32,7 +32,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUserId(id: number) {
-    this.http.get(this.baseUrl + 'api/users/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'users/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.user = response,
       error: error => console.log(error),
       complete: () => {

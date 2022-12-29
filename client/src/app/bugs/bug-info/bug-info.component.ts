@@ -87,17 +87,22 @@ export class BugInfoComponent implements OnInit {
     let runOnce = true;
     const imageUrls = [];
     for (let image of this.bugImages) {
+      
       if (image != "") {                      // check if URL strings are "empty, if so then skip"
-        image = this.baseUrl + "upload/" + image;
+        if (image === "default") image = this.baseUrl + "default/image.png";
+        else image = this.baseUrl + "upload/" + image;
+        
         imageUrls.push({
           small: image,
           medium: image,
           big: image
         })
+        
       } else {
         if (runOnce) {
           if (this.imageURL != "") {
-            image = this.imageURL;            // if imageURL is not empty, copy the value to the first image
+            //image = this.imageURL;            // if imageURL is not empty, copy the value to the first image
+            //image = this.baseUrl + "upload/" + this.imageURL;
             imageUrls.push({
               small: image,
               medium: image,

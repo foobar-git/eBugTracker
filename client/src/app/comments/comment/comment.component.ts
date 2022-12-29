@@ -25,7 +25,7 @@ export class CommentComponent implements OnInit {
   }
 
   getCommentId(id: number) {
-    this.http.get(this.baseUrl + 'api/comment/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'comment/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.comment = response,
       error: error => console.log(error),
       complete: () => {
