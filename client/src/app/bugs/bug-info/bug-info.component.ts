@@ -24,7 +24,10 @@ export class BugInfoComponent implements OnInit {
   imageURL1: string;
   imageURL2: string;
   bugImages: string[] = [];
+  bugImagesLength: number;
   biIndex = BugImageIndex;
+  noImages$: Observable<any>;
+  hideGallery: boolean = false;
   comments: Comment[];
   commentsLength: number;
   commentsNumber: number;                               // number of comments - when listing comments
@@ -66,6 +69,7 @@ export class BugInfoComponent implements OnInit {
         if (length > 0) this.commentsNumber = length - 1;
         else this.commentsNumber = 0;
         this.noComments$ = this.checkForCommentsAsync();  // delay the check if there are any comments posted
+        this.noImages$ = this.checkForImagesAsync();
         
         //console.log(this.commentsNumber);
         //console.log(this.bug);
@@ -113,6 +117,7 @@ export class BugInfoComponent implements OnInit {
       big: this.bug.imageURL2
     });
     //console.log(imagesArray);
+    this.bugImagesLength = imagesArray.length;
     return imagesArray;
   }
 
@@ -121,6 +126,15 @@ export class BugInfoComponent implements OnInit {
     //console.log(this.commentsLength);
     if (this.commentsLength > 0) return of(true);
     else return of(false);
+  }
+
+  checkForImagesAsync() {
+    //console.log(this.bugImagesLength);
+    if (this.bugImagesLength > 0) return of(true);
+    else {
+      this.hideGallery = true;
+      return of(false);
+    }
   }
 
   updateCommentsNumber() {

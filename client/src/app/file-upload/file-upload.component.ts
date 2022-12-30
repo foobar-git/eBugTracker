@@ -35,7 +35,7 @@ export class FileUploadComponent implements OnInit {
 
 	// On file Select
 	onChange(event) {
-    this.bugEdit.saving = true;
+    this.bugEdit.setSaving(true);
 		this.file = event.target.files[0];
     this.onUpload(this._toastr, this._bugEdit, this.bugImageNumber);
 	}
@@ -58,12 +58,16 @@ export class FileUploadComponent implements OnInit {
             },
             error (error) {
               console.log("Running 'error'.");
-              toastrServ.error("File was not uploaded.", null, {timeOut: 10000});
+              toastrServ.error("File was not uploaded.", null, {timeOut: 8000});
             },
             complete() {
               //console.log("Running 'complete'.");
-              toastrServ.success("File uploaded.", null, {timeOut: 2000}).onHidden.subscribe(
-                () => bugEditComp.updateBug(bugEditComp.bug.id)
+              toastrServ.success("File uploaded.", null, {timeOut: 2000}).onHidden.subscribe(() => {
+                  bugEditComp.updateBug(bugEditComp.bug.id, true);
+                  // toastrServ.success("Loading...", null, {timeout: 8000}).onHidden.subscribe(() => 
+                  //   bugEditComp.setSaving(false)
+                  // );
+                }
               );
             }
           });

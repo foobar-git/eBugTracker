@@ -27,14 +27,17 @@ export class BugEditComponent implements OnInit {
     //this.bugImages.push(this.bug.bugImage1, this.bug.bugImage2, this.bug.bugImage3, this.bug.bugImage4, this.bug.bugImage5);
   }
 
-  updateBug(id: number) {
-    console.log("Update bug!");
-    console.log(this.bug);
+  updateBug(id: number, skipReload: boolean) {
+    //console.log("Update bug!");
+    //console.log(this.bug);
+    this.setSaving(true);
     this.bug.edited = true;
     this.bug.dateCreated = this.helperFn.getCurrentDateTime();
     this.bugsService.editBug(id, this.bug).subscribe(() => {
-      this.toastr.success("Bug edited, changes saved.").onHidden.subscribe(
-        () => window.location.reload()
+      this.toastr.success("Bug edited, changes saved.").onHidden.subscribe(() => {
+          if (!skipReload) window.location.reload();
+          else this.setSaving(false); // re-enable the saving button
+        }
       );
     });
   }
@@ -55,13 +58,20 @@ export class BugEditComponent implements OnInit {
   removeImage(imageNumber : number) {
     let n = this.biIndex[imageNumber];
     //console.log(this.bug[n]);
-    if (window.confirm("Delete this bug?")) {
-      this.fileUploadService.delete(this.bug[n]).subscribe(() => {
-        this.toastr.success("File deleted.")
-      });
+    if (this.bug[n] != "") {
+      if (window.confirm("Delete this image?")) {
+        this.fileUploadService.delete(this.bug[n]).subscribe(() => {
+          this.bug[n] = "";
+          console.log(this.bug[n]);
+          this.toastr.success("File deleted.")
+          this.updateBug(this.bug.id, true);
+        });
+      }
     }
-    this.bug[n] = "";
-    //console.log(this.bug[n]);
+  }
+
+  setSaving(b: boolean) {
+    this.saving = b;
   }
 
 }

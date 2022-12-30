@@ -27,13 +27,19 @@
     <div class="col-8">
         <tabset class="project-tabset">
             <tab heading="Attachments">
-                <div>
-                    <h4>Images related to this bug</h4>
-                    <ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
+                <div class="mt-2">
+                    <h4 *ngIf="noImages$ | async; else noImagesSaved">Images related to this bug</h4>
+                    <ng-template #noImagesSaved>
+                        <h5>No images for this bug.</h5>
+                    </ng-template>
+                    <ng-template *ngIf="hideGallery">
+                        <ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
+                    </ng-template>
+                    <hr>
                 </div>
                 <div>
-                    <h4 *ngIf="noComments$ | async; else none">Comments for this bug</h4>
-                    <ng-template #none>
+                    <h4 *ngIf="noComments$ | async; else noCommentsPosted">Comments for this bug</h4>
+                    <ng-template #noCommentsPosted>
                         <h5>No comments posted.</h5>
                     </ng-template>
                     <h6 style="cursor: pointer" (click)="initNewComment()"> >>Post a new comment</h6>

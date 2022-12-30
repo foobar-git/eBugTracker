@@ -9,6 +9,7 @@ import { BugsService } from 'src/app/_services/bugs.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthorizationService } from 'src/app/_services/authorization.service';
 import { environment } from 'src/environments/environment';
+import { HelperFnService } from 'src/app/_services/helper-fn.service';
 
 @Component({
   selector: 'app-bug-card',
@@ -31,7 +32,7 @@ export class BugCardComponent implements OnInit {
   numberOfComments: number;         // number of comments posted about the bug
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authorization: AuthorizationService, private bugsService: BugsService,
-    private projectInfo: ProjectInfoComponent, private bugInfo: BugInfoComponent, private toastr: ToastrService) { }
+    private projectInfo: ProjectInfoComponent, private bugInfo: BugInfoComponent, private helperFn: HelperFnService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadBugCard();
@@ -69,7 +70,6 @@ export class BugCardComponent implements OnInit {
         //console.log(this.comments);
         this.numberOfComments = this.comments.length;
         //console.log(this.numberOfComments);
-        return;
       }
     })
   }
@@ -85,6 +85,18 @@ export class BugCardComponent implements OnInit {
 
   enableBugEditComponent() {
     this.editBug = true;
+  }
+
+  updateBug(id: number) {
+    console.log("Update bug!");
+    console.log(this.bug);
+    this.bug.edited = true;
+    this.bug.dateCreated = this.helperFn.getCurrentDateTime();
+    this.bugsService.editBug(id, this.bug).subscribe(() => {
+      this.toastr.success("Bug edited, changes saved.", null, {timeOut: 2000}).onHidden.subscribe(
+        () => window.location.reload()
+      );
+    });
   }
 
   removeBug() {
@@ -109,6 +121,22 @@ export class BugCardComponent implements OnInit {
 
   closeEditForm() {
     this.resetVariables();
+  }
+
+  toggleActive() {
+    if (window.confirm("Set bug is active as " + !this.bug.isActive + "?")) {
+      this.bug.isActive = !this.bug.isActive;
+      this.bug.isResolved = false;
+      this.updateBug(this.bug.id);
+    }
+  }
+  
+  toggleResolved() {
+    if (window.confirm("Mark bug resolved as " + !this.bug.isResolved + "?")) {
+      this.bug.isResolved = !this.bug.isResolved;
+      this.bug.isActive = false;
+      this.updateBug(this.bug.id);
+    }
   }
 
 }
