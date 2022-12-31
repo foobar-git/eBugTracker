@@ -18,6 +18,7 @@ export class UserEditComponent implements OnInit {
   user: any;
   user$: Observable<any>;
   isAdmin: boolean = false;
+  saving: boolean = false;
 
   // v20
   // constructor(private accountService: AccountService, private userService: UsersService, private toastr: ToastrService) {
@@ -42,10 +43,18 @@ export class UserEditComponent implements OnInit {
 
   updateUser() {
     //console.log(this.user);
+    this.setSaving(true);
     this.userService.updateAppUser(this.user).subscribe(() => {
-      this.toastr.success("Profile edited, changes saved.");
+      this.toastr.success("Profile edited, changes saved.").onHidden.subscribe(() => {
+        this.setSaving(false); // re-enable the saving button
+      }
+    );
       this.editForm.reset(this.user);       // reset form status, keeping changes for user
     });
+  }
+
+  setSaving(b: boolean) {
+    this.saving = b;
   }
 
 }

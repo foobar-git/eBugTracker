@@ -21,13 +21,14 @@ export class BugInfoComponent implements OnInit {
   writeNewComment: boolean = false;
   bug: any;
   id: number;
+  bugEdited: boolean;
   imageURL1: string;
   imageURL2: string;
   bugImages: string[] = [];
   bugImagesLength: number;
   biIndex = BugImageIndex;
   noImages$: Observable<any>;
-  hideGallery: boolean = false;
+  hideGallery: boolean = true;
   comments: Comment[];
   commentsLength: number;
   commentsNumber: number;                               // number of comments - when listing comments
@@ -48,18 +49,17 @@ export class BugInfoComponent implements OnInit {
     });
 
     this.getBugId(this.id);
-
-
   }
 
   getBugId(id: number) {
-    this.http.get(this.baseUrl + 'bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'bug/id/' + id.toString()).subscribe({     // observables do nothing until subscribed
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {
         //console.log(this.bug);
         this.dateTimeCreated = this.helperFn.formatDateTime(this.bug.dateCreated);
         this.dateTimeResolved = this.helperFn.formatDateTime(this.bug.dateResolved);
+        this.bugEdited = this.bug.edited;
         this.setBugImages();
         //console.log(this.bugImages);
         this.comments = this.bug.comments;
@@ -68,15 +68,16 @@ export class BugInfoComponent implements OnInit {
         var length = this.commentsLength;
         if (length > 0) this.commentsNumber = length - 1;
         else this.commentsNumber = 0;
-        this.noComments$ = this.checkForCommentsAsync();  // delay the check if there are any comments posted
-        this.noImages$ = this.checkForImagesAsync();
+        this.noComments$ = this.checkForCommentsAsync(this.commentsLength); // check if any comments posted
         
         //console.log(this.commentsNumber);
         //console.log(this.bug);
-        //console.log(this.comments);                     // can be used for returning a list of comments
+        //console.log(this.comments);                                       // can be used for returning a list of comments
         //console.log(this.bugImages);
 
         this.galleryImages = this.getImages();
+        this.bugImagesLength = this.galleryImages.length;
+        this.noImages$ = this.checkForImagesAsync(this.bugImagesLength);
       }
     });
   }
@@ -117,24 +118,22 @@ export class BugInfoComponent implements OnInit {
       big: this.bug.imageURL2
     });
     //console.log(imagesArray);
-    this.bugImagesLength = imagesArray.length;
     return imagesArray;
   }
 
-  checkForCommentsAsync() {
-    //console.log(this.commentsNumber);
-    //console.log(this.commentsLength);
-    if (this.commentsLength > 0) return of(true);
+  checkForCommentsAsync(l: number) {
+    //console.log(l);
+    if (l > 0) return of(true);
     else return of(false);
   }
 
-  checkForImagesAsync() {
-    //console.log(this.bugImagesLength);
-    if (this.bugImagesLength > 0) return of(true);
-    else {
-      this.hideGallery = true;
-      return of(false);
+  checkForImagesAsync(l: number) {
+    //console.log(l);
+    if (l > 0) {
+      this.hideGallery = false;
+      return of(true);
     }
+    else return of(false);
   }
 
   updateCommentsNumber() {

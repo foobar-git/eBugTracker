@@ -9,7 +9,9 @@
     <div class="card">
       <div class="card-body">
         <div>
-          <strong>Project ID: {{project.id}}</strong><br><hr>
+          <strong>Project ID: {{project.id}}</strong>
+          <li class="list-inline-item float-right mt-n2"><button (click)="initNewBug()" class="btn btn-primary" title="Post a new bug"><i class="fa fa-plus float-right"></i></button></li>
+          <hr>
           Project name: {{project.name}}<br>
           Created by user: {{project.createdByUser}}<br>
           Date created:<br>{{dateTimeCreated}}<br>
@@ -22,13 +24,16 @@
         </div>
       </div>
     </div>
+    <div class="text-center mt-1">
+      <h6 style="cursor: pointer" (click)="initNewBug()"> >>Post a new bug entry</h6>
+    </div>
   </div>
 
   <div class="col-8">
     <tabset class="project-tabset">
       <tab heading="Bugs Tracked">
         <h4>Bugs tracked in this project</h4>
-        <h6 style="cursor: pointer" (click)="initNewBug()"> >>Post a new bug entry</h6>
+        <!--h6 style="cursor: pointer" (click)="initNewBug()"> >>Post a new bug entry</h6-->
         <app-bug-new [projectId]="project.id" [hidden]="!newBugEntry"></app-bug-new>
         <div class="row">
           <div *ngFor="let bug of bugsAssigned">

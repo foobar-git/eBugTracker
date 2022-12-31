@@ -9,7 +9,8 @@
         </div>
         <div class="col-4">
             <div class="btn-group d-flex alert">
-                <button form="editForm" class="btn btn-secondary btn-block p-3">Save</button>
+                <button *ngIf="!saving" form="editForm" class="btn btn-secondary btn-block p-3">Save</button>
+                <button *ngIf="saving" disabled class="btn btn-secondary btn-block p-3">Saving...</button>
             </div>
         </div>
     </div>

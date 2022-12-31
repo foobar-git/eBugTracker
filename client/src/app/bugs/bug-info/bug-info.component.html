@@ -10,7 +10,9 @@
         <div class="card">
             <div class="card-body">
                 <div>
-                    <strong>Bug ID: {{bug.id}}</strong><br><hr>
+                    <strong>Bug ID: {{bug.id}}</strong>
+                    <mark [hidden]="!bugEdited" class="small mr-2 float-right">&nbsp;<em>Edited</em>&nbsp;</mark><br>
+                    <hr>
                     Project ID: {{bug.projectId}}<br>
                     Bug name: {{bug.name}}<br>
                     Filed by user: {{bug.filedByUser}}<br>
@@ -32,9 +34,9 @@
                     <ng-template #noImagesSaved>
                         <h5>No images for this bug.</h5>
                     </ng-template>
-                    <ng-template *ngIf="hideGallery">
+                    <ng-container *ngIf="!hideGallery">
                         <ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
-                    </ng-template>
+                    </ng-container>
                     <hr>
                 </div>
                 <div>
@@ -42,7 +44,7 @@
                     <ng-template #noCommentsPosted>
                         <h5>No comments posted.</h5>
                     </ng-template>
-                    <h6 style="cursor: pointer" (click)="initNewComment()"> >>Post a new comment</h6>
+                    <h6 style="cursor: pointer" (click)="initNewComment()"> >>Post a new comment <li class="list-inline-item"><button (click)="initNewComment()" class="btn" title="Post a new comment"><i class="fa fa-plus float-right"></i></button></li></h6>
                     <app-comment-new [bugId]="bug.id" [hidden]="!writeNewComment"></app-comment-new>
                     <div *ngFor="let comment of comments">
                         <app-comment-edit></app-comment-edit>
