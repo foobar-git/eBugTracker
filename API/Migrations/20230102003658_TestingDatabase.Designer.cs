@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230101235054_TestingDatabase")]
+    [Migration("20230102003658_TestingDatabase")]
     partial class TestingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -232,7 +232,7 @@ namespace API.Migrations
             modelBuilder.Entity("API.Entities.UsersAssigned", b =>
                 {
                     b.HasOne("API.Entities.Project", "Project")
-                        .WithMany("")
+                        .WithMany("UsersAssigned")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
