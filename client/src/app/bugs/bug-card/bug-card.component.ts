@@ -54,10 +54,10 @@ export class BugCardComponent implements OnInit {
     this.projectInfo.updateBugIdIndex();
 
     //console.log(this.projectInfo.bugsAssigned[this.bugIdIndex].id);
-    this.getBugId(this.projectInfo.bugsAssigned[this.bugIdIndex].id);
+    this.getBugById(this.projectInfo.bugsAssigned[this.bugIdIndex].id);
   }
 
-  getBugId(id: number) {
+  getBugById(id: number) {
     //console.log(id);
     this.http.get(this.baseUrl + 'bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.bug = response,
@@ -104,7 +104,7 @@ export class BugCardComponent implements OnInit {
       if (this.bug.id != null) {
         //console.log(this.bug.id);
         this.removingBugEntry = true;
-        this.bugsService.deleteBug(this.bug.id).subscribe(() => {
+        this.bugsService.deleteBug(this.bug.projectId, this.bug.id).subscribe(() => {
           this.toastr.success("Bug entry removed.").onHidden.subscribe(
             () => window.location.reload()
           );

@@ -190,6 +190,9 @@ namespace API.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("UserType")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");
 

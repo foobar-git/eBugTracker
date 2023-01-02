@@ -48,7 +48,7 @@ export class FileUploadComponent implements OnInit {
       if (this.helperFn.validateFileType(this.requiredFileTypes, this.file)) {
         if (this.file.size <= this.maxFileSize) {
           let i = this.biIndex[imageNumber];
-          this.fileUploadService.upload(this.file).subscribe({
+          this.fileUploadService.upload(bugEditComp.bug.projectId, bugEditComp.bug.id, this.file).subscribe({
             next() {
               //console.log("Running 'next'.");
               //console.log(i);   //console.log(Object.values(bugEditComp.bug)[imageNumber]);

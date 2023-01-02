@@ -48,10 +48,10 @@ export class BugInfoComponent implements OnInit {
       //console.log(this.id);                           // bug id
     });
 
-    this.getBugId(this.id);
+    this.getBugById(this.id);
   }
 
-  getBugId(id: number) {
+  getBugById(id: number) {
     this.http.get(this.baseUrl + 'bug/id/' + id.toString()).subscribe({     // observables do nothing until subscribed
       next: response => this.bug = response,
       error: error => console.log(error),
@@ -83,6 +83,8 @@ export class BugInfoComponent implements OnInit {
   }
 
   getImages(): NgxGalleryImage[] {
+    let pid = this.bug.projectId;
+    let bid = this.bug.id;
     this.galleryOptions = [ {
         width: '500px',
         height: '500px',
@@ -96,13 +98,13 @@ export class BugInfoComponent implements OnInit {
     for (let image of this.bugImages) {
       if (image != "") {                      // check if URL strings are "empty, if so then skip"
         if (image === "default") image = this.baseUrl + "default/image.png";
-        else image = this.baseUrl + "upload/" + image;
+        else image = this.baseUrl + "upload/" + pid + "/" + bid + "/" + image;
         
         imagesArray.push({
           small: image,
           medium: image,
           big: image
-        })
+        });
       }
     }
     //console.log(this.bug.imageURL1);
@@ -128,7 +130,7 @@ export class BugInfoComponent implements OnInit {
   }
 
   checkForImagesAsync(l: number) {
-    //console.log(l);
+    console.log(l);
     if (l > 0) {
       this.hideGallery = false;
       return of(true);

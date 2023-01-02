@@ -85,9 +85,18 @@ namespace API.Data
             _context.Entry(bug).State = EntityState.Modified;
         }
 
-        public void DeleteBugAsync(Bug bug)
+        // v30
+        /* public void DeleteBugAsync(Bug bug)
         {
             _context.Bugs.Remove(bug);
+        } */
+        
+        public async Task DeleteBugAsync(Bug bug)
+        {
+            await Task.Run( () => {
+                _context.Bugs.Remove(bug);
+                //Console.WriteLine(">>>>>> Starting to wait");
+            });
         }
     }
 }

@@ -27,11 +27,11 @@ export class UserProfileComponent implements OnInit {
       this.id = parseInt(params.get('id'));
       console.log(this.id);
     });
-    this.getUserId(this.id);
+    this.getUserById(this.id);
     //this.getBugs();             // v15
   }
 
-  getUserId(id: number) {
+  getUserById(id: number) {
     this.http.get(this.baseUrl + 'users/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.user = response,
       error: error => console.log(error),

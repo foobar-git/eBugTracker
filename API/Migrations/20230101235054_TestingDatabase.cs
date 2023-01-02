@@ -90,6 +90,7 @@ namespace API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Username = table.Column<string>(type: "TEXT", nullable: true),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserType = table.Column<string>(type: "TEXT", nullable: true),
                     ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

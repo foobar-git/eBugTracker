@@ -38,10 +38,10 @@ export class ProjectInfoComponent implements OnInit {
       this.id = parseInt(params.get('id'));
       //console.log(this.id);
     });
-    this.getProjectId(this.id);
+    this.getProjectById(this.id);
   }
 
-  getProjectId(id: number) {
+  getProjectById(id: number) {
     this.http.get(this.baseUrl + 'project/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.project = response,
       error: error => console.log(error),
@@ -49,6 +49,7 @@ export class ProjectInfoComponent implements OnInit {
         //console.log(this.project.usersAssigned);                          // can be used for returning a list of user names
         //this.usersAssigned = JSON.stringify(this.project.usersAssigned);  // can be used for returning a list of user names
         this.usersAssigned = this.project.usersAssigned;
+        console.log(this.usersAssigned);
         this.dateTimeCreated = this.helperFn.formatDateTime(this.project.dateCreated);
         this.dateTimeCompleted = this.helperFn.formatDateTime(this.project.dateCompleted);
         
@@ -88,6 +89,18 @@ export class ProjectInfoComponent implements OnInit {
     console.log(this.project.id);
     this.newBugEntry = true;
     this.bugNew.newBugForm();
+  }
+
+  addUser() {
+    console.log("Add user to project");
+  }
+
+  removeUser() {
+    console.log("Remove user from project");
+  }
+
+  editDescription() {
+    console.log("Edit project description");
   }
 
 }

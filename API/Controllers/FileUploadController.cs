@@ -26,36 +26,17 @@ namespace API.Controllers
             public IFormFile files { get; set; }
         }
 
-        // API:     /api/fileupload/
-        [HttpPut]
-        public async Task<ActionResult> SaveFileToDirectory([FromForm]FileUploadAPI objFile)
+        // API:     /api/fileupload/"project_id"/"bug_id"
+        [HttpPut("{pid}/{bid}")]
+        public async Task<ActionResult> SaveFileToDirectory([FromRoute]int pid, [FromRoute]int bid, [FromForm]FileUploadAPI objFile)
         {
-            string fileUploadDirectory = "api/upload";                      // name of directory
-            string dirChar = "//";                                          // identifier for directories
+            string dirChar = "//";                                  // identifier for directories
             if (OperatingSystem.IsWindows()) dirChar = "\\";
+            string fileUploadDirectory = "api" + dirChar + "upload" + dirChar + pid + dirChar + bid;
             string location = dirChar + fileUploadDirectory + dirChar;
 
             if (objFile.files.Length > 0)
             {
-                // try
-                // {
-                //     if (!Directory.Exists(_environment.WebRootPath + location))
-                //     {
-                //         Directory.CreateDirectory(_environment.WebRootPath + location);
-                //     }
-
-                //     using (FileStream fileStream = System.IO.File.Create(_environment.WebRootPath + location + objFile.files.FileName))
-                //     {
-                //         objFile.files.CopyTo(fileStream);
-                //         fileStream.Flush();
-                //         return location + objFile.files.FileName;
-                //     }
-                // }
-                // catch (Exception ex)
-                // {
-                //     return ex.Message.ToString();
-                // }
-
                 try
                 {
                     if (!Directory.Exists(_environment.WebRootPath + location))
@@ -70,7 +51,6 @@ namespace API.Controllers
                 {
                     return BadRequest(ex.Message.ToString());
                 }
-                
             }
             else
             {
@@ -87,13 +67,14 @@ namespace API.Controllers
             }
         }
 
-        // API:     /api/fileupload/df/{filename}
-        [HttpDelete("df/{filename}")]
-        public async Task<ActionResult> DeleteFile(string filename)
+        // API:     /api/fileupload/df/"project_id"/"bug_id"/"filename"
+        [HttpDelete("df/{pid}/{bid}/{filename}")]                   // "df" for "delete file"
+        public async Task<ActionResult> DeleteFile([FromRoute]int pid, [FromRoute]int bid, [FromRoute]string filename)
         {
-            string fileUploadDirectory = "api/upload";                      // name of directory
-            string dirChar = "//";                                          // identifier for directories
+            string dirChar = "//";                                  // identifier for directories
             if (OperatingSystem.IsWindows()) dirChar = "\\";
+            //string fileUploadDirectory = "api/upload/" + pid + "/" + bid + "/";     // location of directory
+            string fileUploadDirectory = "api" + dirChar + "upload" + dirChar + pid + dirChar + bid + dirChar;
             string location = dirChar + fileUploadDirectory + dirChar;
 
             if (Directory.Exists(_environment.WebRootPath + location))
@@ -103,7 +84,7 @@ namespace API.Controllers
                 //Console.WriteLine("EDIT >>> " + pathToFile + filename);
                 return Ok();
             }
-            Console.WriteLine("No such file.");
+            //Console.WriteLine("No such file.");
             return BadRequest("No such file.");
         }
     }

@@ -20,6 +20,10 @@ export class BugNewComponent implements OnInit {
     "filedByUser": "",
     "dateCreated": "",
     "description": "",
+    "imageURL1": "",
+    "imageURL2": "",
+    "bugImage1": "",
+    "bugImage2": "",
     "isResolved": false,
     "isActive": true,
     "projectId": "",
@@ -47,7 +51,7 @@ export class BugNewComponent implements OnInit {
     this.bugTemplate.projectId = this.projectId;
 
     //console.log(this.bugTemplate);
-    this.bugsService.newBug(this.bugTemplate).subscribe(() => {
+    this.bugsService.newBug(this.projectId, this.bugTemplate).subscribe(() => {
       console.log(this.bugTemplate);
       this.toastr.success("New bug entry has been posted.").onHidden.subscribe(
         () => window.location.reload()

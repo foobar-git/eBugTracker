@@ -9,7 +9,7 @@ namespace API.HelperFunctions
     {
         public AutoMapperProfiles()
         {
-            //CreateMap<AppUser, UsersDto>();       // v10
+            // CreateMap<AppUser, UsersDto>();      // v10
             // CreateMap<AppUser, UsersDto>()       // v11
             //     .ForMember( destination => destination.ImageUrl, option => option.MapFrom (
             //         source => source.UserImage.FirstOrDefault().Url) );

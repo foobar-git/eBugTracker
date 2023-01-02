@@ -10,15 +10,18 @@
         "UsersAssigned": [
             {
                 "Username": "Emil",
-                "UserId": 1
+                "UserId": 1,
+                "UserType": "Admin"
             },
             {
                 "Username": "Nedim",
-                "UserId": 2
+                "UserId": 2,
+                "UserType": "SuperUser"
             },
             {
                 "Username": "Ensar",
-                "UserId": 3
+                "UserId": 3,
+                "UserType": "NormalUser"
             }
         ],
         "BugsAssigned": [
@@ -69,8 +72,8 @@
                 "Description": "Display error number XYZ failed again to show the same... Laborum labore adipisicing fugiat duis ad enim do dolore exercitation tempor culpa. Elit quis culpa esse mollit et cupidatat fugiat Lorem sit aliquip aliqua sunt.\r\n",
                 "ImageURL1": "",
                 "ImageURL2": "",
-                "BugImage1": "default",
-                "BugImage2": ""
+                "BugImage1": "imageNew.png",
+                "BugImage2": "imageTest.png"
             }
         ]        
     },
@@ -85,7 +88,8 @@
         "UsersAssigned": [
             {
                 "Username": "Nedim",
-                "UserId": 2
+                "UserId": 2,
+                "UserType": "SuperUser"
             }
         ],
         "BugsAssigned": [

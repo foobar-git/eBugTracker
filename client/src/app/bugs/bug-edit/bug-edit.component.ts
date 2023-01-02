@@ -46,7 +46,7 @@ export class BugEditComponent implements OnInit {
     if (window.confirm("Delete this bug?")) {
       if (this.bug.id != null) {
         //console.log(this.bug.id);
-        this.bugsService.deleteBug(this.bug.id).subscribe(() => {
+        this.bugsService.deleteBug(this.bug.projectId, this.bug.id).subscribe(() => {
           this.toastr.success("Bug entry removed.").onHidden.subscribe(
             () => window.location.reload()
           );
@@ -60,7 +60,7 @@ export class BugEditComponent implements OnInit {
     //console.log(this.bug[n]);
     if (this.bug[n] != "") {
       if (window.confirm("Delete this image?")) {
-        this.fileUploadService.delete(this.bug[n]).subscribe(() => {
+        this.fileUploadService.delete(this.bug.projectId, this.bug.id, this.bug[n]).subscribe(() => {
           this.bug[n] = "";
           console.log(this.bug[n]);
           this.toastr.success("File deleted.")

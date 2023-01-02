@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221231142143_TestingDatabase")]
+    [Migration("20230101235054_TestingDatabase")]
     partial class TestingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,6 +192,9 @@ namespace API.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("UserType")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");
 
@@ -229,7 +232,7 @@ namespace API.Migrations
             modelBuilder.Entity("API.Entities.UsersAssigned", b =>
                 {
                     b.HasOne("API.Entities.Project", "Project")
-                        .WithMany("UsersAssigned")
+                        .WithMany("")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
