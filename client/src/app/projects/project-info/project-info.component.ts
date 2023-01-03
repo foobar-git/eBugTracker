@@ -7,6 +7,10 @@ import { Observable, of } from 'rxjs';
 import { HelperFnService } from 'src/app/_services/helper-fn.service';
 import { BugNewComponent } from 'src/app/bugs/bug-new/bug-new.component';
 import { environment } from 'src/environments/environment';
+import { AppUser } from 'src/app/_models/appUser';
+import { ProjectsService } from 'src/app/_services/projects.service';
+import { ToastrService } from 'ngx-toastr';
+import { UsersService } from 'src/app/_services/users.service';
 
 
 @Component({
@@ -19,6 +23,7 @@ export class ProjectInfoComponent implements OnInit {
   newBugEntry: boolean = false;
   project: any;
   id: number;
+  users: AppUser[];
   usersAssigned: UsersAssigned[];
   bugsAssigned: BugsAssigned[];
   bugsAssignedNumber: number;                 // number of bugs - when listing bugs in cards
@@ -28,9 +33,11 @@ export class ProjectInfoComponent implements OnInit {
   numberOfUsers: number;
   dateTimeCreated: string;
   dateTimeCompleted: string;
+  selectUserOption: boolean = false;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private helperFn: HelperFnService,
-    private bugNew: BugNewComponent) { }
+    private toastr: ToastrService, private projectsService: ProjectsService, private bugNew: BugNewComponent,
+    private usersService: UsersService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -39,6 +46,7 @@ export class ProjectInfoComponent implements OnInit {
       //console.log(this.id);
     });
     this.getProjectById(this.id);
+    this.getUsers();
   }
 
   getProjectById(id: number) {
@@ -72,6 +80,15 @@ export class ProjectInfoComponent implements OnInit {
     })
   }
 
+  getUsers() {
+    this.usersService.getAppUsers().subscribe( users => {
+        this.users = users;
+        //console.log(this.users);
+      },
+      error => console.log(error)
+    );
+  }
+
   checkForbugsAssignedAsync() {
     return of(this.bugsAssignedNumber);
   }
@@ -101,6 +118,46 @@ export class ProjectInfoComponent implements OnInit {
 
   editDescription() {
     console.log("Edit project description");
+  }
+
+  onChange(selection) {
+    //let option = selection.target.value;
+    let option = selection.target.value;
+    if (option != "-") {
+      let strArray = option.split(" ");
+      console.log(strArray[0]);
+      console.log(this.users);
+      console.log(this.getFieldsByString(strArray[0]));
+      console.log(this.getFieldByString(strArray[0], "userType"));
+    }
+  }
+
+  getFieldsByString(byString: string) {
+    return this.users.filter((data) => data.username === byString);
+  }
+
+  getFieldByString(byString: string, byFieldName: string) {
+    return this.users.filter((data)=> data.username === byString).map((field) => field[byFieldName]);
+  }
+
+  enableAddUser(b: boolean) {
+    this.selectUserOption = b;
+  }
+
+  updateProject(id: number, skipReload: boolean) {
+    //console.log("Updating project...");
+    //console.log(this.bug);
+    //this.setSaving(true);
+    this.project.edited = true;
+    this.project.dateCreated = this.helperFn.getCurrentDateTime();
+    this.projectsService.editProject(id, this.project).subscribe(() => {
+      this.toastr.success("Project edited, changes saved.").onHidden.subscribe(() => {
+          // if (!skipReload) window.location.reload();
+          // else this.setSaving(false); // re-enable the saving button
+          window.location.reload();
+        }
+      );
+    });
   }
 
 }

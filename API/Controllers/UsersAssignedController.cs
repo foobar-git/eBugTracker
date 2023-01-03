@@ -17,28 +17,28 @@ namespace API.Controllers
     [Route("api/[controller]")]
 
     [AllowAnonymous]
-    public class ProjectController : BaseApiController
+    public class UsersAssignedController : BaseApiController
     {
         private readonly DataContext _context;
-        private readonly IProjectRepository _projectRepository;
+        private readonly IUsersAssignedRepository _usersAssignedRepository;
         private readonly IMapper _mapper;
 
-        public ProjectController(IProjectRepository projectRepository, DataContext context, IMapper mapper)
+        public UsersAssignedController(IUsersAssignedRepository usersAssignedRepository, DataContext context, IMapper mapper)
         {
-            _projectRepository = projectRepository;
+            _usersAssignedRepository = usersAssignedRepository;
             _context = context;
             _mapper = mapper;
         }
         
-        // API:     /api/project
+        // API:     /api/usersassigned
         [HttpGet]   // asynchronous
-        public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProjects()
+        public async Task<ActionResult<IEnumerable<UsersAssigned>>> GetUsersAssigned()
         {
-            IEnumerable<ProjectDto> projectsToReturn = await _projectRepository.GetProjectsDtoAsync();
+            IEnumerable<UsersAssigned> usersAssignedToReturn = await _usersAssignedRepository.GetUsersAssignedAsync();
 
-            return Ok(projectsToReturn);
+            return Ok(usersAssignedToReturn);
         }
-        
+        /* 
         // API:     /api/projects/id/<int>
         [HttpGet("id/{id}")]
         // public async Task<ActionResult<Project>> GetProject(int id)  // v8
@@ -70,6 +70,6 @@ namespace API.Controllers
             if (await _projectRepository.SaveAllAsync()) return Ok();
             //if the update failes:
             return BadRequest("Failed to edit project.");
-        }
+        } */
     }
 }

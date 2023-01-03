@@ -4,6 +4,5 @@ export interface UsersAssigned {
     username: string;
     userId: number;
     userType: string;
-    project?: any;
     projectId: number;
 }

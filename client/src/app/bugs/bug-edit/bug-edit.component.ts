@@ -28,7 +28,7 @@ export class BugEditComponent implements OnInit {
   }
 
   updateBug(id: number, skipReload: boolean) {
-    //console.log("Update bug!");
+    //console.log("Updating bug...");
     //console.log(this.bug);
     this.setSaving(true);
     this.bug.edited = true;

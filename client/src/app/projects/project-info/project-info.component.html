@@ -42,7 +42,13 @@
         </div>
       </tab>
       <tab heading="Users Assigned">
-        <h4>List of users assigned to this project:<li class="list-inline-item"><button (click)="addUser()" class="btn" title="Add user"><i class="fa fa-plus float-right"></i></button></li></h4>
+        <h4>List of users assigned to this project <li class="list-inline-item"><button (click)="enableAddUser(true)" class="btn" title="Add user"><i class="fa fa-plus float-right"></i></button></li></h4>
+        <div class="text-center mb-2">
+          <select *ngIf="selectUserOption" (change)="onChange($event)">
+            <option value="-">Select a user</option>
+            <option *ngFor="let user of users">{{user.username}} | {{user.userType}} - {{user.id}}</option>
+          </select>
+        </div>
         <div class="row">
           <div *ngFor="let user of usersAssigned">
             <div class="card mb-4 ml-4 mr-4">

@@ -23,8 +23,7 @@ export class AuthorizationService {
   userData$ = this.userModel$.asObservable();
 
   constructor(private http: HttpClient, private accountService: AccountService, private userService: UsersService) {
-    this.accountService.currentUser$.pipe(take(1)).subscribe(
-      user => {
+    this.accountService.currentUser$.pipe(take(1)).subscribe( user => {
         this.currentLoggedInUser = user;
         //console.log(this.currentLoggedInUser);
         //this.getUserDataAsync(this.currentLoggedInUser.username);

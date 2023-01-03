@@ -34,9 +34,9 @@ export class FileUploadComponent implements OnInit {
 	}
 
 	// On file Select
-	onChange(event) {
+	onChange(selection) {
     this.bugEdit.setSaving(true);
-		this.file = event.target.files[0];
+		this.file = selection.target.files[0];
     this.onUpload(this._toastr, this._bugEdit, this.bugImageNumber);
 	}
 

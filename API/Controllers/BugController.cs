@@ -98,6 +98,7 @@ namespace API.Controllers
             return BadRequest("Failed to delete bug.");
         }
 
+        // API:     /api/bug/<int>
         [HttpPut("id/{id}")]
         public async Task<ActionResult> EditBug([FromBody]BugEditDto editBug, [FromRoute]int id)
         {

@@ -68,7 +68,7 @@ namespace API.Controllers
         
         // API:     /api/users/id/<int>
         //[Authorize]                   // v7
-        [HttpGet("id/{id}")]             // v8
+        [HttpGet("id/{id}")]            // v8
         // public async Task<ActionResult<AppUser>> GetUser(int id)  // v8
         // {
         //     return await _context.AppUsers.FindAsync(id);
@@ -78,6 +78,7 @@ namespace API.Controllers
             return await _userRepository.GetUserDtoByIdAsync(id);
         }
 
+        // API:     /api/users/"username"
         [HttpGet("{username}")]
         //public async Task<ActionResult<AppUser>> GetUser(string username) /// v9
         public async Task<ActionResult<UsersDto>> GetUser(string username)
@@ -87,6 +88,7 @@ namespace API.Controllers
             return _mapper.Map<UsersDto>(await _userRepository.GetUserDtoAsync(FormatName.Format(username)));
         }
 
+        // API:     /api/users/
         [HttpPut]
         public async Task<ActionResult> UpdateUser(UserUpdateDto userUpdate)
         {
@@ -103,6 +105,7 @@ namespace API.Controllers
             return BadRequest("Failed to update user.");
         }
 
+        // API:     /api/users/id/<int>
         [HttpPut("id/{id}")]    // "edit user by admin"
         public async Task<ActionResult> UpdateUser([FromBody]UserUpdateDto editUser, [FromRoute]int id)
         {

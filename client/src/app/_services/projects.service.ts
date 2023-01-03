@@ -12,11 +12,26 @@ export class ProjectsService {
 
   constructor(private http: HttpClient) { }
 
-  getAppProject(projectname: string) {
+  getProject(projectname: string) {
     return this.http.get<AppProject[]>(this.baseUrl + 'project/' + projectname);
   }
 
-  getAppProjects() {
+  getProjects() {
     return this.http.get<AppProject[]>(this.baseUrl + 'project');
   }
+
+  editProject(id: number, project: AppProject) {
+    //console.log(project);
+    return this.http.put(this.baseUrl + 'project/id/' + id, project);
+  }
+
+  deleteProject(id: number) {
+    return this.http.delete(this.baseUrl + 'project/dp/' + id);
+  }
+  
+  newProject(id: number, project: AppProject) {
+    //console.log(project);
+    return this.http.put(this.baseUrl + 'project/np/' + id, project);
+  }
+
 }
