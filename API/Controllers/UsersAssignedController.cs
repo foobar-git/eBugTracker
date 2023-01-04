@@ -38,6 +38,17 @@ namespace API.Controllers
 
             return Ok(usersAssignedToReturn);
         }
+
+        [HttpPut("nua/")]            // "nua" for new user assigned
+        public async Task<ActionResult> NewUsersAssigned([FromBody]UsersAssigned newUA)
+        {
+            await _context.UsersAssigned.AddAsync(newUA);
+
+            if (await _usersAssignedRepository.SaveAllAsync()) return Ok();
+            //if the save failes:
+            return BadRequest("Failed to post new 'users assigned' entry.");
+        } 
+
         /* 
         // API:     /api/projects/id/<int>
         [HttpGet("id/{id}")]

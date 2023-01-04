@@ -11,17 +11,20 @@
             {
                 "Username": "Emil",
                 "UserId": 1,
-                "UserType": "Admin"
+                "UserType": "Admin",
+                "Team": "PM"
             },
             {
                 "Username": "Nedim",
                 "UserId": 2,
-                "UserType": "SuperUser"
+                "UserType": "SuperUser",
+                "Team": "DEV"
             },
             {
                 "Username": "Ensar",
                 "UserId": 3,
-                "UserType": "NormalUser"
+                "UserType": "NormalUser",
+                "Team": "QA"
             }
         ],
         "BugsAssigned": [
@@ -89,7 +92,8 @@
             {
                 "Username": "Nedim",
                 "UserId": 2,
-                "UserType": "SuperUser"
+                "UserType": "SuperUser",
+                "Team": "DEV"
             }
         ],
         "BugsAssigned": [

@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppProject } from '../_models/appProject';
+import { UsersAssignedNew } from '../_models/usersAssignedNew';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +29,14 @@ export class ProjectsService {
     return this.http.delete(this.baseUrl + 'project/dp/' + id);
   }
   
-  newProject(id: number, project: AppProject) {
+  newProject(project: AppProject) {
     //console.log(project);
-    return this.http.put(this.baseUrl + 'project/np/' + id, project);
+    return this.http.put(this.baseUrl + 'project/np/', project);
+  }
+
+  newUsersAssigned(usersAssignedNew: UsersAssignedNew) {
+    console.log(usersAssignedNew);
+    return this.http.put(this.baseUrl + 'usersassigned/nua/', usersAssignedNew);
   }
 
 }

@@ -46,7 +46,7 @@
         <div class="text-center mb-2">
           <select *ngIf="selectUserOption" (change)="onChange($event)">
             <option value="-">Select a user</option>
-            <option *ngFor="let user of users">{{user.username}} | {{user.userType}} - {{user.id}}</option>
+            <option *ngFor="let user of users">{{user.username}} | {{user.team}} | {{user.userType}}</option>
           </select>
         </div>
         <div class="row">

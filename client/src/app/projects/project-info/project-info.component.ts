@@ -35,6 +35,14 @@ export class ProjectInfoComponent implements OnInit {
   dateTimeCompleted: string;
   selectUserOption: boolean = false;
 
+  userAssignedTemplate = {
+    "userId": -1,
+    "username": "",
+    "userType": "",
+    "team": "",
+    "projectId": -1
+  }
+
   constructor(private http: HttpClient, private route: ActivatedRoute, private helperFn: HelperFnService,
     private toastr: ToastrService, private projectsService: ProjectsService, private bugNew: BugNewComponent,
     private usersService: UsersService) { }
@@ -57,7 +65,6 @@ export class ProjectInfoComponent implements OnInit {
         //console.log(this.project.usersAssigned);                          // can be used for returning a list of user names
         //this.usersAssigned = JSON.stringify(this.project.usersAssigned);  // can be used for returning a list of user names
         this.usersAssigned = this.project.usersAssigned;
-        console.log(this.usersAssigned);
         this.dateTimeCreated = this.helperFn.formatDateTime(this.project.dateCreated);
         this.dateTimeCompleted = this.helperFn.formatDateTime(this.project.dateCompleted);
         
@@ -70,7 +77,7 @@ export class ProjectInfoComponent implements OnInit {
         else {
           this.bugsAssignedNumber = 0;
         }
-        this.noBugsAssigned$ = this.checkForbugsAssignedAsync();            // delay the check if there are any comments posted
+        this.noBugsAssigned$ = this.checkForBugsAssignedAsync();            // delay the check if there are any comments posted
         
         //console.log(this.usersAssigned.length);                           // can be used for returning a list of users in project
         this.numberOfUsers = this.usersAssigned.length;
@@ -89,7 +96,7 @@ export class ProjectInfoComponent implements OnInit {
     );
   }
 
-  checkForbugsAssignedAsync() {
+  checkForBugsAssignedAsync() {
     return of(this.bugsAssignedNumber);
   }
 
@@ -108,10 +115,6 @@ export class ProjectInfoComponent implements OnInit {
     this.bugNew.newBugForm();
   }
 
-  addUser() {
-    console.log("Add user to project");
-  }
-
   removeUser() {
     console.log("Remove user from project");
   }
@@ -121,23 +124,45 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   onChange(selection) {
-    //let option = selection.target.value;
-    let option = selection.target.value;
-    if (option != "-") {
-      let strArray = option.split(" ");
-      console.log(strArray[0]);
-      console.log(this.users);
-      console.log(this.getFieldsByString(strArray[0]));
-      console.log(this.getFieldByString(strArray[0], "userType"));
+    this.selectUser(selection.target.value);
+  }
+
+  selectUser(selection) {
+    if (selection != "-") {
+      selection = this.helperFn.removeSpacesFromString(selection);
+      let username = selection[0];
+      // console.log(this.helperFn.getFieldsByString(this.users, username));
+      // console.log(this.helperFn.getFieldByString(this.users, username, "id"));
+      // console.log(this.helperFn.getFieldByString(this.users, username, "username"));
+      // console.log(this.helperFn.getFieldByString(this.users, username, "userType"));
+      // console.log(this.helperFn.getFieldByString(this.users, username, "team"));
+
+      let usernamesArray: string[] = [];
+      this.usersAssigned.forEach( (element) => {
+        //console.log(element["username"]);
+        usernamesArray.push(element["username"]);
+      });
+      usernamesArray.push(username);
+      
+      if (!this.helperFn.checkIfUserAlreadyAssigned(usernamesArray)) {
+        this.userAssignedTemplate.userId = parseInt(this.helperFn.getFieldByString(this.users, username, "id"));
+        this.userAssignedTemplate.username = this.helperFn.getFieldByString(this.users, username, "username");
+        this.userAssignedTemplate.userType = this.helperFn.getFieldByString(this.users, username, "userType");
+        this.userAssignedTemplate.team = this.helperFn.getFieldByString(this.users, username, "team");
+        this.userAssignedTemplate.projectId = this.project.id;
+        this.addUserToProject();
+      }
+      else this.toastr.info("User already assigned.");
     }
   }
 
-  getFieldsByString(byString: string) {
-    return this.users.filter((data) => data.username === byString);
-  }
-
-  getFieldByString(byString: string, byFieldName: string) {
-    return this.users.filter((data)=> data.username === byString).map((field) => field[byFieldName]);
+  addUserToProject() {
+    this.projectsService.newUsersAssigned(this.userAssignedTemplate).subscribe(() => {
+      console.log(this.userAssignedTemplate);
+      this.toastr.success("User added: " + this.userAssignedTemplate.username, null, {timeOut: 2000}).onHidden.subscribe(
+        () => window.location.reload()
+      );
+    })
   }
 
   enableAddUser(b: boolean) {

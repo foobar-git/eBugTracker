@@ -40,4 +40,40 @@ export class HelperFnService {
     return false;
   }
 
+  removeSpacesFromString(str: any) {
+    let strArray: string[] = [];
+    str = str.split("|");
+    str.forEach( (element) => {
+        let e = element.trim();
+        strArray.push(e);
+        //console.log(strArray);
+    });
+    return strArray;
+  }
+
+  getFieldsByString(data: any, byString: string) {
+    return data.filter((field) => field.username === byString);
+  }
+
+  getFieldByString(data: any, byString: string, byFieldName: string) {
+    let d = data.filter((field) => field.username === byString).map((field) => field[byFieldName]);
+    return d.toString();
+  }
+
+  checkForDuplicates(array) {
+    array = array.filter((item, index) => array.indexOf(item) != index);
+    return [...new Set(array)];
+  }
+
+  removeDuplicates(array) {
+    return array.filter((item, index) => array.indexOf(item) === index);
+  }
+
+  checkIfUserAlreadyAssigned(array) {
+    let duplicates = this.checkForDuplicates(array);
+    //console.log(duplicates);
+    if (duplicates.length == 0) return false;
+    else return true;
+  }
+
 }

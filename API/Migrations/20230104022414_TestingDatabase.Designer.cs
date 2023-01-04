@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230102211454_TestingDatabase")]
+    [Migration("20230104022414_TestingDatabase")]
     partial class TestingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -188,6 +188,9 @@ namespace API.Migrations
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Team")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");

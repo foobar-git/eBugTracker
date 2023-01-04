@@ -91,6 +91,7 @@ namespace API.Migrations
                     Username = table.Column<string>(type: "TEXT", nullable: true),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     UserType = table.Column<string>(type: "TEXT", nullable: true),
+                    Team = table.Column<string>(type: "TEXT", nullable: true),
                     ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
