@@ -19,6 +19,7 @@ export class BugNewComponent implements OnInit {
     "name": "",
     "filedByUser": "",
     "dateCreated": "",
+    "dateResolved": "1901-01-01",
     "description": "",
     "imageURL1": "",
     "imageURL2": "",
@@ -38,32 +39,39 @@ export class BugNewComponent implements OnInit {
   }
 
   newBugForm() {
-    this.getDate();
+    this.getDateCreated();
     this.bugTemplate.filedByUser = this.currentUserName;
     this.newBug = true;
   }
 
   saveNewBug() {
+    this.getDateCreated();
+    this.saveBug();
+  }
+
+  saveBug() {
     // save the new bug
-    this.getDate();
     this.currentUserId = this.authorization.userId;
     this.bugTemplate.appUserId = this.currentUserId;
     this.bugTemplate.projectId = this.projectId;
 
     //console.log(this.bugTemplate);
     this.bugsService.newBug(this.projectId, this.bugTemplate).subscribe(() => {
-      console.log(this.bugTemplate);
-      this.toastr.success("New bug entry has been posted.").onHidden.subscribe(
+      //console.log(this.bugTemplate);
+      this.toastr.success("New bug entry has been posted.", null, {timeOut: 2000}).onHidden.subscribe(
         () => window.location.reload()
       );
     })
     // reset variables
-    this.newBug = false;
-    window.location.reload();
+    //this.newBug = false;
   }
 
-  getDate() {
+  getDateCreated() {
     this.bugTemplate.dateCreated = this.helperFn.getCurrentDateTime();
+  }
+
+  getDateResolved() {
+    this.bugTemplate.dateResolved = this.helperFn.getCurrentDateTime();
   }
 
 }

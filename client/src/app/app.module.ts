@@ -34,6 +34,8 @@ import { BugNewComponent } from './bugs/bug-new/bug-new.component';
 import { BugEditComponent } from './bugs/bug-edit/bug-edit.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { RouteRedirectComponent } from './route-redirect/route-redirect.component';
+import { ProjectNewComponent } from './projects/project-new/project-new.component';
+import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { RouteRedirectComponent } from './route-redirect/route-redirect.componen
     BugNewComponent,
     BugEditComponent,
     FileUploadComponent,
-    RouteRedirectComponent
+    RouteRedirectComponent,
+    ProjectNewComponent,
+    ProjectEditComponent
   ],
   imports: [
     BrowserModule,
@@ -77,10 +81,11 @@ import { RouteRedirectComponent } from './route-redirect/route-redirect.componen
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },    // interceptor for sending tokens
     { provide: ProjectInfoComponent },                                        // make available to other components
+    { provide: ProjectNewComponent },                                         // make available to other components
     { provide: BugInfoComponent },                                            // make available to other components
     { provide: BugNewComponent },                                             // make available to other components
-    { provide: CommentNewComponent },                                         // make available to other components
-    { provide: BugEditComponent }                                             // make available to other components
+    { provide: BugEditComponent },                                            // make available to other components
+    { provide: CommentNewComponent }                                          // make available to other components
   ],
   bootstrap: [AppComponent]
 })

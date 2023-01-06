@@ -7,7 +7,8 @@ import { AppProject } from 'src/app/_models/appProject';
   styleUrls: ['./project-card.component.css']
 })
 export class ProjectCardComponent implements OnInit {
-  @Input() appProject: AppProject;
+  @Input() project: AppProject;
+  editProject: boolean = false;
 
   constructor() { }
 

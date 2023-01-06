@@ -45,7 +45,7 @@ export class BugInfoComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       //this.id = +params.get('id');
       this.id = parseInt(params.get('id'));
-      //console.log(this.id);                           // bug id
+      //console.log(this.id);                                               // bug id
     });
 
     this.getBugById(this.id);
@@ -130,7 +130,7 @@ export class BugInfoComponent implements OnInit {
   }
 
   checkForImagesAsync(l: number) {
-    console.log(l);
+    //console.log(l);
     if (l > 0) {
       this.hideGallery = false;
       return of(true);

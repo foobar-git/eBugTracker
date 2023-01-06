@@ -82,5 +82,12 @@ namespace API.Data
             // mark 'project' as 'modified'
             _context.Entry(project).State = EntityState.Modified;
         }
+
+        public async Task DeleteProjectAsync(Project project)
+        {
+            await Task.Run( () => {
+                _context.Projects.Remove(project);
+            });
+        }
     }
 }

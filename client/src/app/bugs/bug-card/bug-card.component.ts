@@ -91,7 +91,7 @@ export class BugCardComponent implements OnInit {
     console.log("Update bug!");
     console.log(this.bug);
     this.bug.edited = true;
-    this.bug.dateCreated = this.helperFn.getCurrentDateTime();
+    this.bug.dateCompleted = this.helperFn.getCurrentDateTime();
     this.bugsService.editBug(id, this.bug).subscribe(() => {
       this.toastr.success("Bug edited, changes saved.", null, {timeOut: 2000}).onHidden.subscribe(
         () => window.location.reload()

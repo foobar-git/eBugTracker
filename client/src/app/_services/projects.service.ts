@@ -35,7 +35,7 @@ export class ProjectsService {
   }
 
   newUsersAssigned(usersAssignedNew: UsersAssignedNew) {
-    console.log(usersAssignedNew);
+    //console.log(usersAssignedNew);
     return this.http.put(this.baseUrl + 'usersassigned/nua/', usersAssignedNew);
   }
 

@@ -105,14 +105,18 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   updateBugIdIndex() {
-    this.bugIdIndex--;                                    // when accessing array by index, start from last element and count down
+    this.bugIdIndex--;                                                      // when accessing array by index, start from last element and count down
   }
 
   initNewBug() {
     console.log("New bug entry...");
-    console.log(this.project.id);
+    //console.log(this.project.id);
     this.newBugEntry = true;
     this.bugNew.newBugForm();
+  }
+
+  newProject() {
+    
   }
 
   removeUser() {
@@ -162,7 +166,7 @@ export class ProjectInfoComponent implements OnInit {
       this.toastr.success("User added: " + this.userAssignedTemplate.username, null, {timeOut: 2000}).onHidden.subscribe(
         () => window.location.reload()
       );
-    })
+    });
   }
 
   enableAddUser(b: boolean) {
@@ -183,6 +187,29 @@ export class ProjectInfoComponent implements OnInit {
         }
       );
     });
+  }
+
+  removeProject() {
+    if (window.confirm("Delete this project?")) {
+      if (this.project.id != null) {
+        //console.log(this.project.id);
+        //this.removingProjectEntry = true;
+        this.projectsService.deleteProject(this.project.id).subscribe(() => {
+          this.toastr.success("Project deleted.", null, {timeOut: 2000}).onHidden.subscribe(
+            () => window.location.href="/projects"
+          );
+        });
+      }
+      //this.resetVariables();
+    }
+  }
+
+  toggleOnHold() {
+
+  }
+
+  toggleComplete() {
+
   }
 
 }

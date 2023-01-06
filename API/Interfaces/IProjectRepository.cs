@@ -7,6 +7,8 @@ namespace API.Interfaces
     {
         void Update(Project project);
 
+        Task DeleteProjectAsync(Project project);
+
         Task<bool> SaveAllAsync();
         
         Task<IEnumerable<Project>> GetProjectsAsync();

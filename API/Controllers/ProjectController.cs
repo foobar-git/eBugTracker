@@ -22,12 +22,14 @@ namespace API.Controllers
         private readonly DataContext _context;
         private readonly IProjectRepository _projectRepository;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _environment;
 
-        public ProjectController(IProjectRepository projectRepository, DataContext context, IMapper mapper)
+        public ProjectController(IProjectRepository projectRepository, DataContext context, IMapper mapper, IWebHostEnvironment environment)
         {
             _projectRepository = projectRepository;
             _context = context;
             _mapper = mapper;
+            _environment = environment;
         }
         
         // API:     /api/project
@@ -70,6 +72,60 @@ namespace API.Controllers
             if (await _projectRepository.SaveAllAsync()) return Ok();
             //if the update failes:
             return BadRequest("Failed to edit project.");
+        }
+
+        // API:     /api/project/dp/"project_id"/                   // "dp" for delete project
+        [HttpDelete("dp/{id}")]
+        public async Task<ActionResult> DeleteProject([FromRoute]int id)
+        {
+            string dirChar = "//";                                  // identifier for directories
+            if (OperatingSystem.IsWindows()) dirChar = "\\";
+            string fileUploadDirectory = dirChar + "api" + dirChar + "upload" + dirChar;
+            string projectDirectory = id + dirChar;
+            string pathToDir = _environment.WebRootPath + fileUploadDirectory + projectDirectory;
+            
+            var project = await _projectRepository.GetProjectByIdAsync(id);
+            if (project != null)
+            {
+                if (Directory.Exists(pathToDir))
+                {
+                    System.IO.Directory.Delete(pathToDir, true);
+                }
+                await _projectRepository.DeleteProjectAsync(project);
+            }
+            
+            if (await _projectRepository.SaveAllAsync()) return Ok();
+            //if the update failes:
+            return BadRequest("Failed to delete project.");
+        }
+
+        // API:     /api/project/np/                                // "np" for new project
+        [HttpPut("np/")]
+        public async Task<ActionResult> NewProject([FromBody]Project newProject)
+        {
+            string dirChar = "//";                                  // identifier for directories
+            if (OperatingSystem.IsWindows()) dirChar = "\\";
+            string fileUploadDirectory = dirChar + "api" + dirChar + "upload" + dirChar;
+
+            await _context.Projects.AddAsync(newProject);
+            if (await _projectRepository.SaveAllAsync())
+            {
+                string projectDirectory = newProject.Id + dirChar;
+                string pathToDir = _environment.WebRootPath + fileUploadDirectory + projectDirectory;
+                
+                if (!Directory.Exists(pathToDir))
+                {
+                    System.IO.Directory.CreateDirectory(pathToDir);
+                    return Ok();
+                }
+                else 
+                {
+                    return BadRequest("Directory already exists.");
+                }
+            }
+            
+            //if the save failes:
+            return BadRequest("Failed to create a new project.");
         }
     }
 }

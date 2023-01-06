@@ -95,7 +95,6 @@ namespace API.Data
         {
             await Task.Run( () => {
                 _context.Bugs.Remove(bug);
-                //Console.WriteLine(">>>>>> Starting to wait");
             });
         }
     }

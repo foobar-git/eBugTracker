@@ -79,18 +79,18 @@ namespace API.Controllers
         {
             string dirChar = "//";                                  // identifier for directories
             if (OperatingSystem.IsWindows()) dirChar = "\\";
-            string fileUploadDirectory = dirChar + "api" + dirChar + "upload" + dirChar;
-            string bugDirectory = pid + dirChar + bid + dirChar;
+            string fileUploadDirectory = dirChar + "api" + dirChar + "upload" + dirChar + pid + dirChar;
+            string bugDirectory = bid + dirChar;
+            string pathToDir = _environment.WebRootPath + fileUploadDirectory + bugDirectory;
             
             var bug = await _bugRepository.GetBugByIdAsync(bid);
             if (bug != null)
             {
-                await _bugRepository.DeleteBugAsync(bug);
-                if (Directory.Exists(_environment.WebRootPath + fileUploadDirectory))
+                if (Directory.Exists(pathToDir))
                 {
-                    string pathToDir = _environment.WebRootPath + fileUploadDirectory + bugDirectory;
                     System.IO.Directory.Delete(pathToDir, true);
                 }
+                await _bugRepository.DeleteBugAsync(bug);
             }
             
             if (await _bugRepository.SaveAllAsync()) return Ok();
@@ -131,15 +131,15 @@ namespace API.Controllers
             string dirChar = "//";                                  // identifier for directories
             if (OperatingSystem.IsWindows()) dirChar = "\\";
             string fileUploadDirectory = dirChar + "api" + dirChar + "upload" + dirChar;
+            string projectDirectory = pid + dirChar;
 
             await _context.Bugs.AddAsync(newBug);
             if (await _bugRepository.SaveAllAsync())
             {
-                var id = newBug.Id;
-                string bugDirectory = pid + dirChar + id;
-                string pathToDir = _environment.WebRootPath + fileUploadDirectory + bugDirectory;
+                string bugDirectory = newBug.Id + dirChar;
+                string pathToDir = _environment.WebRootPath + fileUploadDirectory + projectDirectory + bugDirectory;
                 
-                if (!Directory.Exists(_environment.WebRootPath + pathToDir))
+                if (!Directory.Exists(pathToDir))
                 {
                     System.IO.Directory.CreateDirectory(pathToDir);
                     return Ok();

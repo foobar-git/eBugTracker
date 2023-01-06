@@ -10,7 +10,9 @@
       <div class="card-body">
         <div>
           <strong>Project ID: {{project.id}}</strong>
-          <li class="list-inline-item float-right mt-n2"><button (click)="initNewBug()" class="btn btn-primary" title="Post a new bug"><i class="fa fa-plus float-right"></i></button></li>
+          <li class="list-inline-item float-right mt-n2"><button (click)="toggleComplete()" class="btn" title="Toggle complete"><i class="fa fa-check"></i></button></li>
+          <li class="list-inline-item float-right mt-n2"><button (click)="toggleOnHold()" class="btn" title="Toggle project on-hold"><i class="fa fa-pause"></i></button></li>
+          <li class="list-inline-item float-right mt-n2"><button (click)="removeProject()" class="btn" title="Delete project"><i class="fa fa-times"></i></button></li>
           <hr>
           Project name: {{project.name}}<br>
           Created by user: {{project.createdByUser}}<br>

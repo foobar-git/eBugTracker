@@ -4,8 +4,17 @@
     <li *ngFor="let project of projects">{{project.id}} - {{project.name}}</li>
   </ul>
 </div-->
+<h4 *ngIf="loading">Loading projects from database...</h4>
+<div *ngIf="!loading">
+  <h4 *ngIf="noProjects$ | async; else noProjects" class="mb-n3">Projects<li class="list-inline-item"><button (click)="initNewProject()" class="btn" title="New project"><i class="fa fa-plus float-right"></i></button></li></h4>
+  <ng-template #noProjects>
+      <h5>No projects in the database. Create a new project? <li class="list-inline-item"><button (click)="initNewProject()" class="btn" title="New project"><i class="fa fa-plus float-right"></i></button></li></h5>
+  </ng-template>
+</div>
+<hr>
+<app-project-new [hidden]="!newProject"></app-project-new>
 <div class="row">
-  <div *ngFor="let project of appProjects" class="col-2">
-    <app-project-card [appProject]="project"></app-project-card>
+  <div *ngFor="let project of projects" class="col-2">
+    <app-project-card [project]="project"></app-project-card>
   </div>
 </div>
