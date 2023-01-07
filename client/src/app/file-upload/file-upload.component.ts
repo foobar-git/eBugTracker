@@ -44,7 +44,7 @@ export class FileUploadComponent implements OnInit {
 	onUpload(toastrServ: any, bugEditComp: any, imageNumber: number) {
     let file = this.file;
     if (this.file != null) {
-		  console.log(this.file);
+		  //console.log(this.file);
       if (this.helperFn.validateFileType(this.requiredFileTypes, this.file)) {
         if (this.file.size <= this.maxFileSize) {
           let i = this.biIndex[imageNumber];

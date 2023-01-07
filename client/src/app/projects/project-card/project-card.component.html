@@ -1,81 +1,38 @@
 <!--p>project-card works!</p-->
-<div class="card mb-4">
-    <div class="card-img-wrapper mt-2">
-        <div class="px-3">
-            <span>Project ID: </span><span style="float:right" class="text-end">{{project.id}}</span><br>
-            <span>Project name: </span><span style="float:right" class="text-end"><strong>{{project.name}}</strong></span>
-        </div><hr>
-        <ul class="list-inline user-icons animate text-center">
-            <li class="list-inline-item"><button routerLink="/project/id/{{project.id}}" class="btn btn-primary"><i class="fa fa-folder"></i></button></li>
-            <!--li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-bug"></i></button></li-->
-            <!--li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-user"></i></button></li-->
-        </ul>
+<ng-container *ngIf="!editProject">
+    <div class="card mb-4">
+        <div class="card-img-wrapper mt-2">
+            <div class="px-3">
+                <span>Project ID: </span><span style="float:right" class="text-end">{{project.id}}</span><br>
+                <span>Project name: </span><span style="float:right" class="text-end"><strong>{{project.name}}</strong></span>
+            </div><hr>
+            <!--ul class="list-inline user-icons animate text-center">
+                <li class="list-inline-item"><button routerLink="/project/id/{{project.id}}" class="btn btn-primary"><i class="fa fa-folder"></i></button></li>
+                <--li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-bug"></i></button></li->
+                <--li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-user"></i></button></li->
+            </ul-->
+            <div class="text-center">
+                <ul class="list-inline user-icons animate text-center">
+                    <li class="list-inline-item"><button routerLink="/project/id/{{project.id}}" class="btn btn-primary"><i class="fa fa-folder"></i></button></li>
+                    <ng-container *ngIf="ableToEditProject">
+                        <li class="list-inline-item"><button (click)="enableProjectEditComponent(true)" class="btn btn-primary" title="Edit bug"><i class="fa fa-edit"></i></button></li>
+                        <!--li class="list-inline-item"><button (click)="toggleComplete()" class="btn btn-primary" title="Toggle completed status"><i class="fa fa-check"></i></button></li-->
+                        <!--li class="list-inline-item"><button (click)="removeProject()" class="btn btn-primary" title="Delete project"><i class="fa fa-times"></i></button></li-->
+                        <li class="list-inline-item"><button (click)="toggleOnHold()" class="btn btn-primary" title="Toggle 'on-hold' status"><i class="fa fa-pause"></i></button></li>
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body p-2">
+            <span class="card-title text-center mb-1"><i class="fa fa-check"> Project complete:</i></span><span class="text-end float-right">{{project.isComplete}}</span><br>
+            <span class="card-text text-muted text-center"><i class="fa fa-pause"> Project on-hold:</i></span><span class="text-end float-right">{{project.isOnHold}}</span>
+        </div>
     </div>
-    <div class="card-body p-2">
-        <span class="card-title text-center mb-1"><i class="fa fa-check"> Project complete:</i></span><span style="float:right" class="text-end">{{project.isComplete}}</span>
-        <span class="card-text text-muted text-center"><i class="fa fa-pause"> Project on-hold:</i></span><span style="float:right" class="text-end">{{project.isOnHold}}</span>
-    </div>
-</div>
-
-
+</ng-container>
 
 <ng-container *ngIf="editProject">
     <div class="text-center mb-n5">
         <button (click)="closeEditForm()" class="btn btn-primary" title="Close" style="z-index: 99; position: relative">Close edit form</button>
     </div>
     <app-project-edit [project]="project" [hidden]="!editProject"></app-project-edit>
-</ng-container>
-<ng-container *ngIf="!editProject">
-    <div class="card mb-4 ml-4 mr-4">
-        <div class="mt-2" [hidden]="removingProjectEntry">
-            <ul class="list-inline user-icons animate text-center">
-                <li class="list-inline-item"><button routerLink="/project/id/{{id}}" class="btn btn-primary" title="Load project"><i class="fa fa-bug"></i></button></li>
-                <ng-container *ngIf="ableToEditProject">
-                    <li class="list-inline-item"><button (click)="enableProjectEditComponent()" class="btn btn-primary" title="Edit bug"><i class="fa fa-edit"></i></button></li>
-                    <li class="list-inline-item"><button (click)="toggleCompleted()" class="btn btn-primary" title="Toggle completed status"><i class="fa fa-check"></i></button></li>
-                    <li class="list-inline-item"><button (click)="removeProject()" class="btn btn-primary" title="Delete project"><i class="fa fa-times"></i></button></li>
-                    <li class="list-inline-item"><button (click)="toggleOnHold()" class="btn btn-primary" title="Toggle 'on-hold' status"><i class="fa fa-caret-up"></i></button></li>
-                </ng-container>
-            </ul>
-        </div>
-        <div class="card-body p-1">
-            <div class="mx-4">
-                <table class="table">
-                    <thead>
-                        <tr>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="text-center text-muted">Author name:</div>
-                                <h6 class="card-title text-center mb-1">{{project.createdByUser}}</h6>
-                            </td>
-                            <td>
-                                <ng-container *ngIf="projectEdited">
-                                    <div class="text-center">
-                                        <mark class="">&nbsp;<em>Edited</em>&nbsp;</mark><br>
-                                    </div>
-                                </ng-container>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="text-center text-muted">Project name:</div>
-                                <h6 class="card-title text-center mb-1">{{project.name}}</h6>
-                            </td>
-                            <td>
-                                <p class="card-text text-center">
-                                    <span class="text-muted"><i class="fa fa-info-circle mr-2"></i> Completed: </span>
-                                    <span>{{project.isComplete}}</span><br>
-                                    <span class="text-muted"><i class="fa fa-info-circle mr-2"></i> On-Hold: </span>
-                                    <span>{{project.isOnHold}}</span>
-                                </p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 </ng-container>

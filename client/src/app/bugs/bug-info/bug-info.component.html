@@ -10,14 +10,14 @@
         <div class="card">
             <div class="card-body">
                 <div>
-                    <strong>Bug ID: {{bug.id}}</strong>
+                    <strong>Bug ID: {{bug.id}} </strong><li class="list-inline-item"><button (click)="enableBugEditComponent(true)" class="btn" title="Edit bug"><i class="fa fa-edit float-right"></i></button></li>
                     <mark [hidden]="!bugEdited" class="small mr-2 float-right">&nbsp;<em>Edited</em>&nbsp;</mark><br>
                     <hr>
                     Project ID: {{bug.projectId}}<br>
                     Bug name: {{bug.name}}<br>
                     Filed by user: {{bug.filedByUser}}<br>
-                    Date created:<br>{{dateTimeCreated}}<br>
-                    Date resolved:<br>{{dateTimeResolved}}<br>
+                    Date created:<br>&nbsp;&nbsp;{{dateTimeCreated}}
+                    <span *ngIf="bug.isResolved"><br>Date resolved:<br>&nbsp;&nbsp;{{dateTimeResolved}}</span><br>
                     Bug is resolved: {{bug.isResolved}}<br>
                     Bug is active: {{bug.isActive}}<br>
                     <!-- Description: {{bug.description}}<br-->
@@ -30,12 +30,22 @@
         <tabset class="project-tabset">
             <tab heading="Attachments">
                 <div class="mt-2">
-                    <h4 *ngIf="noImages$ | async; else noImagesSaved">Images related to this bug [EDIT button upload new image here]</h4>
-                    <ng-template #noImagesSaved>
-                        <h5>No images for this bug [EDIT button upload new image here]</h5>
-                    </ng-template>
-                    <ng-container *ngIf="!hideGallery">
-                        <ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
+                    <ng-container *ngIf="!editBug">
+                        <h4 *ngIf="noImages$ | async; else noImagesSaved">Images related to this bug</h4>
+                        <ng-template #noImagesSaved>
+                            <h5>No images for this bug. Add images? <li class="list-inline-item"><button (click)="enableBugEditComponent(true)" class="btn" title="Add"><i class="fa fa-plus float-right"></i></button></li></h5>
+                        </ng-template>
+                        <ng-container *ngIf="!hideGallery">
+                            <ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="editBug">
+                        <div class="mt-3">
+                            <div class="text-center mb-n5">
+                            <button (click)="closeEditForm()" class="btn btn-primary" title="Close" style="z-index: 99; position: relative">Close edit form</button>
+                            </div>
+                        </div>
+                        <app-bug-edit [bug]="bug" [hidden]="!editBug"></app-bug-edit>
                     </ng-container>
                     <hr>
                 </div>
@@ -52,8 +62,18 @@
                 </div>
             </tab>
             <tab heading="Description">
-                <h4>Bug description</h4>
-                <p>{{bug.description}}</p>
+                <ng-container *ngIf="!editBug">
+                    <h4>Bug description <li class="list-inline-item"><button (click)="enableBugEditComponent(true)" class="btn" title="Edit bug"><i class="fa fa-edit float-right"></i></button></li></h4>
+                    <p>{{bug.description}}</p>
+                </ng-container>
+                <ng-container *ngIf="editBug">
+                    <div class="mt-3">
+                        <div class="text-center mb-n5">
+                        <button (click)="closeEditForm()" class="btn btn-primary" title="Close" style="z-index: 99; position: relative">Close edit form</button>
+                        </div>
+                    </div>
+                    <app-bug-edit [bug]="bug" [hidden]="!editBug"></app-bug-edit>
+                </ng-container>
             </tab>
             <!--tab heading="Comments">
                 <h4>List of comments attached to this bug</h4>

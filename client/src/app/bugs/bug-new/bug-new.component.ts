@@ -10,6 +10,7 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
   styleUrls: ['./bug-new.component.css']
 })
 export class BugNewComponent implements OnInit {
+  saving: boolean = false;
   newBug: boolean = false;
   currentUserName: string;
   currentUserId: number;
@@ -49,8 +50,13 @@ export class BugNewComponent implements OnInit {
     this.saveBug();
   }
 
+  setSaving(b: boolean) {
+    this.saving = b;
+  }
+
   saveBug() {
     // save the new bug
+    this.setSaving(true);
     this.currentUserId = this.authorization.userId;
     this.bugTemplate.appUserId = this.currentUserId;
     this.bugTemplate.projectId = this.projectId;
@@ -58,10 +64,9 @@ export class BugNewComponent implements OnInit {
     //console.log(this.bugTemplate);
     this.bugsService.newBug(this.projectId, this.bugTemplate).subscribe(() => {
       //console.log(this.bugTemplate);
-      this.toastr.success("New bug entry has been posted.", null, {timeOut: 2000}).onHidden.subscribe(
-        () => window.location.reload()
-      );
-    })
+      this.toastr.success("New bug entry has been posted.", null, {timeOut: 2000})
+        .onHidden.subscribe(() => window.location.reload());
+    });
     // reset variables
     //this.newBug = false;
   }

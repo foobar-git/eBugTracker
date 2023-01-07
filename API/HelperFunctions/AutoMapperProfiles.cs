@@ -44,13 +44,7 @@ namespace API.HelperFunctions
                 .ForMember( destination => destination.Bugs_, option => option.MapFrom (
                     source => source.BugsAssigned.FirstOrDefault().Name) );
 
-            CreateMap<ProjectEditDto, ProjectDto>()     // EDIT check this
-                .ForMember( destination => destination.Users_, option => option.MapFrom (
-                    source => source.UsersAssigned.FirstOrDefault().Username) )
-                // .ForMember( destination => destination.BugsAssigned_, option => option.MapFrom (
-                //     source => source.BugsAssigned.FirstOrDefault().Name) );
-                .ForMember( destination => destination.Bugs_, option => option.MapFrom (
-                    source => source.BugsAssigned.FirstOrDefault().Name) );
+            CreateMap<ProjectEditDto, Project>();
         }
     }
 }

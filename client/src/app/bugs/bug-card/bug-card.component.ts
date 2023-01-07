@@ -83,19 +83,19 @@ export class BugCardComponent implements OnInit {
     this.ableToEditBug = this.authorization.userAuthorized_levelSuperUser(user);
   }
 
-  enableBugEditComponent() {
-    this.editBug = true;
+  enableBugEditComponent(b: boolean) {
+    this.editBug = b;
   }
 
-  updateBug(id: number) {
-    console.log("Update bug!");
-    console.log(this.bug);
+  updateBug(id: number, skipReload: boolean) {
+    console.log("Updating bug");
+    //console.log(this.bug);
     this.bug.edited = true;
     this.bug.dateCompleted = this.helperFn.getCurrentDateTime();
     this.bugsService.editBug(id, this.bug).subscribe(() => {
-      this.toastr.success("Bug edited, changes saved.", null, {timeOut: 2000}).onHidden.subscribe(
-        () => window.location.reload()
-      );
+      this.toastr.success("Bug edited, changes saved.", null, {timeOut: 2000}).onHidden.subscribe(() => {
+        if (!skipReload) window.location.reload()
+      });
     });
   }
 
@@ -114,29 +114,33 @@ export class BugCardComponent implements OnInit {
     }
   }
 
-  resetVariables() {
-    this.bugEdited = true;
-    this.editBug = false;
-  }
-
-  closeEditForm() {
-    this.resetVariables();
-  }
-
   toggleActive() {
     if (window.confirm("Set bug is active as " + !this.bug.isActive + "?")) {
       this.bug.isActive = !this.bug.isActive;
+      this.bug_p.isActive = this.bug.isActive;      // update variable in order for the html component tho show changes
       this.bug.isResolved = false;
-      this.updateBug(this.bug.id);
+      this.bug_p.isResolved = this.bug.isResolved;  // update variable in order for the html component tho show changes
+      this.updateBug(this.bug.id, true);
     }
   }
   
   toggleResolved() {
     if (window.confirm("Mark bug resolved as " + !this.bug.isResolved + "?")) {
       this.bug.isResolved = !this.bug.isResolved;
+      this.bug_p.isResolved = this.bug.isResolved;  // update variable in order for the html component tho show changes
       this.bug.isActive = false;
-      this.updateBug(this.bug.id);
+      this.bug_p.isActive = this.bug.isActive;      // update variable in order for the html component tho show changes
+      this.updateBug(this.bug.id, true);
     }
+  }
+
+  closeEditForm() {
+    this.resetVariables();
+  }
+
+  resetVariables() {
+    this.bugEdited = true;
+    this.editBug = false;
   }
 
 }

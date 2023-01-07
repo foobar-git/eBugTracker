@@ -21,6 +21,7 @@ export class BugInfoComponent implements OnInit {
   writeNewComment: boolean = false;
   bug: any;
   id: number;
+  editBug: boolean = false;
   bugEdited: boolean;
   imageURL1: string;
   imageURL2: string;
@@ -157,6 +158,18 @@ export class BugInfoComponent implements OnInit {
       this.bugImages.push(this.bug[n]);
       //console.log(this.bugImages[i-1]);
     }
+  }
+
+  enableBugEditComponent(b: boolean) {
+    this.editBug = b;
+  }
+
+  closeEditForm() {
+    this.resetVariables();
+  }
+  
+  resetVariables() {
+    this.editBug = false;
   }
 
 }

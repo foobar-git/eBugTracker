@@ -21,6 +21,7 @@ import { UsersService } from 'src/app/_services/users.service';
 export class ProjectInfoComponent implements OnInit {
   baseUrl = environment.apiUrl;
   newBugEntry: boolean = false;
+  editProject: boolean = false;
   project: any;
   id: number;
   users: AppUser[];
@@ -34,13 +35,14 @@ export class ProjectInfoComponent implements OnInit {
   dateTimeCreated: string;
   dateTimeCompleted: string;
   selectUserOption: boolean = false;
+  saving: boolean = false;
 
-  userAssignedTemplate = {
-    "userId": -1,
+  userAssignedTemplate: any = {
+    "userId": "",
     "username": "",
     "userType": "",
     "team": "",
-    "projectId": -1
+    "projectId": ""
   }
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private helperFn: HelperFnService,
@@ -115,20 +117,30 @@ export class ProjectInfoComponent implements OnInit {
     this.bugNew.newBugForm();
   }
 
-  newProject() {
-    
-  }
-
   removeUser() {
     console.log("Remove user from project");
   }
 
   editDescription() {
-    console.log("Edit project description");
+    //console.log("Edit project description");
+    this.enableProjectEditComponent(true);
+  }
+
+  enableProjectEditComponent(b: boolean) {
+    this.editProject = b;
+  }
+
+  closeEditForm() {
+    this.resetVariables();
+  }
+  
+  resetVariables() {
+    this.editProject = false;
   }
 
   onChange(selection) {
     this.selectUser(selection.target.value);
+    this.setSaving(true);
   }
 
   selectUser(selection) {
@@ -149,7 +161,7 @@ export class ProjectInfoComponent implements OnInit {
       usernamesArray.push(username);
       
       if (!this.helperFn.checkIfUserAlreadyAssigned(usernamesArray)) {
-        this.userAssignedTemplate.userId = parseInt(this.helperFn.getFieldByString(this.users, username, "id"));
+        this.userAssignedTemplate.userId = this.helperFn.getFieldByString(this.users, username, "id");
         this.userAssignedTemplate.username = this.helperFn.getFieldByString(this.users, username, "username");
         this.userAssignedTemplate.userType = this.helperFn.getFieldByString(this.users, username, "userType");
         this.userAssignedTemplate.team = this.helperFn.getFieldByString(this.users, username, "team");
@@ -173,19 +185,20 @@ export class ProjectInfoComponent implements OnInit {
     this.selectUserOption = b;
   }
 
+  setSaving(b: boolean) {
+    this.saving = b;
+  }
+
   updateProject(id: number, skipReload: boolean) {
     //console.log("Updating project...");
-    //console.log(this.bug);
+    //console.log(this.project);
     //this.setSaving(true);
-    this.project.edited = true;
     this.project.dateCreated = this.helperFn.getCurrentDateTime();
     this.projectsService.editProject(id, this.project).subscribe(() => {
       this.toastr.success("Project edited, changes saved.").onHidden.subscribe(() => {
-          // if (!skipReload) window.location.reload();
-          // else this.setSaving(false); // re-enable the saving button
-          window.location.reload();
-        }
-      );
+          if (!skipReload) window.location.reload();
+          //else this.setSaving(false); // re-enable the saving button
+      });
     });
   }
 
@@ -205,11 +218,19 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   toggleOnHold() {
-
+    if (window.confirm("Set project is on-hold as " + !this.project.isOnHold + "?")) {
+      this.project.isOnHold = !this.project.isOnHold;
+      this.project.isComplete = false;
+      this.updateProject(this.project.id, true);
+    }
   }
-
+  
   toggleComplete() {
-
+    if (window.confirm("Mark project resolved as " + !this.project.isComplete + "?")) {
+      this.project.isComplete = !this.project.isComplete;
+      this.project.isOnHold = false;
+      this.updateProject(this.project.id, true);
+    }
   }
 
 }

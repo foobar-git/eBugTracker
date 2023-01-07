@@ -17,6 +17,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { CommentComponent } from './comments/comment/comment.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { RouteRedirectComponent } from './route-redirect/route-redirect.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 /* v5
 const routes: Routes = [
@@ -54,6 +55,8 @@ const routes: Routes = [
 
       //{ path: 'comments', component: CommentListComponent },  // route '...:4200/comments/'
       { path: 'comment/id/:id', component: CommentComponent },  // route '...:4200/comment/id/"id"/'
+      
+      { path: 'fileupload/:pid/:bid', component: FileUploadComponent },  // route '...:4200/fileupload/"pid"/"bid"/'
 
       //{ path: 'messages', component: MessagesComponent },  // route '...:4200/messages/'
       

@@ -13,6 +13,7 @@ export class ProjectNewComponent implements OnInit {
   currentUserId: number;
   currentUserName: string;
   newProject: boolean = false;
+  saving: boolean = false;
 
   projectTemplate: any = {
     "name": "",
@@ -43,18 +44,22 @@ export class ProjectNewComponent implements OnInit {
     this.saveProject();
   }
 
+  setSaving(b: boolean) {
+    this.saving = b;
+  }
+
   saveProject() {
     // save the new project
+    this.setSaving(true);
     this.currentUserId = this.authorization.userId;
     this.projectTemplate.appUserId = this.currentUserId;
 
     //console.log(this.projectTemplate);
     this.projectsService.newProject(this.projectTemplate).subscribe(() => {
       console.log(this.projectTemplate);
-      this.toastr.success("New project has been created.", null, {timeOut: 2000}).onHidden.subscribe(
-        () => window.location.reload()
-      );
-    })
+      this.toastr.success("New project has been created.", null, {timeOut: 2000})
+        .onHidden.subscribe(() => window.location.reload());
+    });
     // reset variables
     //this.newProject = false;
   }
