@@ -10,9 +10,11 @@
       <div class="card-body">
         <div>
           <strong>Project ID: {{project.id}}</strong>
-          <li class="list-inline-item float-right mt-n2"><button (click)="toggleComplete()" class="btn" title="Toggle complete"><i class="fa fa-check"></i></button></li>
-          <li class="list-inline-item float-right mt-n2"><button (click)="toggleOnHold()" class="btn" title="Toggle project on-hold"><i class="fa fa-pause"></i></button></li>
-          <li class="list-inline-item float-right mt-n2"><button (click)="removeProject()" class="btn" title="Delete project"><i class="fa fa-times"></i></button></li>
+          <ng-container *ngIf="ableToEditProject">
+            <li class="list-inline-item float-right mt-n2"><button (click)="toggleComplete()" class="btn" title="Toggle complete"><i class="fa fa-check"></i></button></li>
+            <li class="list-inline-item float-right mt-n2"><button (click)="toggleOnHold()" class="btn" title="Toggle project on-hold"><i class="fa fa-pause"></i></button></li>
+            <li class="list-inline-item float-right mt-n2"><button (click)="removeProject()" class="btn" title="Delete project"><i class="fa fa-times"></i></button></li>
+          </ng-container>
           <hr>
           Project name: {{project.name}}<br>
           Created by user: {{project.createdByUser}}<br>
@@ -66,7 +68,8 @@
                   <ul class="list-inline user-icons animate text-center">
                       <li class="list-inline-item"><button routerLink="/user/id/{{user.userId}}" class="btn btn-primary"><i class="fa fa-user"></i></button></li>
                       <!--li class="list-inline-item"><button class="btn btn-primary" title="Message"><i class="fa fa-envelope"></i></button></li-->
-                      <li class="list-inline-item"><button (click)="removeUser()" class="btn btn-primary" title="Remove user"><i class="fa fa-minus"></i></button></li>
+                      <li class="list-inline-item" *ngIf="!saving"><button (click)="removeUser(user.projectId, user.userId)" class="btn btn-primary" title="Remove user"><i class="fa fa-minus"></i></button></li>
+                      <li class="list-inline-item" *ngIf="saving"><button disabled class="btn btn-primary" title="Remove user"><i class="fa fa-minus"></i></button></li>
                   </ul>
               </div>
               <div class="card-body p-1">

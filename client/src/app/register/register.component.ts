@@ -12,8 +12,6 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegisterUser = new EventEmitter();
   model: any = {};
 
-  //constructor() { }                                         v3
-  //constructor(private accountService: AccountService) { }   v5
   constructor(private accountService: AccountService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -24,7 +22,6 @@ export class RegisterComponent implements OnInit {
     console.log(this.model);
     this.accountService.registerNewUser_service(this.model).subscribe(response => {
       console.log(response);
-      this.cancelUserRegistration();  // EDIT
     }, error => {
       console.log(error)//,
       //complete: () => void;

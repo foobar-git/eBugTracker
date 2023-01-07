@@ -29,6 +29,11 @@ namespace API.Data
             return await _context.UsersAssigned.FindAsync(id);
         }
 
+        public async Task<UsersAssigned> GetUsersAssignedByProjectIdAsync(int pid)
+        {
+            return await _context.UsersAssigned.FirstOrDefaultAsync(ua => ua.ProjectId == pid);
+        }
+
         public async Task<UsersAssigned> GetUsersAssignedAsync(string username)
         {
             return await _context.UsersAssigned.SingleOrDefaultAsync();
@@ -40,16 +45,6 @@ namespace API.Data
             // if something has been changed and saved, the returned value will be > 0.
             return await _context.SaveChangesAsync() > 0;
         }
-
-        /* public async Task<Comment> UpdateCommentAsync(int id, CommentEditDto newComment)
-        {
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment != null)
-            {
-                comment.Content = newComment.Content;
-                await _context.SaveChangesAsync();
-            }
-        } */
 
         public void Update(UsersAssigned usersAssigned)
         {

@@ -39,4 +39,8 @@ export class ProjectsService {
     return this.http.put(this.baseUrl + 'usersassigned/nua/', usersAssignedNew);
   }
 
+  removeUserFromProject(pid: number, uid: number) {
+    return this.http.delete(this.baseUrl + 'usersassigned/dua/' + pid + "/" + uid);
+  }
+
 }

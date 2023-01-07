@@ -33,7 +33,7 @@ export class AuthorizationService {
       },
       error => console.log(error)
     );
-    console.log("authorization service running...");
+    //console.log("authorization service running...");
   }
 
   getUserDataAsync(id?: number) {
@@ -44,7 +44,7 @@ export class AuthorizationService {
         user => {
           this.user = user
           this.username = this.user.username;
-          console.log(this.username);
+          //console.log(this.username);
           this.userId = this.user.id;
           this.userType = this.user.userType;
           this.setUserCredentials();

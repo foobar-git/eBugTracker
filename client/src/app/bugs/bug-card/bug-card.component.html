@@ -13,10 +13,10 @@
                 <li class="list-inline-item ml-n5"><button routerLink="/bug/id/{{bug_p.id}}" class="btn btn-primary" title="Load bug"><i class="fa fa-bug"></i></button></li>
                 <ng-container *ngIf="ableToEditBug">
                     <li class="list-inline-item"><button (click)="enableBugEditComponent(true)" class="btn btn-primary" title="Edit bug"><i class="fa fa-edit"></i></button></li>
-                    <li class="list-inline-item"><button (click)="toggleResolved()" class="btn btn-primary" title="Toggle resolved status"><i class="fa fa-check"></i></button></li>
                     <li class="list-inline-item"><button (click)="removeBug()" class="btn btn-primary" title="Delete bug"><i class="fa fa-times"></i></button></li>
                     <li class="list-inline-item"><button (click)="toggleActive()" class="btn btn-primary" title="Toggle active"><i class="fa fa-caret-up"></i></button></li>
                 </ng-container>
+                <li class="list-inline-item"><button (click)="toggleResolved()" class="btn btn-primary" title="Toggle resolved status"><i class="fa fa-check"></i></button></li>
             </ul>
         </div>
         <div class="card-body p-1">

@@ -10,6 +10,7 @@ import { CommentNewComponent } from 'src/app/comments/comment-new/comment-new.co
 import { HelperFnService } from 'src/app/_services/helper-fn.service';
 import { environment } from 'src/environments/environment';
 import { BugImageIndex } from 'src/app/_models/bugImageIndex';
+import { AuthorizationService } from 'src/app/_services/authorization.service';
 
 @Component({
   selector: 'app-bug-info',
@@ -18,6 +19,7 @@ import { BugImageIndex } from 'src/app/_models/bugImageIndex';
 })
 export class BugInfoComponent implements OnInit {
   baseUrl = environment.apiUrl;
+  ableToEditBug: boolean = false;
   writeNewComment: boolean = false;
   bug: any;
   id: number;
@@ -39,7 +41,7 @@ export class BugInfoComponent implements OnInit {
   dateTimeCreated: string;
   dateTimeResolved: string;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private toastr: ToastrService,
+  constructor(private http: HttpClient, private route: ActivatedRoute, private toastr: ToastrService, private authorization: AuthorizationService,
     private commentsService: CommentsService, private commentNew: CommentNewComponent, private helperFn: HelperFnService) { }
 
   ngOnInit(): void {
@@ -52,12 +54,17 @@ export class BugInfoComponent implements OnInit {
     this.getBugById(this.id);
   }
 
+  authorizeUser(user: string) {
+    this.ableToEditBug = this.authorization.userAuthorized_levelSuperUser(user);
+  }
+
   getBugById(id: number) {
     this.http.get(this.baseUrl + 'bug/id/' + id.toString()).subscribe({     // observables do nothing until subscribed
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {
         //console.log(this.bug);
+        this.authorizeUser(this.bug.filedByUser);
         this.dateTimeCreated = this.helperFn.formatDateTime(this.bug.dateCreated);
         this.dateTimeResolved = this.helperFn.formatDateTime(this.bug.dateResolved);
         this.bugEdited = this.bug.edited;
@@ -144,7 +151,7 @@ export class BugInfoComponent implements OnInit {
   }
 
   initNewComment() {
-    console.log("Writing a new comment...");
+    //console.log("Writing a new comment...");
     this.writeNewComment = true;
     this.commentNew.newCommentForm();
   }

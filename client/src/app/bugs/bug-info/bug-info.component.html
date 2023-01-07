@@ -10,7 +10,7 @@
         <div class="card">
             <div class="card-body">
                 <div>
-                    <strong>Bug ID: {{bug.id}} </strong><li class="list-inline-item"><button (click)="enableBugEditComponent(true)" class="btn" title="Edit bug"><i class="fa fa-edit float-right"></i></button></li>
+                    <strong>Bug ID: {{bug.id}} </strong><li class="list-inline-item" *ngIf="ableToEditBug"><button (click)="enableBugEditComponent(true)" class="btn" title="Edit bug"><i class="fa fa-edit float-right"></i></button></li>
                     <mark [hidden]="!bugEdited" class="small mr-2 float-right">&nbsp;<em>Edited</em>&nbsp;</mark><br>
                     <hr>
                     Project ID: {{bug.projectId}}<br>

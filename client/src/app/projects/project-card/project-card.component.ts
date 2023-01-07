@@ -13,6 +13,7 @@ import { ProjectInfoComponent } from '../project-info/project-info.component';
 })
 export class ProjectCardComponent implements OnInit {
   @Input() project: AppProject;
+  @Input() numberOfBugs: number;
   ableToEditProject: boolean = false;
   editProject: boolean = false;
 
@@ -39,8 +40,8 @@ export class ProjectCardComponent implements OnInit {
     });
   }
 
-  toggleActive() {
-    if (window.confirm("Set bug is active as " + !this.project.isOnHold + "?")) {
+  toggleOnHold() {
+    if (window.confirm("Set project's 'on-hold' status as " + !this.project.isOnHold + "?")) {
       this.project.isOnHold = !this.project.isOnHold;
       this.project.isComplete = false;
       this.updateProject(this.project.id, true);

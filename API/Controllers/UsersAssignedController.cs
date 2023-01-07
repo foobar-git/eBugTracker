@@ -47,40 +47,24 @@ namespace API.Controllers
             if (await _usersAssignedRepository.SaveAllAsync()) return Ok();
             //if the save failes:
             return BadRequest("Failed to post new 'users assigned' entry.");
-        } 
-
-        /* 
-        // API:     /api/projects/id/<int>
-        [HttpGet("id/{id}")]
-        // public async Task<ActionResult<Project>> GetProject(int id)  // v8
-        // {
-        //     return await _context.Projects.FindAsync(id);
-        // }
-        public async Task<ActionResult<ProjectDto>> GetProject(int id)  // v8
-        {
-            return await _projectRepository.GetProjectDtoByIdAsync(id);
         }
 
-        // API:     /api/projects/"projectname"
-        [HttpGet("{projectname}")]
-        public async Task<ActionResult<ProjectDto>> GetProject(string projectname)
+        [HttpDelete("dua/{pid}/{uid}")]     // "dua" for delete users assigned (one entry)
+        public async Task<ActionResult<IEnumerable<UsersAssigned>>> DeleteUA(int pid, int uid)
         {
-            return await _projectRepository.GetProjectDtoAsync(FormatName.Format(projectname));
-        }
+            IEnumerable<UsersAssigned> usersAssignedToReturn = await _usersAssignedRepository.GetUsersAssignedAsync();
+            
+            var uaUser = usersAssignedToReturn.Where(ua => ua.ProjectId.Equals(pid) && ua.UserId.Equals(uid));
+            int uaId = uaUser.ElementAt(0).Id;
 
-        // API:     /api/projects/id/<int>
-        [HttpPut("id/{id}")]
-        public async Task<ActionResult> EditProject([FromBody]ProjectEditDto editProject, [FromRoute]int id)
-        {
-            var project = await _projectRepository.GetProjectByIdAsync(id);
-            if (project != null)
+            var ua = await _usersAssignedRepository.GetUsersAssignedByIdAsync(uaId);
+            if (ua != null)
             {
-                _mapper.Map(editProject, project);
-                _projectRepository.Update(project);
+                _usersAssignedRepository.DeleteUsersAssignedAsync(ua);
             }
-            if (await _projectRepository.SaveAllAsync()) return Ok();
+            if (await _usersAssignedRepository.SaveAllAsync()) return Ok();
             //if the update failes:
-            return BadRequest("Failed to edit project.");
-        } */
+            return BadRequest("Failed to remove user from project.");
+        }
     }
 }

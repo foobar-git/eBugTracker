@@ -11,6 +11,7 @@ import { AppUser } from 'src/app/_models/appUser';
 import { ProjectsService } from 'src/app/_services/projects.service';
 import { ToastrService } from 'ngx-toastr';
 import { UsersService } from 'src/app/_services/users.service';
+import { AuthorizationService } from 'src/app/_services/authorization.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ import { UsersService } from 'src/app/_services/users.service';
 export class ProjectInfoComponent implements OnInit {
   baseUrl = environment.apiUrl;
   newBugEntry: boolean = false;
+  ableToEditProject: boolean = false;
   editProject: boolean = false;
   project: any;
   id: number;
@@ -45,7 +47,7 @@ export class ProjectInfoComponent implements OnInit {
     "projectId": ""
   }
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private helperFn: HelperFnService,
+  constructor(private http: HttpClient, private route: ActivatedRoute, private helperFn: HelperFnService, private authorization: AuthorizationService,
     private toastr: ToastrService, private projectsService: ProjectsService, private bugNew: BugNewComponent,
     private usersService: UsersService) { }
 
@@ -59,11 +61,16 @@ export class ProjectInfoComponent implements OnInit {
     this.getUsers();
   }
 
+  authorizeUser(user: string) {
+    this.ableToEditProject = this.authorization.userAuthorized_levelSuperUser(user);
+  }
+
   getProjectById(id: number) {
     this.http.get(this.baseUrl + 'project/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
       next: response => this.project = response,
       error: error => console.log(error),
       complete: () => {
+        this.authorizeUser(this.project.createdByUser);
         //console.log(this.project.usersAssigned);                          // can be used for returning a list of user names
         //this.usersAssigned = JSON.stringify(this.project.usersAssigned);  // can be used for returning a list of user names
         this.usersAssigned = this.project.usersAssigned;
@@ -117,8 +124,14 @@ export class ProjectInfoComponent implements OnInit {
     this.bugNew.newBugForm();
   }
 
-  removeUser() {
-    console.log("Remove user from project");
+  removeUser(pid: number, uid: number) {
+    //console.log("Remove user from project");
+    this.setSaving(true);
+    this.projectsService.removeUserFromProject(pid, uid).subscribe(() => {
+      this.toastr.success("User removed from project", null, {timeOut: 2000}).onHidden.subscribe(
+        () => window.location.reload()
+      );
+    });
   }
 
   editDescription() {
@@ -168,7 +181,7 @@ export class ProjectInfoComponent implements OnInit {
         this.userAssignedTemplate.projectId = this.project.id;
         this.addUserToProject();
       }
-      else this.toastr.info("User already assigned.");
+      else this.toastr.info("User already assigned");
     }
   }
 
@@ -208,7 +221,7 @@ export class ProjectInfoComponent implements OnInit {
         //console.log(this.project.id);
         //this.removingProjectEntry = true;
         this.projectsService.deleteProject(this.project.id).subscribe(() => {
-          this.toastr.success("Project deleted.", null, {timeOut: 2000}).onHidden.subscribe(
+          this.toastr.success("Project deleted", null, {timeOut: 2000}).onHidden.subscribe(
             () => window.location.href="/projects"
           );
         });
@@ -218,7 +231,7 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   toggleOnHold() {
-    if (window.confirm("Set project is on-hold as " + !this.project.isOnHold + "?")) {
+    if (window.confirm("Set project's 'on-hold' as " + !this.project.isOnHold + "?")) {
       this.project.isOnHold = !this.project.isOnHold;
       this.project.isComplete = false;
       this.updateProject(this.project.id, true);
