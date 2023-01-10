@@ -39,9 +39,14 @@
         <h4>Bugs tracked in this project <li class="list-inline-item"><button (click)="initNewBug()" class="btn" title="New bug"><i class="fa fa-plus float-right"></i></button></li></h4>
         <!--h6 style="cursor: pointer" (click)="initNewBug()"> >>Post a new bug entry</h6-->
         <app-bug-new [projectId]="project.id" [hidden]="!newBugEntry"></app-bug-new>
+        <div class="text-center mr-5 mt-1 mb-3">
+          <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+        </div>
         <div class="row">
           <div *ngFor="let bug of bugsAssigned">
-            <app-bug-card></app-bug-card>
+            <div class="bug-container" *ngIf="searchText === '' || bug.name.toLowerCase().includes(searchText)">
+              <app-bug-card [bug]="bug"></app-bug-card>
+            </div>
           </div>
         </div>
       </tab>

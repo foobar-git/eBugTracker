@@ -14,6 +14,7 @@ import { ProjectInfoComponent } from '../project-info/project-info.component';
 export class ProjectCardComponent implements OnInit {
   @Input() project: AppProject;
   @Input() numberOfBugs: number;
+  @Input() numberOfUsers: number;
   ableToEditProject: boolean = false;
   editProject: boolean = false;
 

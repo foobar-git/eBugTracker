@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/internal/Observable';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+  searchText: string = "";
   //users: any;                                 // v13
   //appUsers: AppUser[];                        // v15
   users$: Observable<AppUser[]>;
@@ -26,7 +27,8 @@ export class UserListComponent implements OnInit {
   }
 
   // getUsers() {                               // v13
-  //   this.http.get('https://localhost:5001/api/users').subscribe({ // observables do nothing until subscribed
+  // observables do nothing until subscribed
+  //   this.http.get('https://localhost:5001/api/users').subscribe({
   //     next: response => this.users = response,
   //     error: error => console.log(error)//,
   //     //complete: () => void
@@ -39,6 +41,10 @@ export class UserListComponent implements OnInit {
     //   this.appUsers = users;
     // })
     this.users$ = this.userService.getAppUsers();
+  }
+
+  onSearchTextEntered(searchText: string) {
+    this.searchText = searchText;
   }
 
 }

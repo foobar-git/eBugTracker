@@ -11,43 +11,41 @@
                 <div class="menu-links" style="margin: auto;">
                     <!--ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="loggedIn"--> <!-- v1 -->
                     <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+
                                         <!-- check if user is logged in -->
                         <ng-container *ngIf="accountService.currentUser$ | async">
+                            <!--li class="nav-item">
+                                <a class="nav-link" title="Home Page" [routerLink]="['/']" routerLinkActive="router-link-active">Home</a>
+                            </li-->
                             <li class="nav-item">
-                                <a class="nav-link" title="New Bug Entry" [routerLink]="['/']" routerLinkActive="router-link-active">New</a>
+                                <a class="nav-link" title="Users" [routerLink]="['/users']" routerLinkActive="router-link-active">Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" title="Bug Stats" [routerLink]="['/stats']" routerLinkActive="router-link-active" >Overview</a>
+                                <a class="nav-link" title="Projects" [routerLink]="['/projects']" routerLinkActive="router-link-active">Projects</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" title="List all users" [routerLink]="['/users']" routerLinkActive="router-link-active">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" title="List all projects" [routerLink]="['/projects']" routerLinkActive="router-link-active">Projects</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" title="List all bugs" [routerLink]="['/bugs']" routerLinkActive="router-link-active">Bugs</a>
+                                <a class="nav-link" title="Bugs" [routerLink]="['/bugs']" routerLinkActive="router-link-active">Bugs</a>
                             </li>
                             <!--li class="nav-item">
                                 <a class="nav-link" title="" [routerLink]="['/messages']" routerLinkActive="router-link-active">Messages</a>
                             </li-->
                         </ng-container>
-                        <li class="nav-item">
-                            <a class="nav-link" title="" [routerLink]="['/errors']" routerLinkActive="router-link-active">Errors</a>
-                        </li>
+                        <ng-container *ngIf="isAdmin">
+                            <li class="nav-item">
+                                <a class="nav-link" title="Testing Errors" [routerLink]="['/errors']" routerLinkActive="router-link-active">Errors</a>
+                            </li>
+                        </ng-container>
                     </ul>
                 </div>
             </div>
 
             <!--div class="dropdown" *ngIf="loggedIn" dropdown--> <!-- v1 -->
             <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown style="margin-right: 7rem;">
-                <!--a class="dropdown-toggle text-dark" title="Current Logged-in User" dropdownToggle>{{ getUserName_forNavBar(model.username) }}</a-->
-                <!--a class="dropdown-toggle text-light" title="Current Logged-in User" dropdownToggle>{{ model.username | titlecase }}</a-->
                 <a class="dropdown-toggle text-light" title="Current Logged-in User" dropdownToggle>{{ user.username | titlecase }}</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" *dropdownMenu>
                     <a class="dropdown-item" [routerLink]="['/user/edit/this']" routerLinkActive="router-link-active">Edit Profile</a>
                     <ng-container *ngIf="isAdmin">
-                        <a class="dropdown-item" [routerLink]="['/user/edit/admin']" routerLinkActive="router-link-active">Admin: Admin Panel</a>
+                        <a class="dropdown-item" [routerLink]="['/']" routerLinkActive="router-link-active">Register new user</a>
                     </ng-container>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" (click)="logout()">Logout</a>

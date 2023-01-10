@@ -15,6 +15,7 @@ import { UsersService } from 'src/app/_services/users.service';
 })
 
 export class ProjectListComponent implements OnInit {
+  searchText: string = "";
   projects: AppProject[];
   noProjects$: Observable<any>;
   newProject: boolean = false;
@@ -27,6 +28,10 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProjects();
+  }
+
+  onSearchTextEntered(searchText: string) {
+    this.searchText = searchText;
   }
 
   getUserByUsername() {

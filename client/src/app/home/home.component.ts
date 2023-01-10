@@ -31,4 +31,8 @@ export class HomeComponent implements OnInit {
     this.registerMode = event;
   }
 
+  goToUrl(url: string) {
+    window.location.href = url;
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BugsAssigned } from 'src/app/_models/bugsAssigned';
 import { Comment } from 'src/app/_models/comment';
 import { ProjectInfoComponent } from 'src/app/projects/project-info/project-info.component';
@@ -23,10 +23,7 @@ export class BugCardComponent implements OnInit {
   editBug: boolean = false;
   bugEdited: boolean = false;
   id: number;
-  bug_p: any;                       // bug loaded from profile-info component
-  bug: any;
-  bugsNumber: number;
-  bugIdIndex: number;
+  @Input() bug: any;
   comments: Comment[];
   commentsNumber: number;
   numberOfComments: number;         // number of comments posted about the bug
@@ -43,18 +40,7 @@ export class BugCardComponent implements OnInit {
   }
 
   loadBugCard() {
-    //console.log(this.projectInfo.bugsAssigned);
-
-    this.bugsNumber = this.projectInfo.bugsAssignedNumber;
-    this.bug_p = this.projectInfo.bugsAssigned[this.bugsNumber];
-    this.projectInfo.updateBugsNumber();
-    //console.log(this.bugsNumber);
-
-    this.bugIdIndex = this.projectInfo.bugIdIndex;
-    this.projectInfo.updateBugIdIndex();
-
-    //console.log(this.projectInfo.bugsAssigned[this.bugIdIndex].id);
-    this.getBugById(this.projectInfo.bugsAssigned[this.bugIdIndex].id);
+    this.getBugById(this.bug.id);
   }
 
   getBugById(id: number) {
@@ -71,7 +57,7 @@ export class BugCardComponent implements OnInit {
         this.numberOfComments = this.comments.length;
         //console.log(this.numberOfComments);
       }
-    })
+    });
   }
 
   setBugStatus() {
@@ -117,9 +103,8 @@ export class BugCardComponent implements OnInit {
   toggleActive() {
     if (window.confirm("Set bug is active as " + !this.bug.isActive + "?")) {
       this.bug.isActive = !this.bug.isActive;
-      this.bug_p.isActive = this.bug.isActive;      // update variable in order for the html component tho show changes
       this.bug.isResolved = false;
-      this.bug_p.isResolved = this.bug.isResolved;  // update variable in order for the html component tho show changes
+      this.bugEdited = true;
       this.updateBug(this.bug.id, true);
     }
   }
@@ -127,9 +112,8 @@ export class BugCardComponent implements OnInit {
   toggleResolved() {
     if (window.confirm("Mark bug resolved as " + !this.bug.isResolved + "?")) {
       this.bug.isResolved = !this.bug.isResolved;
-      this.bug_p.isResolved = this.bug.isResolved;  // update variable in order for the html component tho show changes
       this.bug.isActive = false;
-      this.bug_p.isActive = this.bug.isActive;      // update variable in order for the html component tho show changes
+      this.bugEdited = true;
       this.updateBug(this.bug.id, true);
     }
   }
@@ -139,7 +123,6 @@ export class BugCardComponent implements OnInit {
   }
 
   resetVariables() {
-    this.bugEdited = true;
     this.editBug = false;
   }
 

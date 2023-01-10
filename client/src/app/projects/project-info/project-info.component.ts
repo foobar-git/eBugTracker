@@ -29,8 +29,6 @@ export class ProjectInfoComponent implements OnInit {
   users: AppUser[];
   usersAssigned: UsersAssigned[];
   bugsAssigned: BugsAssigned[];
-  bugsAssignedNumber: number;                 // number of bugs - when listing bugs in cards
-  bugIdIndex: number = 0;                     // bug index - position in array when loading bugs by id
   noBugsAssigned$: Observable<any>;
   numberOfBugs: number;
   numberOfUsers: number;
@@ -38,6 +36,7 @@ export class ProjectInfoComponent implements OnInit {
   dateTimeCompleted: string;
   selectUserOption: boolean = false;
   saving: boolean = false;
+  searchText: string = "";
 
   userAssignedTemplate: any = {
     "userId": "",
@@ -61,6 +60,10 @@ export class ProjectInfoComponent implements OnInit {
     this.getUsers();
   }
 
+  onSearchTextEntered(searchText: string) {
+    this.searchText = searchText;
+  }
+
   authorizeUser(user: string) {
     this.ableToEditProject = this.authorization.userAuthorized_levelSuperUser(user);
   }
@@ -78,22 +81,14 @@ export class ProjectInfoComponent implements OnInit {
         this.dateTimeCompleted = this.helperFn.formatDateTime(this.project.dateCompleted);
         
         this.bugsAssigned = this.project.bugsAssigned;
-        //this.bugsAssigned = this.bugsAssigned.reverse();
-        this.bugIdIndex = this.bugsAssigned.length - 1;                     // getting the last index first
-        
-        var length = this.bugsAssigned.length;
-        if (length > 0) this.bugsAssignedNumber = length - 1;
-        else {
-          this.bugsAssignedNumber = 0;
-        }
         this.noBugsAssigned$ = this.checkForBugsAssignedAsync();            // delay the check if there are any comments posted
-        
+
         //console.log(this.usersAssigned.length);                           // can be used for returning a list of users in project
         this.numberOfUsers = this.usersAssigned.length;
         //console.log(this.bugsAssigned.length);                            // can be used for returning a list of bugs in project
-        this.numberOfBugs = this.bugsAssigned.length;
+        this.numberOfBugs = this.project.bugsAssigned.length;
       }
-    })
+    });
   }
 
   getUsers() {
@@ -106,15 +101,7 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   checkForBugsAssignedAsync() {
-    return of(this.bugsAssignedNumber);
-  }
-
-  updateBugsNumber() {
-    if(this.bugsAssignedNumber > 0) this.bugsAssignedNumber--;
-  }
-
-  updateBugIdIndex() {
-    this.bugIdIndex--;                                                      // when accessing array by index, start from last element and count down
+    return of(this.bugsAssigned.length);
   }
 
   initNewBug() {

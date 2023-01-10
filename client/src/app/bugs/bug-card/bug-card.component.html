@@ -9,8 +9,9 @@
     <div class="card mb-4 ml-4 mr-4">
         <div class="mt-2" [hidden]="removingBugEntry">
             <ul class="list-inline user-icons animate text-center">
-                <span class="float-left ml-3">Bug ID: {{bug_p.id}}</span>
-                <li class="list-inline-item ml-n5"><button routerLink="/bug/id/{{bug_p.id}}" class="btn btn-primary" title="Load bug"><i class="fa fa-bug"></i></button></li>
+                <!--span class="float-left ml-3">Bug ID: {{bug_p.id}}</span-->
+                <span class="float-left ml-3">Bug ID: {{bug.id}}</span>
+                <li class="list-inline-item ml-n5"><button routerLink="/bug/id/{{bug.id}}" class="btn btn-primary" title="Load bug"><i class="fa fa-bug"></i></button></li>
                 <ng-container *ngIf="ableToEditBug">
                     <li class="list-inline-item"><button (click)="enableBugEditComponent(true)" class="btn btn-primary" title="Edit bug"><i class="fa fa-edit"></i></button></li>
                     <li class="list-inline-item"><button (click)="removeBug()" class="btn btn-primary" title="Delete bug"><i class="fa fa-times"></i></button></li>
@@ -30,7 +31,7 @@
                         <tr>
                             <td>
                                 <div class="text-center text-muted">Author name:</div>
-                                <h6 class="card-title text-center mb-1">{{bug_p.filedByUser}}</h6>
+                                <h6 class="card-title text-center mb-1">{{bug.filedByUser}}</h6>
                             </td>
                             <td>
                                 <div class="text-center">
@@ -46,14 +47,14 @@
                         <tr>
                             <td>
                                 <div class="text-center text-muted">Bug name:</div>
-                                <h6 class="card-title text-center mb-1">{{bug_p.name}}</h6>
+                                <h6 class="card-title text-center mb-1">{{bug.name}}</h6>
                             </td>
                             <td>
                                 <p class="card-text text-center">
                                     <span class="text-muted"><i class="fa fa-info-circle mr-2"></i> Active: </span>
-                                    <span>{{bug_p.isActive}}</span><br>
+                                    <span>{{bug.isActive}}</span><br>
                                     <span class="text-muted"><i class="fa fa-info-circle mr-2"></i> Resolved: </span>
-                                    <span>{{bug_p.isResolved}}</span>
+                                    <span>{{bug.isResolved}}</span>
                                 </p>
                             </td>
                         </tr>

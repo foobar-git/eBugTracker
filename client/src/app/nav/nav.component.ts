@@ -34,11 +34,11 @@ export class NavComponent implements OnInit {
     //console.log(this.model);
     this.accountService.login_service(this.model).subscribe(
       () => {
-        this.router.navigateByUrl('/stats')
+        //this.router.navigateByUrl('/');
         //this.loggedIn = true;                                   v1
 
         //console.log(this.isAdmin);
-        window.location.href="stats";                             // reload page fetching user data (authorization service)
+        window.location.href="projects";                          // reload page fetching user data (authorization service)
       },
       error => {
         console.log(error),

@@ -3,15 +3,11 @@
     <div class="card mb-4">
         <div class="card-img-wrapper mt-2">
             <div class="px-3 mb-n3">
-                <span>Project ID: </span><span style="float:right" class="text-end">{{project.id}}</span><br>
+                <!--span>Project ID: </span><span style="float:right" class="text-end">{{project.id}}</span><br-->
                 <span>Project name: </span><span style="float:right" class="text-end"><strong>{{project.name}}</strong></span><br>
-                <span>Bugs reported: </span><span style="float:right" class="text-end"><strong>{{numberOfBugs}}</strong></span>
+                <span>Bugs reported: </span><span style="float:right" class="text-end"><strong>{{numberOfBugs}}</strong></span><br>
+                <span>Users in project: </span><span style="float:right" class="text-end"><strong>{{numberOfUsers}}</strong></span>
             </div><hr>
-            <!--ul class="list-inline user-icons animate text-center">
-                <li class="list-inline-item"><button routerLink="/project/id/{{project.id}}" class="btn btn-primary"><i class="fa fa-folder"></i></button></li>
-                <--li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-bug"></i></button></li->
-                <--li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-user"></i></button></li->
-            </ul-->
             <div class="text-center">
                 <ul class="list-inline user-icons animate text-center">
                     <li class="list-inline-item"><button routerLink="/project/id/{{project.id}}" class="btn btn-primary"><i class="fa fa-folder"></i></button></li>

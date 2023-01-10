@@ -10,8 +10,14 @@
     <app-user-card [appUser]="user"></app-user-card>
   </div>
 </div-->
+<div class="text-center mr-5">
+  <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+</div>
+<hr>
 <div class="row">
   <div *ngFor="let user of users$ | async" class="col-2">
-    <app-user-card [user]="user"></app-user-card>
+    <div class="users-container" *ngIf="searchText === '' || user.username.toLowerCase().includes(searchText)">
+      <app-user-card [user]="user"></app-user-card>
+    </div>
   </div>
 </div>

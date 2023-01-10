@@ -13,7 +13,6 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { BugInfoComponent } from './bugs/bug-info/bug-info.component';
 import { BugListComponent } from './bugs/bug-list/bug-list.component';
-import { StatsComponent } from './stats/stats.component';
 import { SharedModule } from './_modules/shared.module';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
@@ -36,6 +35,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { RouteRedirectComponent } from './route-redirect/route-redirect.component';
 import { ProjectNewComponent } from './projects/project-new/project-new.component';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,6 @@ import { ProjectEditComponent } from './projects/project-edit/project-edit.compo
     BugInfoComponent,
     BugListComponent,
     BugCardComponent,
-    StatsComponent,
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
@@ -67,7 +66,8 @@ import { ProjectEditComponent } from './projects/project-edit/project-edit.compo
     FileUploadComponent,
     RouteRedirectComponent,
     ProjectNewComponent,
-    ProjectEditComponent
+    ProjectEditComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

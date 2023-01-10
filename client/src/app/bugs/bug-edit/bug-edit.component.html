@@ -30,7 +30,7 @@
                     <!--input type="text" class="form-control" [(ngModel)]="bug.bugImage2" name="bugImage2"-->
                     <app-file-upload [numberString]="2"></app-file-upload>
 
-                    <button *ngIf="!saving" form="newForm" (click)="updateBug(bug.id)" class="btn btn-secondary btn-block p-3 mt-4">Save</button>
+                    <button *ngIf="!saving" form="newForm" (click)="updateBug(bug.id, false)" class="btn btn-secondary btn-block p-3 mt-4">Save</button>
                     <button *ngIf="saving" disabled class="btn btn-secondary btn-block p-3 mt-4">Saving...</button>
                 </form>
             </div>

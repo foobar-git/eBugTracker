@@ -9,15 +9,14 @@ import { HomeComponent } from './home/home.component';
 import { ProjectInfoNameComponent } from './projects/project-info-name/project-info-name.component';
 import { ProjectInfoComponent } from './projects/project-info/project-info.component';
 import { ProjectListComponent } from './projects/project-list/project-list.component';
-import { StatsComponent } from './stats/stats.component';
 //import { MessagesComponent } from './users/messages/messages.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { CommentComponent } from './comments/comment/comment.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
-import { RouteRedirectComponent } from './route-redirect/route-redirect.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { SearchComponent } from './search/search.component';
 
 /* v5
 const routes: Routes = [
@@ -39,7 +38,7 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      { path: 'stats', component: StatsComponent },  // route '...:4200/stats/'
+      { path: 'search', component: SearchComponent },  // route '...:4200/search/'
 
       { path: 'users', component: UserListComponent},  // route '...:4200/users/'
       { path: 'user/id/:id', component: UserProfileComponent },  // route '...:4200/user/id/"id"'
