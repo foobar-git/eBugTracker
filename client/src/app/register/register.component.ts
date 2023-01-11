@@ -8,12 +8,10 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  @Input() usersFromHomeComponent: any;                     //v3
+  @Input() usersFromHomeComponent: any;
   @Output() cancelRegisterUser = new EventEmitter();
   model: any = {};
 
-  //constructor() { }                                         v3
-  //constructor(private accountService: AccountService) { }   v5
   constructor(private accountService: AccountService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -22,15 +20,19 @@ export class RegisterComponent implements OnInit {
 
   registerNewUser() {
     console.log(this.model);
-    this.accountService.registerNewUser_service(this.model).subscribe(response => {
-      console.log(response);
-      this.cancelUserRegistration();  // EDIT
-    }, error => {
-      console.log(error)//,
-      //complete: () => void;
-
-      this.toastr.error(error.error);
-    })
+    this.accountService.registerNewUser_service(this.model).subscribe({
+      next: response => console.log(response),
+      error: error => {
+        console.log(error);
+        this.toastr.error(error.error);
+      },
+      complete: () => {
+        if (window.confirm("Register new user?")) {
+          window.alert("New user created");
+          window.location.href = "projects";
+        }
+      }
+    });
   }
 
   cancelUserRegistration() {

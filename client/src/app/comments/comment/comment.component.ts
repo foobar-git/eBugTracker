@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CommentsService } from 'src/app/_services/comments.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,7 +14,7 @@ export class CommentComponent implements OnInit {
   comment: any;
   id: number;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private commentsService: CommentsService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -21,11 +22,11 @@ export class CommentComponent implements OnInit {
       this.id = parseInt(params.get('id'));
       console.log(this.id);
     });
-    this.getCommentId(this.id);
+    this.getCommentById(this.id);
   }
 
-  getCommentId(id: number) {
-    this.http.get(this.baseUrl + 'comment/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+  getCommentById(id: number) {
+    this.commentsService.getCommentById(id).subscribe({ // observables do nothing until subscribed
       next: response => this.comment = response,
       error: error => console.log(error),
       complete: () => {
@@ -33,7 +34,7 @@ export class CommentComponent implements OnInit {
         //this.usersAssigned = JSON.stringify(this.project.usersAssigned);  // can be used for returning a list of user names
         //this.usersAssigned = this.project.usersAssigned;
       }
-    })
+    });
   }
 
 }

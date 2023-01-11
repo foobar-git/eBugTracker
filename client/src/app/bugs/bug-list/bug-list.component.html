@@ -1,7 +1,10 @@
-<p>bug-list works!</p>
-<p>TODO implement bug search feature here (by name, by id, by project).</p>
-<div class="container" style="margin-top: 5rem;">
-    <ul>
-        <li *ngFor="let bug of bugs">{{bug.id}} - {{bug.name}}</li>
-    </ul>
+<div class="text-center mr-5 mb-3">
+    <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+</div>
+<div class="row">
+    <div *ngFor="let bug of bugs">
+      <div class="bugs-container" *ngIf="searchText === '' || bug.name.toLowerCase().includes(searchText)">
+        <app-bug-card [bug]="bug"></app-bug-card>
+      </div>
+    </div>
 </div>

@@ -42,20 +42,10 @@ namespace API.Controllers
         
         // API:     /api/comment/id/<int>
         [HttpGet("id/{id}")]
-        // public async Task<ActionResult<Comment>> GetComment(int id)  // v8
-        // {
-        //     return await _context.Comments.FindAsync(id);
-        // }
         public async Task<ActionResult<Comment>> GetComment(int id)
         {
             return await _commentRepository.GetCommentByIdAsync(id);
         }
-
-        // [HttpGet("{commentname}")]
-        // public async Task<ActionResult<Bug>> GetComment(string commentname)
-        // {
-        //     return await _commentRepository.GetCommentAsync(FormatName.Format(commentname));
-        // }
 
         [HttpPut("id/{id}")]
         public async Task<ActionResult> EditComment([FromBody]CommentEditDto editComment, [FromRoute]int id)
@@ -75,6 +65,7 @@ namespace API.Controllers
             return BadRequest("Failed to edit comment.");
         }
 
+        // API:     /api/comment/dc/<int>
         [HttpDelete("dc/{id}")]     // "dc" for delete comment
         public async Task<ActionResult> DeleteComment(int id)
         {
@@ -88,18 +79,10 @@ namespace API.Controllers
             return BadRequest("Failed to delete comment.");
         }
 
+        // API:     /api/comment/nc/<int>
         [HttpPut("nc/")]            // "nc" for new comment
         public async Task<ActionResult> NewComment([FromBody]Comment newComment)
         {
-            // var comment = await _context.Comments.FindAsync(id);
-            // if (comment == null)
-            // {
-            //     await _context.Comments.AddAsync(newComment);
-            // }
-            // else {
-            //     Console.WriteLine("Comment ID already taken.");
-            // }
-
             await _context.Comments.AddAsync(newComment);
 
             if (await _commentRepository.SaveAllAsync()) return Ok();

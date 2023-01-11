@@ -1,19 +1,19 @@
-<!--p>project-info works!</p>
-<div class="container" style="margin-top: 5rem;">
-  <ng-container *ngIf="project">
-    <p>{{project.id}} - {{project.projectname}}</p>
-  </ng-container>
-</div-->
 <div class="row" *ngIf="project">
   <div class="col-4">
     <div class="card">
       <div class="card-body">
         <div>
-          <strong>Project ID: {{project.id}}</strong><br><hr>
+          <strong>Project ID: {{project.id}}</strong>
+          <ng-container *ngIf="ableToEditProject">
+            <li class="list-inline-item float-right mt-n2"><button (click)="toggleComplete()" class="btn" title="Toggle complete"><i class="fa fa-check"></i></button></li>
+            <li class="list-inline-item float-right mt-n2"><button (click)="toggleOnHold()" class="btn" title="Toggle project on-hold"><i class="fa fa-pause"></i></button></li>
+            <li class="list-inline-item float-right mt-n2"><button (click)="removeProject()" class="btn" title="Delete project"><i class="fa fa-times"></i></button></li>
+          </ng-container>
+          <hr>
           Project name: {{project.name}}<br>
           Created by user: {{project.createdByUser}}<br>
-          Date created:<br>{{dateTimeCreated}}<br>
-          Date completed:<br>{{dateTimeCompleted}}<br>
+          Date created:<br>&nbsp;&nbsp;{{dateTimeCreated}}
+          <span *ngIf="project.isComplete"><br>Date completed:<br>&nbsp;&nbsp;{{dateTimeCompleted}}</span><br>
           Project is complete: {{project.isComplete}}<br>
           Project is on-hold: {{project.isOnHold}}<br>
           <!-- Description: {{project.description}}<br-->
@@ -22,22 +22,43 @@
         </div>
       </div>
     </div>
+    <div class="text-center mt-1">
+      <h6 style="cursor: pointer" (click)="initNewBug()"> >>Post a new bug entry <li class="list-inline-item"><button (click)="initNewBug()" class="btn" title="New bug"><i class="fa fa-plus float-right"></i></button></li></h6>
+    </div>
   </div>
 
   <div class="col-8">
     <tabset class="project-tabset">
       <tab heading="Bugs Tracked">
-        <h4>Bugs tracked in this project</h4>
-        <h6 style="cursor: pointer" (click)="initNewBug()"> >>Post a new bug entry</h6>
+        <h4>Bugs tracked in this project <li class="list-inline-item"><button (click)="initNewBug()" class="btn" title="New bug"><i class="fa fa-plus float-right"></i></button></li></h4>
+        <!--h6 style="cursor: pointer" (click)="initNewBug()"> >>Post a new bug entry</h6-->
         <app-bug-new [projectId]="project.id" [hidden]="!newBugEntry"></app-bug-new>
+        <div class="text-center mr-5 mt-1 mb-3">
+          <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+        </div>
         <div class="row">
           <div *ngFor="let bug of bugsAssigned">
-            <app-bug-card></app-bug-card>
+            <div class="bug-container" *ngIf="searchText === '' || bug.name.toLowerCase().includes(searchText)">
+              <app-bug-card [bug]="bug"></app-bug-card>
+            </div>
           </div>
         </div>
       </tab>
       <tab heading="Users Assigned">
-        <h4>List of users assigned to this project:</h4>
+        <h4>List of users assigned to this project <li class="list-inline-item"><button (click)="enableAddUser(true)" class="btn" title="Add user"><i class="fa fa-plus float-right"></i></button></li></h4>
+        <div class="text-center mb-2">
+          <span *ngIf="!saving">
+            <select *ngIf="selectUserOption" (change)="onChange($event)">
+              <option value="-">Select a user</option>
+              <option *ngFor="let user of users">{{user.username}} | {{user.team}} | {{user.userType}}</option>
+            </select>
+          </span>
+          <span *ngIf="saving">
+            <select *ngIf="selectUserOption">
+            <option value="-">Adding user...</option>
+            </select>
+          </span>
+        </div>
         <div class="row">
           <div *ngFor="let user of usersAssigned">
             <div class="card mb-4 ml-4 mr-4">
@@ -45,7 +66,9 @@
                   <!--img src="{{user.userImage}}" alt="{{user.username}}" class="card-img-top"-->
                   <ul class="list-inline user-icons animate text-center">
                       <li class="list-inline-item"><button routerLink="/user/id/{{user.userId}}" class="btn btn-primary"><i class="fa fa-user"></i></button></li>
-                      <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-envelope"></i></button></li>
+                      <!--li class="list-inline-item"><button class="btn btn-primary" title="Message"><i class="fa fa-envelope"></i></button></li-->
+                      <li class="list-inline-item" *ngIf="!saving"><button (click)="removeUser(user.projectId, user.userId)" class="btn btn-primary" title="Remove user"><i class="fa fa-minus"></i></button></li>
+                      <li class="list-inline-item" *ngIf="saving"><button disabled class="btn btn-primary" title="Remove user"><i class="fa fa-minus"></i></button></li>
                   </ul>
               </div>
               <div class="card-body p-1">
@@ -57,8 +80,18 @@
         </div>
       </tab>
       <tab heading="Project description">
-        <h4>Description</h4>
-        <p>{{project.description}}</p>
+        <ng-container *ngIf="!editProject">
+          <h4>Description<li class="list-inline-item"><button (click)="editDescription()" class="btn" title="Edit description"><i class="fa fa-edit float-right"></i></button></li></h4>
+          <p>{{project.description}}</p>
+        </ng-container>
+        <ng-container *ngIf="editProject">
+          <div class="mt-3">
+            <div class="text-center mb-n5">
+              <button (click)="closeEditForm()" class="btn btn-primary" title="Close" style="z-index: 99; position: relative">Close edit form</button>
+            </div>
+          </div>
+          <app-project-edit [project]="project" [hidden]="!editProject"></app-project-edit>
+        </ng-container>
       </tab>
     </tabset>
   </div>

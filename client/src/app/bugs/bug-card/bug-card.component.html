@@ -1,7 +1,6 @@
-<!--p>bug-card works!</p-->
 <ng-container *ngIf="editBug">
-    <div class="text-center mb-n5" style="z-index: 99; position: relative;">
-        <button (click)="closeEditForm()" class="btn btn-primary" title="Close">Close edit form</button>
+    <div class="text-center mb-n5">
+        <button (click)="closeEditForm()" class="btn btn-primary" title="Close" style="z-index: 99; position: relative">Close edit form</button>
     </div>
     <app-bug-edit [bug]="bug" [hidden]="!editBug"></app-bug-edit>
 </ng-container>
@@ -9,25 +8,57 @@
     <div class="card mb-4 ml-4 mr-4">
         <div class="mt-2" [hidden]="removingBugEntry">
             <ul class="list-inline user-icons animate text-center">
-                <li class="list-inline-item"><button routerLink="/bug/id/{{bug_p.id}}" class="btn btn-primary" title="Load bug"><i class="fa fa-bug"></i></button></li>
+                <span class="float-left ml-3">Bug ID: {{bug.id}}</span>
+                <li class="list-inline-item ml-n5"><button routerLink="/bug/id/{{bug.id}}" class="btn btn-primary" title="Load bug"><i class="fa fa-bug"></i></button></li>
                 <ng-container *ngIf="ableToEditBug">
-                    <li class="list-inline-item"><button (click)="enableBugEditComponent()" class="btn btn-primary" title="Edit bug"><i class="fa fa-edit"></i></button></li>
-                    <li class="list-inline-item"><button (click)="removeBug()" class="btn btn-primary" title="Delete bug"><i class="fa fa-times" aria-hidden="true"></i></button></li>
+                    <li class="list-inline-item"><button (click)="enableBugEditComponent(true)" class="btn btn-primary" title="Edit bug"><i class="fa fa-edit"></i></button></li>
+                    <li class="list-inline-item"><button (click)="removeBug()" class="btn btn-primary" title="Delete bug"><i class="fa fa-times"></i></button></li>
+                    <li class="list-inline-item"><button (click)="toggleActive()" class="btn btn-primary" title="Toggle active"><i class="fa fa-caret-up"></i></button></li>
                 </ng-container>
+                <li class="list-inline-item"><button (click)="toggleResolved()" class="btn btn-primary" title="Toggle resolved status"><i class="fa fa-check"></i></button></li>
             </ul>
         </div>
         <div class="card-body p-1">
-            <ng-container *ngIf="bugEdited">
-                <div class="text-center">
-                <mark class="small">&nbsp;<em>Edited</em>&nbsp;</mark><br>
+            <div class="mx-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="text-center text-muted">Author name:</div>
+                                <h6 class="card-title text-center mb-1">{{bug.filedByUser}}</h6>
+                            </td>
+                            <td>
+                                <div class="text-center">
+                                    <span class="card-text text-muted">Comments by users: </span>{{numberOfComments}}
+                                </div>
+                                <ng-container *ngIf="bugEdited">
+                                    <div class="text-center">
+                                        <mark class="">&nbsp;<em>Edited</em>&nbsp;</mark><br>
+                                    </div>
+                                </ng-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="text-center text-muted">Bug name:</div>
+                                <h6 class="card-title text-center mb-1">{{bug.name}}</h6>
+                            </td>
+                            <td>
+                                <p class="card-text text-center">
+                                    <span class="text-muted"><i class="fa fa-info-circle mr-2"></i> Active: </span>
+                                    <span>{{bug.isActive}}</span><br>
+                                    <span class="text-muted"><i class="fa fa-info-circle mr-2"></i> Resolved: </span>
+                                    <span>{{bug.isResolved}}</span>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            </ng-container>            
-            <div class="text-center">Bug name:</div>
-            <h6 class="card-title text-center mb-1">{{bug_p.name}}</h6>
-            <p class="card-text text-muted text-center">
-                Comments: {{numberOfComments}}<br>
-                <i class="fa fa-info-circle mr-2"> Active: {{bug_p.isActive}}</i>
-            </p>
         </div>
     </div>
 </ng-container>

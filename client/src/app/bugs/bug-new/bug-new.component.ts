@@ -10,6 +10,7 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
   styleUrls: ['./bug-new.component.css']
 })
 export class BugNewComponent implements OnInit {
+  saving: boolean = false;
   newBug: boolean = false;
   currentUserName: string;
   currentUserId: number;
@@ -19,7 +20,12 @@ export class BugNewComponent implements OnInit {
     "name": "",
     "filedByUser": "",
     "dateCreated": "",
+    "dateResolved": "1901-01-01",
     "description": "",
+    "imageURL1": "",
+    "imageURL2": "",
+    "bugImage1": "",
+    "bugImage2": "",
     "isResolved": false,
     "isActive": true,
     "projectId": "",
@@ -34,32 +40,43 @@ export class BugNewComponent implements OnInit {
   }
 
   newBugForm() {
-    this.getDate();
+    this.getDateCreated();
     this.bugTemplate.filedByUser = this.currentUserName;
     this.newBug = true;
   }
 
   saveNewBug() {
+    this.getDateCreated();
+    this.saveBug();
+  }
+
+  setSaving(b: boolean) {
+    this.saving = b;
+  }
+
+  saveBug() {
     // save the new bug
-    this.getDate();
+    this.setSaving(true);
     this.currentUserId = this.authorization.userId;
     this.bugTemplate.appUserId = this.currentUserId;
     this.bugTemplate.projectId = this.projectId;
 
     //console.log(this.bugTemplate);
-    this.bugsService.newBug(this.bugTemplate).subscribe(() => {
-      console.log(this.bugTemplate);
-      this.toastr.success("New bug entry has been posted.").onHidden.subscribe(
-        () => window.location.reload()
-      );
-    })
+    this.bugsService.newBug(this.projectId, this.bugTemplate).subscribe(() => {
+      //console.log(this.bugTemplate);
+      this.toastr.success("New bug entry has been posted.", null, {timeOut: 2000})
+        .onHidden.subscribe(() => window.location.reload());
+    });
     // reset variables
-    this.newBug = false;
-    window.location.reload();
+    //this.newBug = false;
   }
 
-  getDate() {
+  getDateCreated() {
     this.bugTemplate.dateCreated = this.helperFn.getCurrentDateTime();
+  }
+
+  getDateResolved() {
+    this.bugTemplate.dateResolved = this.helperFn.getCurrentDateTime();
   }
 
 }

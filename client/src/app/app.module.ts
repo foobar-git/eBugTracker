@@ -13,7 +13,6 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { BugInfoComponent } from './bugs/bug-info/bug-info.component';
 import { BugListComponent } from './bugs/bug-list/bug-list.component';
-import { StatsComponent } from './stats/stats.component';
 import { SharedModule } from './_modules/shared.module';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
@@ -34,6 +33,9 @@ import { BugNewComponent } from './bugs/bug-new/bug-new.component';
 import { BugEditComponent } from './bugs/bug-edit/bug-edit.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { RouteRedirectComponent } from './route-redirect/route-redirect.component';
+import { ProjectNewComponent } from './projects/project-new/project-new.component';
+import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,6 @@ import { RouteRedirectComponent } from './route-redirect/route-redirect.componen
     BugInfoComponent,
     BugListComponent,
     BugCardComponent,
-    StatsComponent,
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
@@ -63,7 +64,10 @@ import { RouteRedirectComponent } from './route-redirect/route-redirect.componen
     BugNewComponent,
     BugEditComponent,
     FileUploadComponent,
-    RouteRedirectComponent
+    RouteRedirectComponent,
+    ProjectNewComponent,
+    ProjectEditComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -77,10 +81,11 @@ import { RouteRedirectComponent } from './route-redirect/route-redirect.componen
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },    // interceptor for sending tokens
     { provide: ProjectInfoComponent },                                        // make available to other components
+    { provide: ProjectNewComponent },                                         // make available to other components
     { provide: BugInfoComponent },                                            // make available to other components
     { provide: BugNewComponent },                                             // make available to other components
-    { provide: CommentNewComponent },                                         // make available to other components
-    { provide: BugEditComponent }                                             // make available to other components
+    { provide: BugEditComponent },                                            // make available to other components
+    { provide: CommentNewComponent }                                          // make available to other components
   ],
   bootstrap: [AppComponent]
 })

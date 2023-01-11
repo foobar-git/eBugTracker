@@ -11,10 +11,6 @@ namespace API.Data
     {
         private readonly DataContext _context;
 
-        /*public BugRepository(DataContext context)    // v11
-        {
-            _context = context;
-        }*/
         private readonly IMapper _mapper;
         
         public BugRepository(DataContext context, IMapper mapper)
@@ -55,17 +51,6 @@ namespace API.Data
 
         public async Task<BugDto> GetBugDtoAsync(string bugname)
         {
-            /*return await _context.Users               // v11
-                .Where(u => u.UserName == username)
-                .Select(user => new UsersDto
-                {
-                    // manualy mapping the porperties that we need form the database
-                    //Id = user.Id,
-                    //Username = user.UserName,
-                    //...
-                    //. . .
-                }).SingleOrDefaultAsync();*/
-            
             return await _context.Bugs
                 .Where(b => b.Name == bugname)
                 .ProjectTo<BugDto>(_mapper.ConfigurationProvider)
@@ -84,10 +69,12 @@ namespace API.Data
             // mark 'bug' as 'modified'
             _context.Entry(bug).State = EntityState.Modified;
         }
-
-        public void DeleteBugAsync(Bug bug)
+        
+        public async Task DeleteBugAsync(Bug bug)
         {
-            _context.Bugs.Remove(bug);
+            await Task.Run( () => {
+                _context.Bugs.Remove(bug);
+            });
         }
     }
 }

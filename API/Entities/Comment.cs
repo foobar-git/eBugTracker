@@ -9,7 +9,6 @@ namespace API.Entities
         public bool Edited { get; set; }
 
         //_EF_Migrations__________________________
-        //public AppUser AppUser { get; set; }
         public int AppUserId { get; set; }
         public int BugId { get; set; }
         //________________________________________

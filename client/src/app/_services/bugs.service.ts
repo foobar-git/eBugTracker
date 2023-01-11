@@ -13,18 +13,26 @@ export class BugsService {
 
   constructor(private http: HttpClient) { }
 
+  getBugs() {
+    return this.http.get(this.baseUrl + 'bug/');
+  }
+
+  getBugById(id: number) {
+    return this.http.get(this.baseUrl + 'bug/id/' + id.toString());
+  }
+
   editBug(id: number, bug: AppBug) {
     //console.log(bug);
     return this.http.put(this.baseUrl + 'bug/id/' + id, bug);
   }
 
-  deleteBug(id: number) {
-    return this.http.delete(this.baseUrl + 'bug/db/' + id);
+  deleteBug(pid: number, bid: number) {
+    return this.http.delete(this.baseUrl + 'bug/db/' + pid + "/" + bid);
   }
   
-  newBug(bug: AppBugNew) {
+  newBug(pid: number, bug: AppBugNew) {
     //console.log(bug);
-    return this.http.put(this.baseUrl + 'bug/nb/', bug);
+    return this.http.put(this.baseUrl + 'bug/nb/' + pid, bug);
   }
 
 }

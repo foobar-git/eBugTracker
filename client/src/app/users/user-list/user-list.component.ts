@@ -10,35 +10,21 @@ import { Observable } from 'rxjs/internal/Observable';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  //users: any;                                 // v13
-  //appUsers: AppUser[];                        // v15
+  searchText: string = "";
   users$: Observable<AppUser[]>;
 
-  //constructor(private http: HttpClient) { }   // v13
   constructor(private userService: UsersService) { }
-
-  // ngOnInit(): void {                         // v13
-  //   this.getUsers();
-  // }
 
   ngOnInit(): void {
     this.loadUsers();
   }
 
-  // getUsers() {                               // v13
-  //   this.http.get('https://localhost:5001/api/users').subscribe({ // observables do nothing until subscribed
-  //     next: response => this.users = response,
-  //     error: error => console.log(error)//,
-  //     //complete: () => void
-  //   })
-  // }
-
   loadUsers() {
-    // v15
-    // this.userService.getAppUsers().subscribe(users => {
-    //   this.appUsers = users;
-    // })
     this.users$ = this.userService.getAppUsers();
+  }
+
+  onSearchTextEntered(searchText: string) {
+    this.searchText = searchText;
   }
 
 }

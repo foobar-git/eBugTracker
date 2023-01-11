@@ -7,7 +7,7 @@ namespace API.Interfaces
     {
         void Update(Bug bug);
 
-        void DeleteBugAsync(Bug bug);
+        Task DeleteBugAsync(Bug bug);
 
         Task<bool> SaveAllAsync();
         

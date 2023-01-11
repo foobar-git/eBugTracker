@@ -11,10 +11,6 @@ namespace API.Data
     {
         private readonly DataContext _context;
 
-        /*public ProjectRepository(DataContext context)    // v11
-        {
-            _context = context;
-        }*/
         private readonly IMapper _mapper;
         
         public ProjectRepository(DataContext context, IMapper mapper)
@@ -52,18 +48,7 @@ namespace API.Data
         }
 
         public async Task<ProjectDto> GetProjectDtoAsync(string projectname)
-        {
-            /*return await _context.Users               // v11
-                .Where(u => u.UserName == username)
-                .Select(user => new UsersDto
-                {
-                    // manualy mapping the porperties that we need form the database
-                    //Id = user.Id,
-                    //Username = user.UserName,
-                    //...
-                    //. . .
-                }).SingleOrDefaultAsync();*/
-            
+        {   
             return await _context.Projects
                 .Where(p => p.Name == projectname)
                 .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
@@ -81,6 +66,13 @@ namespace API.Data
         {
             // mark 'project' as 'modified'
             _context.Entry(project).State = EntityState.Modified;
+        }
+
+        public async Task DeleteProjectAsync(Project project)
+        {
+            await Task.Run( () => {
+                _context.Projects.Remove(project);
+            });
         }
     }
 }

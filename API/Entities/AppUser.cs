@@ -22,10 +22,5 @@ namespace API.Entities
         //public Message Message { get; set; }
         public ICollection<Comment> Comments { get; set; }
         //________________________________________
-
-        // public int GetCreated()
-        // {
-        //     return DateCreated.CalculateTimeFromUserCreated();
-        // }
     }
 }

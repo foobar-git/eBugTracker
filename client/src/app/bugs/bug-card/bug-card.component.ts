@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BugsAssigned } from 'src/app/_models/bugsAssigned';
 import { Comment } from 'src/app/_models/comment';
 import { ProjectInfoComponent } from 'src/app/projects/project-info/project-info.component';
@@ -9,6 +9,7 @@ import { BugsService } from 'src/app/_services/bugs.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthorizationService } from 'src/app/_services/authorization.service';
 import { environment } from 'src/environments/environment';
+import { HelperFnService } from 'src/app/_services/helper-fn.service';
 
 @Component({
   selector: 'app-bug-card',
@@ -22,16 +23,13 @@ export class BugCardComponent implements OnInit {
   editBug: boolean = false;
   bugEdited: boolean = false;
   id: number;
-  bug_p: any;                       // bug loaded from profile-info component
-  bug: any;
-  bugsNumber: number;
-  bugIdIndex: number;
+  @Input() bug: any;
   comments: Comment[];
   commentsNumber: number;
   numberOfComments: number;         // number of comments posted about the bug
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private authorization: AuthorizationService, private bugsService: BugsService,
-    private projectInfo: ProjectInfoComponent, private bugInfo: BugInfoComponent, private toastr: ToastrService) { }
+    private projectInfo: ProjectInfoComponent, private bugInfo: BugInfoComponent, private helperFn: HelperFnService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadBugCard();
@@ -42,23 +40,12 @@ export class BugCardComponent implements OnInit {
   }
 
   loadBugCard() {
-    //console.log(this.projectInfo.bugsAssigned);
-
-    this.bugsNumber = this.projectInfo.bugsAssignedNumber;
-    this.bug_p = this.projectInfo.bugsAssigned[this.bugsNumber];
-    this.projectInfo.updateBugsNumber();
-    //console.log(this.bugsNumber);
-
-    this.bugIdIndex = this.projectInfo.bugIdIndex;
-    this.projectInfo.updateBugIdIndex();
-
-    //console.log(this.projectInfo.bugsAssigned[this.bugIdIndex].id);
-    this.getBugId(this.projectInfo.bugsAssigned[this.bugIdIndex].id);
+    this.getBugById(this.bug.id);
   }
 
-  getBugId(id: number) {
+  getBugById(id: number) {
     //console.log(id);
-    this.http.get(this.baseUrl + 'bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.bugsService.getBugById(id).subscribe({ // observables do nothing until subscribed
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {
@@ -68,10 +55,9 @@ export class BugCardComponent implements OnInit {
         this.comments = this.bug.comments;
         //console.log(this.comments);
         this.numberOfComments = this.comments.length;
-        //console.log(this.numberOfComments);
-        return;
+        //console.log(this.numberOfComments); 
       }
-    })
+    });
   }
 
   setBugStatus() {
@@ -79,12 +65,23 @@ export class BugCardComponent implements OnInit {
   }
 
   authorizeUser(user: string) {
-    //this.ableToEditBug = this.authorization.userAuthorized(user);         // v22
     this.ableToEditBug = this.authorization.userAuthorized_levelSuperUser(user);
   }
 
-  enableBugEditComponent() {
-    this.editBug = true;
+  enableBugEditComponent(b: boolean) {
+    this.editBug = b;
+  }
+
+  updateBug(id: number, skipReload: boolean) {
+    console.log("Updating bug");
+    //console.log(this.bug);
+    this.bug.edited = true;
+    this.bug.dateCompleted = this.helperFn.getCurrentDateTime();
+    this.bugsService.editBug(id, this.bug).subscribe(() => {
+      this.toastr.success("Bug edited, changes saved.", null, {timeOut: 2000}).onHidden.subscribe(() => {
+        if (!skipReload) window.location.reload()
+      });
+    });
   }
 
   removeBug() {
@@ -92,7 +89,7 @@ export class BugCardComponent implements OnInit {
       if (this.bug.id != null) {
         //console.log(this.bug.id);
         this.removingBugEntry = true;
-        this.bugsService.deleteBug(this.bug.id).subscribe(() => {
+        this.bugsService.deleteBug(this.bug.projectId, this.bug.id).subscribe(() => {
           this.toastr.success("Bug entry removed.").onHidden.subscribe(
             () => window.location.reload()
           );
@@ -102,13 +99,30 @@ export class BugCardComponent implements OnInit {
     }
   }
 
-  resetVariables() {
-    this.bugEdited = true;
-    this.editBug = false;
+  toggleActive() {
+    if (window.confirm("Set bug is active as " + !this.bug.isActive + "?")) {
+      this.bug.isActive = !this.bug.isActive;
+      this.bug.isResolved = false;
+      this.bugEdited = true;
+      this.updateBug(this.bug.id, true);
+    }
+  }
+  
+  toggleResolved() {
+    if (window.confirm("Mark bug resolved as " + !this.bug.isResolved + "?")) {
+      this.bug.isResolved = !this.bug.isResolved;
+      this.bug.isActive = false;
+      this.bugEdited = true;
+      this.updateBug(this.bug.id, true);
+    }
   }
 
   closeEditForm() {
     this.resetVariables();
+  }
+
+  resetVariables() {
+    this.editBug = false;
   }
 
 }

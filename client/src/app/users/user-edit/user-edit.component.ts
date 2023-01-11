@@ -18,34 +18,29 @@ export class UserEditComponent implements OnInit {
   user: any;
   user$: Observable<any>;
   isAdmin: boolean = false;
+  saving: boolean = false;
 
-  // v20
-  // constructor(private accountService: AccountService, private userService: UsersService, private toastr: ToastrService) {
-  //   this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.currentUser = user);
-  // }
-
-  constructor(private userService: UsersService, private authorization: AuthorizationService, private toastr: ToastrService) {
-    
-  }
+  constructor(private userService: UsersService, private authorization: AuthorizationService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    //this.loadUser();                      // v20
     this.authorization.userAuthorization$.subscribe(userType => this.isAdmin = userType);
     this.authorization.userData$.subscribe(user => this.user = user);
   }
 
-  // loadUser() {                           // v20
-  //   this.userService.getAppUser(this.appUser.username).subscribe(user => this.user = user); // v15
-  //   this.user$ = this.userService.getAppUser(this.appUser.username);
-  //   this.user$.subscribe(user => this.user = user);
-  // }
-
   updateUser() {
     //console.log(this.user);
+    this.setSaving(true);
     this.userService.updateAppUser(this.user).subscribe(() => {
-      this.toastr.success("Profile edited, changes saved.");
+      this.toastr.success("Profile edited, changes saved.").onHidden.subscribe(() => {
+        this.setSaving(false); // re-enable the saving button
+      }
+    );
       this.editForm.reset(this.user);       // reset form status, keeping changes for user
     });
+  }
+
+  setSaving(b: boolean) {
+    this.saving = b;
   }
 
 }

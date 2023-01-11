@@ -34,9 +34,9 @@ export class FileUploadComponent implements OnInit {
 	}
 
 	// On file Select
-	onChange(event) {
-    this.bugEdit.saving = true;
-		this.file = event.target.files[0];
+	onChange(selection) {
+    this.bugEdit.setSaving(true);
+		this.file = selection.target.files[0];
     this.onUpload(this._toastr, this._bugEdit, this.bugImageNumber);
 	}
 
@@ -44,11 +44,11 @@ export class FileUploadComponent implements OnInit {
 	onUpload(toastrServ: any, bugEditComp: any, imageNumber: number) {
     let file = this.file;
     if (this.file != null) {
-		  console.log(this.file);
+		  //console.log(this.file);
       if (this.helperFn.validateFileType(this.requiredFileTypes, this.file)) {
         if (this.file.size <= this.maxFileSize) {
           let i = this.biIndex[imageNumber];
-          this.fileUploadService.upload(this.file).subscribe({
+          this.fileUploadService.upload(bugEditComp.bug.projectId, bugEditComp.bug.id, this.file).subscribe({
             next() {
               //console.log("Running 'next'.");
               //console.log(i);   //console.log(Object.values(bugEditComp.bug)[imageNumber]);
@@ -58,12 +58,16 @@ export class FileUploadComponent implements OnInit {
             },
             error (error) {
               console.log("Running 'error'.");
-              toastrServ.error("File was not uploaded.", null, {timeOut: 10000});
+              toastrServ.error("File was not uploaded.", null, {timeOut: 8000});
             },
             complete() {
               //console.log("Running 'complete'.");
-              toastrServ.success("File uploaded.", null, {timeOut: 2000}).onHidden.subscribe(
-                () => bugEditComp.updateBug(bugEditComp.bug.id)
+              toastrServ.success("File uploaded.", null, {timeOut: 2000}).onHidden.subscribe(() => {
+                  bugEditComp.updateBug(bugEditComp.bug.id, true);
+                  // toastrServ.success("Loading...", null, {timeout: 8000}).onHidden.subscribe(() => 
+                  //   bugEditComp.setSaving(false)
+                  // );
+                }
               );
             }
           });

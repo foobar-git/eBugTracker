@@ -1,21 +1,16 @@
-<!--p>bug-info works!</p>
-<div class="container" style="margin-top: 5rem;">
-    <ng-container *ngIf="bug">
-        <p>{{bug.id}} - {{bug.name}}</p>
-        <p>{{bug.filedByUser}} - {{bug.description}}</p>
-    </ng-container>
-</div-->
 <div class="row" *ngIf="bug">
     <div class="col-4">
         <div class="card">
             <div class="card-body">
                 <div>
-                    <strong>Bug ID: {{bug.id}}</strong><br><hr>
+                    <strong>Bug ID: {{bug.id}} </strong><li class="list-inline-item" *ngIf="ableToEditBug"><button (click)="enableBugEditComponent(true)" class="btn" title="Edit bug"><i class="fa fa-edit float-right"></i></button></li>
+                    <mark [hidden]="!bugEdited" class="small mr-2 float-right">&nbsp;<em>Edited</em>&nbsp;</mark><br>
+                    <hr>
                     Project ID: {{bug.projectId}}<br>
                     Bug name: {{bug.name}}<br>
                     Filed by user: {{bug.filedByUser}}<br>
-                    Date created:<br>{{dateTimeCreated}}<br>
-                    Date resolved:<br>{{dateTimeResolved}}<br>
+                    Date created:<br>&nbsp;&nbsp;{{dateTimeCreated}}
+                    <span *ngIf="bug.isResolved"><br>Date resolved:<br>&nbsp;&nbsp;{{dateTimeResolved}}</span><br>
                     Bug is resolved: {{bug.isResolved}}<br>
                     Bug is active: {{bug.isActive}}<br>
                     <!-- Description: {{bug.description}}<br-->
@@ -27,16 +22,33 @@
     <div class="col-8">
         <tabset class="project-tabset">
             <tab heading="Attachments">
-                <div>
-                    <h4>Images related to this bug</h4>
-                    <ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
+                <div class="mt-2">
+                    <ng-container *ngIf="!editBug">
+                        <h4 *ngIf="noImages$ | async; else noImagesSaved">Images related to this bug</h4>
+                        <ng-template #noImagesSaved>
+                            <h5>No images for this bug. Add images? <li class="list-inline-item"><button (click)="enableBugEditComponent(true)" class="btn" title="Add"><i class="fa fa-plus float-right"></i></button></li></h5>
+                            <em>&nbsp;&nbsp;Note: if no image is displayed after saving, refresh the page.</em>
+                        </ng-template>
+                        <ng-container *ngIf="!hideGallery">
+                            <ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="editBug">
+                        <div class="mt-3">
+                            <div class="text-center mb-n5">
+                            <button (click)="closeEditForm()" class="btn btn-primary" title="Close" style="z-index: 99; position: relative">Close edit form</button>
+                            </div>
+                        </div>
+                        <app-bug-edit [bug]="bug" [hidden]="!editBug"></app-bug-edit>
+                    </ng-container>
+                    <hr>
                 </div>
                 <div>
-                    <h4 *ngIf="noComments$ | async; else none">Comments for this bug</h4>
-                    <ng-template #none>
+                    <h4 *ngIf="noComments$ | async; else noCommentsPosted">Comments for this bug</h4>
+                    <ng-template #noCommentsPosted>
                         <h5>No comments posted.</h5>
                     </ng-template>
-                    <h6 style="cursor: pointer" (click)="initNewComment()"> >>Post a new comment</h6>
+                    <h6 style="cursor: pointer" (click)="initNewComment()"> >>Post a new comment <li class="list-inline-item"><button (click)="initNewComment()" class="btn" title="New comment"><i class="fa fa-plus float-right"></i></button></li></h6>
                     <app-comment-new [bugId]="bug.id" [hidden]="!writeNewComment"></app-comment-new>
                     <div *ngFor="let comment of comments">
                         <app-comment-edit></app-comment-edit>
@@ -44,13 +56,19 @@
                 </div>
             </tab>
             <tab heading="Description">
-                <h4>Bug description</h4>
-                <p>{{bug.description}}</p>
+                <ng-container *ngIf="!editBug">
+                    <h4>Bug description <li class="list-inline-item"><button (click)="enableBugEditComponent(true)" class="btn" title="Edit bug"><i class="fa fa-edit float-right"></i></button></li></h4>
+                    <p>{{bug.description}}</p>
+                </ng-container>
+                <ng-container *ngIf="editBug">
+                    <div class="mt-3">
+                        <div class="text-center mb-n5">
+                        <button (click)="closeEditForm()" class="btn btn-primary" title="Close" style="z-index: 99; position: relative">Close edit form</button>
+                        </div>
+                    </div>
+                    <app-bug-edit [bug]="bug" [hidden]="!editBug"></app-bug-edit>
+                </ng-container>
             </tab>
-            <!--tab heading="Comments">
-                <h4>List of comments attached to this bug</h4>
-                ...
-            </tab-->
         </tabset>
     </div>
 </div>

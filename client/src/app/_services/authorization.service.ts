@@ -16,25 +16,21 @@ export class AuthorizationService {
   user: any;
   username: string;
   userId: number;
-  userType: string;                   // implemented as string only for development -should be as numbers in produciton (admin = 0, etc.)
+  userType: string;   // implemented as string only for development -could be impleneted be as numbers in produciton (admin = 0, etc.)
   private userType$ = new BehaviorSubject<any>({ });
   userAuthorization$ = this.userType$.asObservable();
   private userModel$ = new BehaviorSubject<any>({ });
   userData$ = this.userModel$.asObservable();
 
   constructor(private http: HttpClient, private accountService: AccountService, private userService: UsersService) {
-    this.accountService.currentUser$.pipe(take(1)).subscribe(
-      user => {
+    this.accountService.currentUser$.pipe(take(1)).subscribe( user => {
         this.currentLoggedInUser = user;
         //console.log(this.currentLoggedInUser);
-        //this.getUserDataAsync(this.currentLoggedInUser.username);
-        
-        //this.getUserDataAsync();
         this.getUserDataAsync();
       },
       error => console.log(error)
     );
-    console.log("authorization service running...");
+    //console.log("authorization service running...");
   }
 
   getUserDataAsync(id?: number) {
@@ -45,7 +41,7 @@ export class AuthorizationService {
         user => {
           this.user = user
           this.username = this.user.username;
-          console.log(this.username);
+          //console.log(this.username);
           this.userId = this.user.id;
           this.userType = this.user.userType;
           this.setUserCredentials();
@@ -84,7 +80,5 @@ export class AuthorizationService {
     if (this.username === author || this.userType === "Admin") return true;
     else return false;
   }
-
-
-
+  
 }

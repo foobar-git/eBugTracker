@@ -2,9 +2,9 @@
     <h1>Not found</h1>
                     <!-- check if user is logged in -->
     <ng-container *ngIf="accountService.currentUser$ | async">
-        <button class="btn btn-info btn-lg" [routerLink]="['/stats']">Return to overview</button>
+        <button class="btn btn-info btn-lg" [routerLink]="['/projects']">Return to overview</button>
     </ng-container>
     <ng-container *ngIf="!(accountService.currentUser$ | async)">
-        <button class="btn btn-info btn-lg" [routerLink]="['/']">Return to overview</button>
+        <button class="btn btn-info btn-lg" [routerLink]="['/']">Return</button>
     </ng-container>
 </div>
