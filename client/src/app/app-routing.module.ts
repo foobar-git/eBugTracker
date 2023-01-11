@@ -18,18 +18,6 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { SearchComponent } from './search/search.component';
 
-/* v5
-const routes: Routes = [
-  {path: '', component: HomeComponent},  // route '...:4200/'
-  {path: 'stats', component: StatsComponent},  // route '...:4200/stats/'
-  {path: 'users', component: UserListComponent, canActivate: [AuthGuard]},  // route '...:4200/users/'
-  {path: 'users/:id', component: UserProfileComponent},  // route '...:4200/users/n/'
-  {path: 'bugs', component: BugListComponent},  // route '...:4200/bugs/'
-  {path: 'bugs/:id', component: BugInfoComponent},  // route '...:4200/bugs/n/'
-  //{path: 'messages', component: MessagesComponent},  // route '...:4200/messages/'
-  {path: '**', component: HomeComponent, pathMatch: 'full'},  // route '...:4200/...' (a catch-all route, still has to match)
-];*/
-
 const routes: Routes = [
   { path: '', component: HomeComponent },
   

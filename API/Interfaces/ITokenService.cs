@@ -6,7 +6,6 @@ using API.Entities;
 
 namespace API.Interfaces
 {
-    // an interface does not contain any implementation logic
     public interface ITokenService
     {
         string CreateToken(AppUser user);

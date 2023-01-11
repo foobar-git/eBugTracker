@@ -13,11 +13,6 @@ namespace API
 {
     public class Program
     {
-        /*public static void Main(string[] args)      // v7
-        {
-            CreateHostBuilder(args).Build().Run();    // v7
-        }*/
-
         public static async Task Main(string[] args)
         {
             DataContext context;
@@ -45,8 +40,7 @@ namespace API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
+                .ConfigureWebHostDefaults(webBuilder => {
                     webBuilder.UseStartup<Startup>();
                 });
     }

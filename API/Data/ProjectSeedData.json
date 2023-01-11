@@ -1,6 +1,6 @@
 [
     {
-        "Name": "Project1",
+        "Name": "Calculator",
         "CreatedByUser": "Emil",
         "DateCreated": "2022-07-07",
         "DateCompleted": "1901-01-01",
@@ -82,7 +82,7 @@
         ]        
     },
     {
-        "Name": "Project2",
+        "Name": "Tetris multiplayer",
         "CreatedByUser": "Nedim",
         "DateCreated": "2022-07-09",
         "DateCompleted": "1901-01-01",

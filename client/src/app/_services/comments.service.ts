@@ -13,6 +13,10 @@ export class CommentsService {
 
   constructor(private http: HttpClient) { }
 
+  getCommentById(id: number) {
+    return this.http.get(this.baseUrl + 'comment/id/' + id.toString());
+  }
+
   editComment(id: number, comment: Comment) {
     //console.log(comment);
     return this.http.put(this.baseUrl + 'comment/id/' + id, comment);

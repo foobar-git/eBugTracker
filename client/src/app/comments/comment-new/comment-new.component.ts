@@ -14,7 +14,7 @@ export class CommentNewComponent implements OnInit {
   newComment: boolean = false;
   currentUserName: string;                // populated by AccountService
   currentUserId: number;
-  //currentUserType: string;                // implemented as string only for development -should be as numbers in produciton (admin = 0, etc.)
+  //currentUserType: string;
   @Input() bugId: number;
 
   commentTemplate: any = {

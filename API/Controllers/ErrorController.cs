@@ -40,16 +40,6 @@ namespace API.Controllers
         [HttpGet("server-error")]
         public ActionResult<string> GetServerError()
         {
-            /*try       // v5
-            {
-                error_userInputAPI = _context.Users.Find(-1);
-                error_string = error_userInputAPI.ToString();   // object to return (should be a null reference exception)
-
-                return error_string;                            // but if found, return what is found
-            } catch (Exception ex) {
-                return StatusCode(500, "Exception:\n" + ex);
-            }*/
-
             error_input = _context.AppUsers.Find(-1);
             error_string = error_input.ToString();   // object to return (should be a null reference exception)
 

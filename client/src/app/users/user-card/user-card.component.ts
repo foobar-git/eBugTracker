@@ -21,7 +21,6 @@ export class UserCardComponent implements OnInit {
   }
 
   authorizeUser(user: string) {
-    //this.isAdmin = this.authorization.userAuthorized(user);               // v22
     this.isAdmin = this.authorization.userAuthorized_levelAdmin(user);
   }
 

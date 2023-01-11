@@ -15,16 +15,13 @@ export class BugEditComponent implements OnInit {
   saving: boolean = false;
   @Input() bug: AppBug;
   bugEdited: boolean = false;
-  //bugImages: string[] = [];
   biIndex = BugImageIndex;
 
   constructor(private bugsService: BugsService, private helperFn: HelperFnService,
     private toastr: ToastrService, private fileUploadService: FileUploadService) { }
 
   ngOnInit(): void {
-    //console.log(this.bug);
-    // v26
-    //this.bugImages.push(this.bug.bugImage1, this.bug.bugImage2, this.bug.bugImage3, this.bug.bugImage4, this.bug.bugImage5);
+
   }
 
   updateBug(id: number, skipReload: boolean) {

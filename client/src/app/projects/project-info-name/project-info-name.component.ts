@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { ProjectsService } from 'src/app/_services/projects.service';
 
 @Component({
   selector: 'app-project-info-name',
@@ -13,7 +14,7 @@ export class ProjectInfoNameComponent implements OnInit {
   project: any;
   name: string;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private projectsService: ProjectsService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -25,10 +26,11 @@ export class ProjectInfoNameComponent implements OnInit {
   }
 
   getProject(name: string) {
-    this.http.get(this.baseUrl + 'project/' + name).subscribe({ // observables do nothing until subscribed
+    this.projectsService.getProject(name).subscribe({ // observables do nothing until subscribed
       next: response => this.project = response,
       error: error => console.log(error)//,
       //complete: () => void
     })
   }
+
 }

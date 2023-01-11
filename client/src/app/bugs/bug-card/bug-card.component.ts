@@ -45,7 +45,7 @@ export class BugCardComponent implements OnInit {
 
   getBugById(id: number) {
     //console.log(id);
-    this.http.get(this.baseUrl + 'bug/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.bugsService.getBugById(id).subscribe({ // observables do nothing until subscribed
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {
@@ -55,7 +55,7 @@ export class BugCardComponent implements OnInit {
         this.comments = this.bug.comments;
         //console.log(this.comments);
         this.numberOfComments = this.comments.length;
-        //console.log(this.numberOfComments);
+        //console.log(this.numberOfComments); 
       }
     });
   }
@@ -65,7 +65,6 @@ export class BugCardComponent implements OnInit {
   }
 
   authorizeUser(user: string) {
-    //this.ableToEditBug = this.authorization.userAuthorized(user);         // v22
     this.ableToEditBug = this.authorization.userAuthorized_levelSuperUser(user);
   }
 

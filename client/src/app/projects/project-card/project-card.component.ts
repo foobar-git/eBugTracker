@@ -26,7 +26,6 @@ export class ProjectCardComponent implements OnInit {
   }
 
   authorizeUser(user: string) {
-    //this.ableToEditBug = this.authorization.userAuthorized(user);         // v22
     this.ableToEditProject = this.authorization.userAuthorized_levelSuperUser(user);
   }
 

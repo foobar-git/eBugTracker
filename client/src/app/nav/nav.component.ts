@@ -12,19 +12,13 @@ import { AuthorizationService } from '../_services/authorization.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  model: any = {} // initialize to an empty object
-  //loggedIn : boolean = false;       v1
-  //currentUser$: Observable<User>;   v2 (using async pipe)
+  model: any = {}                         // initialize to an empty object
   isAdmin: boolean = false;
 
-  //constructor(private accountService: AccountService) { }                       v1 + v2
-  //constructor(public accountService: AccountService, private router: Router) { }  // v5
   constructor(public accountService: AccountService, private router: Router,
     private toastr: ToastrService, private authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
-    //this.getCurrentUser(); // get user from account service     v1
-    //this.currentUser$ = this.account-Service.currentUser$;      v1 + v2
     this.authorizationService.userAuthorization$.subscribe(
       userType => this.isAdmin = userType
     )
@@ -34,11 +28,8 @@ export class NavComponent implements OnInit {
     //console.log(this.model);
     this.accountService.login_service(this.model).subscribe(
       () => {
-        //this.router.navigateByUrl('/');
-        //this.loggedIn = true;                                   v1
-
         //console.log(this.isAdmin);
-        window.location.href="projects";                          // reload page fetching user data (authorization service)
+        window.location.href="projects";  // reload page fetching user data (authorization service)
       },
       error => {
         console.log(error),
@@ -48,12 +39,10 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.accountService.logout_service();
-    //this.loggedIn = false;                                      v1
-    //this.router.navigateByUrl('/');                             v19
     window.location.href="/";
   }
 
-  /*getCurrentUser() {                                            v1
+  /*getCurrentUser() {
     this.accountService.currentUser$.subscribe(user => {
       // set the loggedIn status for the current user
       this.loggedIn = !!user; // double exclamation marks turn an object into a boolean

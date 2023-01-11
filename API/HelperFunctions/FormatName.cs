@@ -8,10 +8,8 @@ namespace API.HelperFunctions
             {
                 name = name.ToLower();
                 name = (char.ToUpper(name[0])).ToString() + name.Substring(1);
-                //Console.WriteLine(name);
                 return name;
             } else {
-                //Console.WriteLine(name);
                 return null;
             }
         }

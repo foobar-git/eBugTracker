@@ -52,7 +52,6 @@ namespace API
         {
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();        // superseded by error handling middleware    // v6
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv5 v1"));
             }

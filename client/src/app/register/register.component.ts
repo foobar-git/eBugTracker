@@ -8,7 +8,7 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  @Input() usersFromHomeComponent: any;                     //v3
+  @Input() usersFromHomeComponent: any;
   @Output() cancelRegisterUser = new EventEmitter();
   model: any = {};
 

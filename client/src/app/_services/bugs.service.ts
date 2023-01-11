@@ -13,6 +13,14 @@ export class BugsService {
 
   constructor(private http: HttpClient) { }
 
+  getBugs() {
+    return this.http.get(this.baseUrl + 'bug/');
+  }
+
+  getBugById(id: number) {
+    return this.http.get(this.baseUrl + 'bug/id/' + id.toString());
+  }
+
   editBug(id: number, bug: AppBug) {
     //console.log(bug);
     return this.http.put(this.baseUrl + 'bug/id/' + id, bug);

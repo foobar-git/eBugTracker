@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { BugsAssigned } from 'src/app/_models/bugsAssigned';
 import { HelperFnService } from 'src/app/_services/helper-fn.service';
 import { environment } from 'src/environments/environment';
 

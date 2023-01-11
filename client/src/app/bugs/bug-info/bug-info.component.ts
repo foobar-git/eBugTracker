@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Comment } from 'src/app/_models/comment';
@@ -11,6 +11,7 @@ import { HelperFnService } from 'src/app/_services/helper-fn.service';
 import { environment } from 'src/environments/environment';
 import { BugImageIndex } from 'src/app/_models/bugImageIndex';
 import { AuthorizationService } from 'src/app/_services/authorization.service';
+import { BugsService } from 'src/app/_services/bugs.service';
 
 @Component({
   selector: 'app-bug-info',
@@ -42,7 +43,7 @@ export class BugInfoComponent implements OnInit {
   dateTimeResolved: string;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private toastr: ToastrService, private authorization: AuthorizationService,
-    private commentsService: CommentsService, private commentNew: CommentNewComponent, private helperFn: HelperFnService) { }
+    private commentsService: CommentsService, private bugsService: BugsService, private commentNew: CommentNewComponent, private helperFn: HelperFnService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -59,7 +60,7 @@ export class BugInfoComponent implements OnInit {
   }
 
   getBugById(id: number) {
-    this.http.get(this.baseUrl + 'bug/id/' + id.toString()).subscribe({     // observables do nothing until subscribed
+    this.bugsService.getBugById(id).subscribe({     // observables do nothing until subscribed
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {
@@ -81,7 +82,6 @@ export class BugInfoComponent implements OnInit {
         //console.log(this.commentsNumber);
         //console.log(this.bug);
         //console.log(this.comments);                                       // can be used for returning a list of comments
-        //console.log(this.bugImages);
 
         this.galleryImages = this.getImages();
         this.bugImagesLength = this.galleryImages.length;
@@ -157,7 +157,7 @@ export class BugInfoComponent implements OnInit {
   }
 
   setBugImages() {
-    const biiLength = Object.keys(this.biIndex).length / 2;   // dividing by two to get the correct length because
+    const biiLength = Object.keys(this.biIndex).length / 2;     // dividing by two to get the correct length because
     //console.log(biiLength);                                   // the enum biIndex is made of numerical values
     for (let i = 1; i <= biiLength; i++) {
       let n = this.biIndex[i];

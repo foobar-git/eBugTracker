@@ -1,4 +1,3 @@
-<!--p>bug-card works!</p-->
 <ng-container *ngIf="editBug">
     <div class="text-center mb-n5">
         <button (click)="closeEditForm()" class="btn btn-primary" title="Close" style="z-index: 99; position: relative">Close edit form</button>
@@ -9,7 +8,6 @@
     <div class="card mb-4 ml-4 mr-4">
         <div class="mt-2" [hidden]="removingBugEntry">
             <ul class="list-inline user-icons animate text-center">
-                <!--span class="float-left ml-3">Bug ID: {{bug_p.id}}</span-->
                 <span class="float-left ml-3">Bug ID: {{bug.id}}</span>
                 <li class="list-inline-item ml-n5"><button routerLink="/bug/id/{{bug.id}}" class="btn btn-primary" title="Load bug"><i class="fa fa-bug"></i></button></li>
                 <ng-container *ngIf="ableToEditBug">

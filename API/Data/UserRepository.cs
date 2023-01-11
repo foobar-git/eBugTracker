@@ -11,10 +11,6 @@ namespace API.Data
     {
         private readonly DataContext _context;
 
-        /*public UserRepository(DataContext context)    // v11
-        {
-            _context = context;
-        }*/
         private readonly IMapper _mapper;
         
         public UserRepository(DataContext context, IMapper mapper)
@@ -55,17 +51,6 @@ namespace API.Data
 
         public async Task<UsersDto> GetUserDtoAsync(string username)
         {
-            /*return await _context.Users               // v11
-                .Where(u => u.UserName == username)
-                .Select(user => new UsersDto
-                {
-                    // manualy mapping the porperties that we need form the database
-                    //Id = user.Id,
-                    //Username = user.UserName,
-                    //...
-                    //. . .
-                }).SingleOrDefaultAsync();*/
-            
             return await _context.AppUsers
                 .Where(u => u.Username == username)
                 .ProjectTo<UsersDto>(_mapper.ConfigurationProvider)

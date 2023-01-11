@@ -20,7 +20,6 @@ namespace API.DTOs
         public string Images_ { get; set; }      // needed for EF to show results in browser
 
         //_EF_Migrations__________________________
-        //public ICollection<BugImageDto> BugImages { get; set; }  // EF: one Bug (entry with many images)
         public ICollection<CommentDto> Comments { get; set; }            // EF: one bug - many comments
         public int ProjectId { get; set; }
         //________________________________________

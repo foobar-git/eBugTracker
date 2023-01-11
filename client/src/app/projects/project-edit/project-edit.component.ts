@@ -34,20 +34,6 @@ export class ProjectEditComponent implements OnInit {
     });
   }
 
-  removeProject () {}
-  // removeBug() {
-  //   if (window.confirm("Delete this bug?")) {
-  //     if (this.bug.id != null) {
-  //       //console.log(this.bug.id);
-  //       this.bugsService.deleteBug(this.bug.projectId, this.bug.id).subscribe(() => {
-  //         this.toastr.success("Bug entry removed.").onHidden.subscribe(
-  //           () => window.location.reload()
-  //         );
-  //       });
-  //     }
-  //   }
-  // }
-
   setSaving(b: boolean) {
     this.saving = b;
   }

@@ -16,6 +16,10 @@ export class ProjectsService {
     return this.http.get<AppProject[]>(this.baseUrl + 'project/' + projectname);
   }
 
+  getProjectById(id: number) {
+    return this.http.get(this.baseUrl + 'project/id/' + id.toString());
+  }
+
   getProjects() {
     return this.http.get<AppProject[]>(this.baseUrl + 'project');
   }

@@ -73,7 +73,6 @@ namespace API.Controllers
         {
             string dirChar = "//";                                  // identifier for directories
             if (OperatingSystem.IsWindows()) dirChar = "\\";
-            //string fileUploadDirectory = "api/upload/" + pid + "/" + bid + "/";     // location of directory
             string fileUploadDirectory = "api" + dirChar + "upload" + dirChar + pid + dirChar + bid + dirChar;
             string location = dirChar + fileUploadDirectory + dirChar;
 
@@ -81,7 +80,6 @@ namespace API.Controllers
             {
                 var pathToFile = _environment.WebRootPath + location;
                 System.IO.File.Delete(pathToFile + filename);
-                //Console.WriteLine("EDIT >>> " + pathToFile + filename);
                 return Ok();
             }
             //Console.WriteLine("No such file.");

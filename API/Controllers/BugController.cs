@@ -43,10 +43,6 @@ namespace API.Controllers
         
         // API:     /api/bug/id/<int>
         [HttpGet("id/{id}")]
-        // public async Task<ActionResult<Bug>> GetBug(int id)  // v8
-        // {
-        //     return await _context.Bugs.FindAsync(id);
-        // }
         public async Task<ActionResult<BugDto>> GetBug(int id)
         {
             return await _bugRepository.GetBugDtoByIdAsync(id);
@@ -58,20 +54,6 @@ namespace API.Controllers
         {
             return await _bugRepository.GetBugDtoAsync(FormatName.Format(bugname));
         }
-
-        // v30
-        /* [HttpDelete("db/{id}")]     // "db" for delete bug
-        public async Task<ActionResult> DeleteBug(int id)
-        {
-            var bug = await _bugRepository.GetBugByIdAsync(id);
-            if (bug != null)
-            {
-                _bugRepository.DeleteBugAsync(bug);
-            }
-            if (await _bugRepository.SaveAllAsync()) return Ok();
-            //if the update failes:
-            return BadRequest("Failed to delete bug.");
-        } */
 
         // API:     /api/bug/db/"project_id"/"bug_id"
         [HttpDelete("db/{pid}/{bid}")]
@@ -112,17 +94,6 @@ namespace API.Controllers
             //if the update failes:
             return BadRequest("Failed to edit bug.");
         }
-
-        // v30
-        /* [HttpPut("nb/")]            // "nb" for new bug
-        public async Task<ActionResult> NewBug([FromBody]Bug newBug)
-        {
-            await _context.Bugs.AddAsync(newBug);
-
-            if (await _bugRepository.SaveAllAsync()) return Ok();
-            //if the save failes:
-            return BadRequest("Failed to post new bug entry.");
-        } */
 
         // API:     /api/bug/nb/"project_id"
         [HttpPut("nb/{pid}/")]
