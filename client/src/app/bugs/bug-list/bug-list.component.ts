@@ -21,7 +21,7 @@ export class BugListComponent implements OnInit {
   }
 
   getAllBugs() {
-    this.bugsService.getBugs().subscribe({ // observables do nothing until subscribed
+    this.bugsService.getBugs().subscribe({
       next: response => this.bugs = response,
       error: error => console.log(error)//,
       //complete: () => void

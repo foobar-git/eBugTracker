@@ -50,10 +50,6 @@ namespace API.Controllers
         [HttpPut("id/{id}")]
         public async Task<ActionResult> EditComment([FromBody]CommentEditDto editComment, [FromRoute]int id)
         {
-            // v16
-            //var comment = await _commentRepository.UpdateCommentAsync(id, newComment);
-            //return Ok();
-
             var comment = await _commentRepository.GetCommentByIdAsync(id);
             if (comment != null)
             {
@@ -61,7 +57,7 @@ namespace API.Controllers
                 _commentRepository.Update(comment);
             }
             if (await _commentRepository.SaveAllAsync()) return Ok();
-            //if the update failes:
+            //if the update fails:
             return BadRequest("Failed to edit comment.");
         }
 
@@ -75,7 +71,7 @@ namespace API.Controllers
                 _commentRepository.DeleteCommentAsync(comment);
             }
             if (await _commentRepository.SaveAllAsync()) return Ok();
-            //if the update failes:
+            //if the update fails:
             return BadRequest("Failed to delete comment.");
         }
 
@@ -86,7 +82,7 @@ namespace API.Controllers
             await _context.Comments.AddAsync(newComment);
 
             if (await _commentRepository.SaveAllAsync()) return Ok();
-            //if the save failes:
+            //if the save fails:
             return BadRequest("Failed to post new comment.");
         }
     }

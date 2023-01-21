@@ -49,7 +49,7 @@ export class BugInfoComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       //this.id = +params.get('id');
       this.id = parseInt(params.get('id'));
-      //console.log(this.id);                                               // bug id
+      //console.log(this.id); // bug id
     });
 
     this.getBugById(this.id);
@@ -60,7 +60,7 @@ export class BugInfoComponent implements OnInit {
   }
 
   getBugById(id: number) {
-    this.bugsService.getBugById(id).subscribe({     // observables do nothing until subscribed
+    this.bugsService.getBugById(id).subscribe({
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {

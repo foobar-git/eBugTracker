@@ -76,7 +76,7 @@ namespace API.Controllers
             }
             
             if (await _bugRepository.SaveAllAsync()) return Ok();
-            //if the update failes:
+            //if the update fails:
             return BadRequest("Failed to delete bug.");
         }
 
@@ -91,7 +91,7 @@ namespace API.Controllers
                 _bugRepository.Update(bug);
             }
             if (await _bugRepository.SaveAllAsync()) return Ok();
-            //if the update failes:
+            //if the update fails:
             return BadRequest("Failed to edit bug.");
         }
 
@@ -121,7 +121,7 @@ namespace API.Controllers
                 }
             }
             
-            //if the save failes:
+            //if the save fails:
             return BadRequest("Failed to post new bug entry.");
         }
     }
