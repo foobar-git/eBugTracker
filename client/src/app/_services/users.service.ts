@@ -23,14 +23,14 @@ export class UsersService {
   }
 
   getAppUser(username: string) {
-    //return this.http.get<AppUser[]>(this.baseUrl + 'users/' + username);  // v15
+    //return this.http.get<AppUser[]>(this.baseUrl + 'users/' + username);
     const user = this.users.find(u => u.username === username);
     if (user !== undefined) return of(user);
     return this.http.get<AppUser[]>(this.baseUrl + 'users/' + username);
   }
 
   getAppUsers() {
-    //return this.http.get<AppUser[]>(this.baseUrl + 'users');    // v15
+    //return this.http.get<AppUser[]>(this.baseUrl + 'users');
     if (this.users.length > 0) return of(this.users);
     return this.http.get<AppUser[]>(this.baseUrl + 'users').pipe(
       map(users => {

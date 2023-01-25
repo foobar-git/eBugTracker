@@ -26,7 +26,7 @@ export class ProjectInfoNameComponent implements OnInit {
   }
 
   getProject(name: string) {
-    this.projectsService.getProject(name).subscribe({ // observables do nothing until subscribed
+    this.projectsService.getProject(name).subscribe({
       next: response => this.project = response,
       error: error => console.log(error)//,
       //complete: () => void

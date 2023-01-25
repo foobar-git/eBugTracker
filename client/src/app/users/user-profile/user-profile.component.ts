@@ -27,11 +27,10 @@ export class UserProfileComponent implements OnInit {
       console.log(this.id);
     });
     this.getUserById(this.id);
-    //this.getBugs();             // v15
   }
 
   getUserById(id: number) {
-    this.http.get(this.baseUrl + 'users/id/' + id.toString()).subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'users/id/' + id.toString()).subscribe({
       next: response => this.user = response,
       error: error => console.log(error),
       complete: () => {
@@ -43,7 +42,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getBugsByThisUser(uname: string) {
-    this.http.get(this.baseUrl + 'bug').subscribe({ // observables do nothing until subscribed
+    this.http.get(this.baseUrl + 'bug').subscribe({
       next: response => this.bugs = response,
       error: error => console.log(error),
       complete: () => {

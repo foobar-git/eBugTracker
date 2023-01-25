@@ -66,7 +66,7 @@ namespace API.Controllers
                 _projectRepository.Update(project);
             }
             if (await _projectRepository.SaveAllAsync()) return Ok();
-            //if the update failes:
+            //if the update fails:
             return BadRequest("Failed to edit project.");
         }
 
@@ -91,7 +91,7 @@ namespace API.Controllers
             }
             
             if (await _projectRepository.SaveAllAsync()) return Ok();
-            //if the update failes:
+            //if the update fails:
             return BadRequest("Failed to delete project.");
         }
 
@@ -120,7 +120,7 @@ namespace API.Controllers
                 }
             }
             
-            //if the save failes:
+            //if the save fails:
             return BadRequest("Failed to create a new project.");
         }
     }

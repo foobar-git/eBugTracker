@@ -45,7 +45,7 @@ export class BugCardComponent implements OnInit {
 
   getBugById(id: number) {
     //console.log(id);
-    this.bugsService.getBugById(id).subscribe({ // observables do nothing until subscribed
+    this.bugsService.getBugById(id).subscribe({
       next: response => this.bug = response,
       error: error => console.log(error),
       complete: () => {

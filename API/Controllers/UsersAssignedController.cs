@@ -45,7 +45,7 @@ namespace API.Controllers
             await _context.UsersAssigned.AddAsync(newUA);
 
             if (await _usersAssignedRepository.SaveAllAsync()) return Ok();
-            //if the save failes:
+            //if the save fails:
             return BadRequest("Failed to post new 'users assigned' entry.");
         }
 
@@ -63,7 +63,7 @@ namespace API.Controllers
                 _usersAssignedRepository.DeleteUsersAssignedAsync(ua);
             }
             if (await _usersAssignedRepository.SaveAllAsync()) return Ok();
-            //if the update failes:
+            //if the update fails:
             return BadRequest("Failed to remove user from project.");
         }
     }
