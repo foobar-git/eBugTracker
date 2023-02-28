@@ -45,7 +45,11 @@
         </div>
       </tab>
       <tab heading="Users Assigned">
-        <h4>List of users assigned to this project <li class="list-inline-item"><button (click)="enableAddUser(true)" class="btn" title="Add user"><i class="fa fa-plus float-right"></i></button></li></h4>
+        <h4>List of users assigned to this project
+          <ng-container *ngIf="ableToEditProject">
+            <li class="list-inline-item"><button (click)="enableAddUser(true)" class="btn" title="Add user"><i class="fa fa-plus float-right"></i></button></li>
+          </ng-container>
+        </h4>
         <div class="text-center mb-2">
           <span *ngIf="!saving">
             <select *ngIf="selectUserOption" (change)="onChange($event)">
@@ -67,8 +71,10 @@
                   <ul class="list-inline user-icons animate text-center">
                       <li class="list-inline-item"><button routerLink="/user/id/{{user.userId}}" class="btn btn-primary"><i class="fa fa-user"></i></button></li>
                       <!--li class="list-inline-item"><button class="btn btn-primary" title="Message"><i class="fa fa-envelope"></i></button></li-->
-                      <li class="list-inline-item" *ngIf="!saving"><button (click)="removeUser(user.projectId, user.userId)" class="btn btn-primary" title="Remove user"><i class="fa fa-minus"></i></button></li>
-                      <li class="list-inline-item" *ngIf="saving"><button disabled class="btn btn-primary" title="Remove user"><i class="fa fa-minus"></i></button></li>
+                      <ng-container *ngIf="ableToEditProject">
+                        <li class="list-inline-item" *ngIf="!saving"><button (click)="removeUser(user.projectId, user.userId)" class="btn btn-primary" title="Remove user"><i class="fa fa-minus"></i></button></li>
+                        <li class="list-inline-item" *ngIf="saving"><button disabled class="btn btn-primary" title="Remove user"><i class="fa fa-minus"></i></button></li>
+                      </ng-container>
                   </ul>
               </div>
               <div class="card-body p-1">
@@ -81,7 +87,11 @@
       </tab>
       <tab heading="Project description">
         <ng-container *ngIf="!editProject">
-          <h4>Description<li class="list-inline-item"><button (click)="editDescription()" class="btn" title="Edit description"><i class="fa fa-edit float-right"></i></button></li></h4>
+          <h4>Description
+            <ng-container *ngIf="ableToEditProject">
+              <li class="list-inline-item"><button (click)="editDescription()" class="btn" title="Edit description"><i class="fa fa-edit float-right"></i></button></li>
+            </ng-container>
+          </h4>
           <p>{{project.description}}</p>
         </ng-container>
         <ng-container *ngIf="editProject">
